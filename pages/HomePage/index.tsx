@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, VStack } from "@chakra-ui/react";
+import { Box, Heading, HStack, VStack, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { Footer } from "../../component/footer";
 import { Header } from "../../component/header";
@@ -11,18 +11,40 @@ export const HomePage = () => {
       <VStack>
         <Heading>HOME</Heading>
         <HStack>
-          <Box
+          <Text
             onClick={() => {
               router.push("/");
             }}
+            fontSize={"40px"}
           >
             1
-          </Box>
-          <Box>2</Box>
+          </Text>
+          <Text
+            onClick={() => {
+              router.push("/TablePage");
+            }}
+            fontSize={"40px"}
+          >
+            2
+          </Text>
         </HStack>
         <HStack>
-          <Box>3</Box>
-          <Box>4</Box>
+          <Text
+            onClick={() => {
+              router.push("/EditPage");
+            }}
+            fontSize={"40px"}
+          >
+            3
+          </Text>
+          <Text
+            onClick={() => {
+              router.push("/");
+            }}
+            fontSize={"40px"}
+          >
+            4
+          </Text>
         </HStack>
       </VStack>
       <Footer />
