@@ -10,7 +10,25 @@ const Home: NextPage = () => {
   const router = useRouter();
   return (
     <>
-      <HomePage></HomePage>
+      <Box
+        minH={"100vh"}
+        minW={"100vh"}
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        onClick={() => {
+          router.push("/HomePage/");
+        }}
+      >
+        <Text
+          // textAlign={"center"}
+          // verticalAlign={"middle"}
+          fontSize={"40vh"}
+        >
+          START
+        </Text>
+      </Box>
+      {/* <HomePage></HomePage> */}
     </>
   );
 };

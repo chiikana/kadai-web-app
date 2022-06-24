@@ -13,7 +13,7 @@ export const HomePage = () => {
         <HStack>
           <Text
             onClick={() => {
-              router.push("/");
+              router.push("/HomePage/");
             }}
             fontSize={"40px"}
           >
@@ -21,7 +21,7 @@ export const HomePage = () => {
           </Text>
           <Text
             onClick={() => {
-              router.push("/TablePage");
+              router.push("/TablePage/");
             }}
             fontSize={"40px"}
           >
@@ -31,7 +31,7 @@ export const HomePage = () => {
         <HStack>
           <Text
             onClick={() => {
-              router.push("/EditPage");
+              router.push("/EditPage/");
             }}
             fontSize={"40px"}
           >
