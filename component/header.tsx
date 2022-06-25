@@ -1,12 +1,15 @@
 import { Box } from "@chakra-ui/react";
-import Navbar from "./navbar";
+import Navbar from "./navbar2";
 
 export const Header = () => {
   return (
     <>
-      <title>あぷりけーしょん</title>
-      <Box as="p">へっだーてきすとだよ</Box>
-      <Navbar></Navbar>
+      <Box>
+        <title>あぷりけーしょん</title>
+        <Box as="p">へっだー上だよ</Box>
+        <Navbar></Navbar>
+        <Box as="p">へっだー下だよ</Box>
+      </Box>
     </>
   );
 };

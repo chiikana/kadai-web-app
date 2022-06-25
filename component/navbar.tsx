@@ -304,3 +304,17 @@ const NAV_ITEMS: Array<NavItem> = [
     label: "Hire Designers",
   },
 ];
+
+interface RouteItem {
+  label: string;
+  subLabel?: string;
+  children?: Array<RouteItem>;
+  onClick?: string;
+}
+
+const ROUTE_ITEMS: Array<RouteItem> = [
+  {
+    label: "Home",
+    onClick: "/HomePage/",
+  },
+];

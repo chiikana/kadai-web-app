@@ -20,13 +20,7 @@ const Home: NextPage = () => {
           router.push("/HomePage/");
         }}
       >
-        <Text
-          // textAlign={"center"}
-          // verticalAlign={"middle"}
-          fontSize={"40vh"}
-        >
-          START
-        </Text>
+        <Text fontSize={"40vh"}>START</Text>
       </Box>
       {/* <HomePage></HomePage> */}
     </>

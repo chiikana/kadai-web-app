@@ -3,7 +3,8 @@ import { Box } from "@chakra-ui/react";
 export const Footer = () => {
   return (
     <>
-      <Box as="p">ふったーてきすとだよ</Box>
+      <Box as="p">へっだー上だよ</Box>
+      <Box as="p">へっだー下だよ</Box>
     </>
   );
 };
