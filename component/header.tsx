@@ -6,9 +6,9 @@ export const Header = () => {
     <>
       <Box>
         <title>あぷりけーしょん</title>
-        <Box as="p">へっだー上だよ</Box>
+        {/* <Box as="p">へっだー上だよ</Box> */}
         <Navbar></Navbar>
-        <Box as="p">へっだー下だよ</Box>
+        {/* <Box as="p">へっだー下だよ</Box> */}
       </Box>
     </>
   );

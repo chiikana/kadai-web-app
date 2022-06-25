@@ -14,22 +14,27 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
+  useColorMode,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
   CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
+  MoonIcon,
+  SunIcon,
 } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 
 export const Navbar = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onToggle } = useDisclosure();
 
   return (
     <Box>
       <Flex
-        bg={useColorModeValue("white", "gray.800")}
+        // bg={useColorModeValue("white", "gray.800")}
+        bg={useColorModeValue("teal.400", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
         minH={"60px"}
         py={{ base: 2 }}
@@ -56,8 +61,9 @@ export const Navbar = () => {
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
-            fontFamily={"heading"}
-            color={useColorModeValue("gray.800", "white")}
+            // fontFamily={"heading"}
+            fontSize={"3xl"}
+            color={useColorModeValue("white", "white")}
           >
             管理ソフト
           </Text>
@@ -73,6 +79,9 @@ export const Navbar = () => {
           direction={"row"}
           spacing={6}
         >
+          <Button onClick={toggleColorMode}>
+            {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+          </Button>
           <Button
             as={"a"}
             fontSize={"sm"}
@@ -108,8 +117,8 @@ export default Navbar;
 
 const DesktopNav = () => {
   const router = useRouter();
-  const linkColor = useColorModeValue("gray.600", "gray.200");
-  const linkHoverColor = useColorModeValue("gray.800", "white");
+  const linkColor = useColorModeValue("white", "gray.200");
+  const linkHoverColor = useColorModeValue("gray.400", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
   return (
@@ -118,9 +127,11 @@ const DesktopNav = () => {
         <Box key={routeItem.label}>
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
-              <Link
+              <Box
                 p={2}
-                href={routeItem.process ?? "#"}
+                onClick={() => {
+                  router.push(`${routeItem.process ?? ""}`);
+                }}
                 fontSize={"sm"}
                 fontWeight={500}
                 color={linkColor}
@@ -130,7 +141,7 @@ const DesktopNav = () => {
                 }}
               >
                 {routeItem.label}
-              </Link>
+              </Box>
             </PopoverTrigger>
 
             {routeItem.children && (
@@ -215,8 +226,9 @@ const MobilerouteItem = ({ label, children, process }: routeItem) => {
     <Stack spacing={4} onClick={children && onToggle}>
       <Flex
         py={2}
-        as={Link}
-        href={process ?? "#"}
+        onClick={() => {
+          router.push(`${process ?? ""}`);
+        }}
         justify={"space-between"}
         align={"center"}
         _hover={{
