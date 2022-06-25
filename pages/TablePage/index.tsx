@@ -23,7 +23,7 @@ export const HomePage = () => {
         minW={"100vh"}
         display={"flex"}
         justifyContent={"center"}
-        alignItems={"center"}
+        // alignItems={"center"}
       >
         <VStack>
           <Heading>TABLE</Heading>
