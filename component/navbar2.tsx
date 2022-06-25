@@ -252,8 +252,8 @@ const MobilerouteItem = ({ label, children, process }: routeItem) => {
           {children &&
             children.map((child) => (
               <Box
-                key={child.label}
                 py={2}
+                key={child.label}
                 onClick={() => {
                   router.push(`${child.process}`);
                 }}
