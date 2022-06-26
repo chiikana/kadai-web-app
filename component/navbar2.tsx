@@ -29,6 +29,7 @@ import { useRouter } from "next/router";
 export const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onToggle } = useDisclosure();
+  const router = useRouter();
 
   return (
     <Box>
@@ -83,11 +84,15 @@ export const Navbar = () => {
             {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
           </Button>
           <Button
-            as={"a"}
+            display={{ base: "none", md: "inline-flex" }}
+            // as={"a"}
             fontSize={"sm"}
             fontWeight={400}
-            variant={"link"}
-            href={"#"}
+            onClick={() => {
+              router.push("/");
+            }}
+            // variant={"link"}
+            // href={"#"}
           >
             Sign In
           </Button>
