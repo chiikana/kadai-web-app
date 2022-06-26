@@ -29,7 +29,7 @@ export const HomePage = () => {
         bg={useColorModeValue("yellow.50", "gray.800")}
         minH={"100vh"}
         minW={"100vh"}
-        display={"flex"}
+        // display={"flex"}
         justifyContent={"center"}
         // alignItems={"center"}
       >

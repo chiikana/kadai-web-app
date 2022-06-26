@@ -32,7 +32,7 @@ export const Navbar = () => {
   const router = useRouter();
 
   return (
-    <Box>
+    <Flex>
       <Flex
         // bg={useColorModeValue("white", "gray.800")}
         bg={useColorModeValue("teal.400", "gray.800")}
@@ -115,7 +115,7 @@ export const Navbar = () => {
       <Collapse in={isOpen} animateOpacity>
         <MobileNav />
       </Collapse>
-    </Box>
+    </Flex>
   );
 };
 export default Navbar;
