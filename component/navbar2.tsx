@@ -15,6 +15,7 @@ import {
   useBreakpointValue,
   useDisclosure,
   useColorMode,
+  VStack,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -32,18 +33,20 @@ export const Navbar = () => {
   const router = useRouter();
 
   return (
-    <Flex>
+    <Box>
       <Flex
         // bg={useColorModeValue("white", "gray.800")}
         bg={useColorModeValue("teal.400", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
+        // minH={"100vh"}
+        minW={"100vw"}
         minH={"60px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
         borderStyle={"solid"}
         borderColor={useColorModeValue("gray.200", "gray.900")}
-        align={"center"}
+        // align={"center"}
       >
         <Flex
           flex={{ base: 1, md: "auto" }}
@@ -59,11 +62,18 @@ export const Navbar = () => {
             aria-label={"Toggle Navigation"}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
+
+        <Flex
+          flex={{ base: 1 }}
+          justify={{ base: "center", md: "start" }}
+          alignItems={"center"}
+        >
           <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
-            // fontFamily={"heading"}
-            fontSize={"3xl"}
+            fontSize={useBreakpointValue({
+              base: "4vw",
+              md: "3xl",
+            })}
             color={useColorModeValue("white", "white")}
           >
             管理ソフト
@@ -80,19 +90,19 @@ export const Navbar = () => {
           direction={"row"}
           spacing={6}
         >
-          <Button onClick={toggleColorMode}>
+          <Button
+            display={{ base: "none", md: "inline-flex" }}
+            onClick={toggleColorMode}
+          >
             {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
           </Button>
           <Button
             display={{ base: "none", md: "inline-flex" }}
-            // as={"a"}
             fontSize={"sm"}
             fontWeight={400}
             onClick={() => {
               router.push("/");
             }}
-            // variant={"link"}
-            // href={"#"}
           >
             Sign In
           </Button>
@@ -115,7 +125,7 @@ export const Navbar = () => {
       <Collapse in={isOpen} animateOpacity>
         <MobileNav />
       </Collapse>
-    </Flex>
+    </Box>
   );
 };
 export default Navbar;
@@ -173,9 +183,13 @@ const DesktopNav = () => {
 };
 
 const DesktopSubNav = ({ label, process, subLabel }: routeItem) => {
+  const router = useRouter();
   return (
-    <Link
-      href={process}
+    <Box
+      // href={process}
+      onClick={() => {
+        router.push(`${process}`);
+      }}
       role={"group"}
       display={"block"}
       p={2}
@@ -205,13 +219,13 @@ const DesktopSubNav = ({ label, process, subLabel }: routeItem) => {
           <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
         </Flex>
       </Stack>
-    </Link>
+    </Box>
   );
 };
 
 const MobileNav = () => {
   return (
-    <Stack
+    <VStack
       bg={useColorModeValue("white", "gray.800")}
       p={4}
       display={{ md: "none" }}
@@ -219,7 +233,7 @@ const MobileNav = () => {
       {ROUTE_ITEMS.map((routeItem) => (
         <MobilerouteItem key={routeItem.label} {...routeItem} />
       ))}
-    </Stack>
+    </VStack>
   );
 };
 

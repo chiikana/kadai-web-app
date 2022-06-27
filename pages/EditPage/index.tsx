@@ -18,7 +18,7 @@ export const HomePage = () => {
       <Box
         bg={useColorModeValue("yellow.50", "gray.800")}
         minH={"100vh"}
-        minW={"100vh"}
+        minW={"100vw"}
         display={"flex"}
         justifyContent={"center"}
         // alignItems={"center"}

@@ -14,21 +14,30 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
+  useColorMode,
+  HStack,
+  Spacer,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
   CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
+  MoonIcon,
+  SunIcon,
 } from "@chakra-ui/icons";
+import { useRouter } from "next/router";
 
 export const Navbar = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onToggle } = useDisclosure();
+  const router = useRouter();
 
   return (
     <Box>
-      <Flex
-        bg={useColorModeValue("white", "gray.800")}
+      <HStack
+        // bg={useColorModeValue("white", "gray.800")}
+        bg={useColorModeValue("teal.400", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
         minH={"60px"}
         py={{ base: 2 }}
@@ -36,7 +45,7 @@ export const Navbar = () => {
         borderBottom={1}
         borderStyle={"solid"}
         borderColor={useColorModeValue("gray.200", "gray.900")}
-        align={"center"}
+        // align={"center"}
       >
         <Flex
           flex={{ base: 1, md: "auto" }}
@@ -55,8 +64,9 @@ export const Navbar = () => {
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
-            fontFamily={"heading"}
-            color={useColorModeValue("gray.800", "white")}
+            // fontFamily={"heading"}
+            fontSize={"3xl"}
+            color={useColorModeValue("white", "white")}
           >
             管理ソフト
           </Text>
@@ -65,7 +75,7 @@ export const Navbar = () => {
             <DesktopNav />
           </Flex>
         </Flex>
-
+        <Spacer></Spacer>
         <Stack
           flex={{ base: 1, md: 0 }}
           justify={"flex-end"}
@@ -73,11 +83,21 @@ export const Navbar = () => {
           spacing={6}
         >
           <Button
-            as={"a"}
+            display={{ base: "none", md: "inline-flex" }}
+            onClick={toggleColorMode}
+          >
+            {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+          </Button>
+          <Button
+            display={{ base: "none", md: "inline-flex" }}
+            // as={"a"}
             fontSize={"sm"}
             fontWeight={400}
-            variant={"link"}
-            href={"#"}
+            onClick={() => {
+              router.push("/");
+            }}
+            // variant={"link"}
+            // href={"#"}
           >
             Sign In
           </Button>
@@ -95,7 +115,7 @@ export const Navbar = () => {
             Sign Up
           </Button>
         </Stack>
-      </Flex>
+      </HStack>
 
       <Collapse in={isOpen} animateOpacity>
         <MobileNav />
@@ -106,19 +126,22 @@ export const Navbar = () => {
 export default Navbar;
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue("gray.600", "gray.200");
-  const linkHoverColor = useColorModeValue("gray.800", "white");
+  const router = useRouter();
+  const linkColor = useColorModeValue("white", "gray.200");
+  const linkHoverColor = useColorModeValue("gray.400", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
   return (
     <Stack direction={"row"} spacing={4}>
-      {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.label}>
+      {ROUTE_ITEMS.map((routeItem) => (
+        <Box key={routeItem.label}>
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
-              <Link
+              <Box
                 p={2}
-                href={navItem.href ?? "#"}
+                onClick={() => {
+                  router.push(`${routeItem.process ?? ""}`);
+                }}
                 fontSize={"sm"}
                 fontWeight={500}
                 color={linkColor}
@@ -127,11 +150,11 @@ const DesktopNav = () => {
                   color: linkHoverColor,
                 }}
               >
-                {navItem.label}
-              </Link>
+                {routeItem.label}
+              </Box>
             </PopoverTrigger>
 
-            {navItem.children && (
+            {routeItem.children && (
               <PopoverContent
                 border={0}
                 boxShadow={"xl"}
@@ -141,7 +164,7 @@ const DesktopNav = () => {
                 minW={"sm"}
               >
                 <Stack>
-                  {navItem.children.map((child) => (
+                  {routeItem.children.map((child) => (
                     <DesktopSubNav key={child.label} {...child} />
                   ))}
                 </Stack>
@@ -154,10 +177,14 @@ const DesktopNav = () => {
   );
 };
 
-const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+const DesktopSubNav = ({ label, process, subLabel }: routeItem) => {
+  const router = useRouter();
   return (
-    <Link
-      href={href}
+    <Box
+      // href={process}
+      onClick={() => {
+        router.push(`${process}`);
+      }}
       role={"group"}
       display={"block"}
       p={2}
@@ -187,7 +214,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
           <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
         </Flex>
       </Stack>
-    </Link>
+    </Box>
   );
 };
 
@@ -198,22 +225,24 @@ const MobileNav = () => {
       p={4}
       display={{ md: "none" }}
     >
-      {NAV_ITEMS.map((navItem) => (
-        <MobileNavItem key={navItem.label} {...navItem} />
+      {ROUTE_ITEMS.map((routeItem) => (
+        <MobilerouteItem key={routeItem.label} {...routeItem} />
       ))}
     </Stack>
   );
 };
 
-const MobileNavItem = ({ label, children, href }: NavItem) => {
+const MobilerouteItem = ({ label, children, process }: routeItem) => {
   const { isOpen, onToggle } = useDisclosure();
+  const router = useRouter();
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
       <Flex
         py={2}
-        as={Link}
-        href={href ?? "#"}
+        onClick={() => {
+          router.push(`${process ?? ""}`);
+        }}
         justify={"space-between"}
         align={"center"}
         _hover={{
@@ -248,9 +277,15 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
         >
           {children &&
             children.map((child) => (
-              <Link key={child.label} py={2} href={child.href}>
+              <Box
+                py={2}
+                key={child.label}
+                onClick={() => {
+                  router.push(`${child.process}`);
+                }}
+              >
                 {child.label}
-              </Link>
+              </Box>
             ))}
         </Stack>
       </Collapse>
@@ -258,63 +293,31 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
   );
 };
 
-interface NavItem {
+interface routeItem {
   label: string;
   subLabel?: string;
-  children?: Array<NavItem>;
-  href?: string;
+  children?: Array<routeItem>;
+  process?: string;
 }
 
-const NAV_ITEMS: Array<NavItem> = [
-  {
-    label: "Inspiration",
-    children: [
-      {
-        label: "Explore Design Work",
-        subLabel: "Trending Design to inspire you",
-        href: "#",
-      },
-      {
-        label: "New & Noteworthy",
-        subLabel: "Up-and-coming Designers",
-        href: "#",
-      },
-    ],
-  },
-  {
-    label: "Find Work",
-    children: [
-      {
-        label: "Job Board",
-        subLabel: "Find your dream design job",
-        href: "#",
-      },
-      {
-        label: "Freelance Projects",
-        subLabel: "An exclusive list for contract work",
-        href: "#",
-      },
-    ],
-  },
-  {
-    label: "Learn Design",
-    href: "#",
-  },
-  {
-    label: "Hire Designers",
-  },
-];
-
-interface RouteItem {
-  label: string;
-  subLabel?: string;
-  children?: Array<RouteItem>;
-  onClick?: string;
-}
-
-const ROUTE_ITEMS: Array<RouteItem> = [
+const ROUTE_ITEMS: Array<routeItem> = [
   {
     label: "Home",
-    onClick: "/HomePage/",
+    process: "/HomePage/",
+  },
+  {
+    label: "Table",
+    children: [
+      {
+        label: "Table",
+        subLabel: "View Table",
+        process: "/TablePage/",
+      },
+      {
+        label: "Edit",
+        subLabel: "Edit Table",
+        process: "/EditPage/",
+      },
+    ],
   },
 ];

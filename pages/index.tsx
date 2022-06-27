@@ -12,7 +12,7 @@ const Home: NextPage = () => {
     <>
       <Box
         minH={"100vh"}
-        minW={"100vh"}
+        minW={"100vw"}
         display={"flex"}
         justifyContent={"center"}
         alignItems={"center"}
@@ -20,7 +20,7 @@ const Home: NextPage = () => {
           router.push("/HomePage/");
         }}
       >
-        <Text fontSize={"40vh"}>START</Text>
+        <Text fontSize={"35vw"}>START</Text>
       </Box>
       {/* <HomePage></HomePage> */}
     </>
