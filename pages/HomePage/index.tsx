@@ -5,6 +5,12 @@ import {
   VStack,
   Text,
   useColorModeValue,
+  Input,
+  InputGroup,
+  InputLeftAddon,
+  FormControl,
+  FormLabel,
+  NumberInput,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { Footer } from "../../component/footer";
@@ -25,42 +31,40 @@ export const HomePage = () => {
       >
         <VStack>
           <Heading>HOME</Heading>
-          <HStack>
-            <Text
-              onClick={() => {
-                router.push("/HomePage/");
-              }}
-              fontSize={"40px"}
-            >
-              1
-            </Text>
-            <Text
-              onClick={() => {
-                router.push("/TablePage/");
-              }}
-              fontSize={"40px"}
-            >
-              2
-            </Text>
-          </HStack>
-          <HStack>
-            <Text
-              onClick={() => {
-                router.push("/EditPage/");
-              }}
-              fontSize={"40px"}
-            >
-              3
-            </Text>
-            <Text
-              onClick={() => {
-                router.push("/");
-              }}
-              fontSize={"40px"}
-            >
-              4
-            </Text>
-          </HStack>
+          <VStack spacing={3}>
+            <FormControl>
+              <HStack>
+                <FormLabel fontSize={"lg"}>id:</FormLabel>
+                <NumberInput placeholder="idを入力" size="lg"></NumberInput>
+              </HStack>
+            </FormControl>
+            <FormControl>
+              <HStack>
+                <FormLabel fontSize={"lg"}>name:</FormLabel>
+                <Input placeholder="名前を入力" size="lg"></Input>
+              </HStack>
+            </FormControl>
+            <FormControl>
+              <HStack>
+                <FormLabel fontSize={"lg"}>stock:</FormLabel>
+                <NumberInput placeholder="在庫数を入力" size="lg"></NumberInput>
+              </HStack>
+            </FormControl>
+            <FormControl>
+              <HStack>
+                <FormLabel fontSize={"lg"}>bought:</FormLabel>
+                <NumberInput defaultValue={"仕入金額を入力"}></NumberInput>
+              </HStack>
+            </FormControl>
+            <FormControl>
+              <HStack>
+                <InputGroup>
+                  <InputLeftAddon>selling</InputLeftAddon>
+                  <Input placeholder="販売金額を入力"></Input>
+                </InputGroup>
+              </HStack>
+            </FormControl>
+          </VStack>
         </VStack>
       </Box>
       <Footer />
