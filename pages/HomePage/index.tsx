@@ -16,11 +16,18 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   NumberInputStepper,
+  Spacer,
+  Button,
+  InputRightAddon,
+  Alert,
+  AlertIcon,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { Footer } from "../../component/footer";
 import { Header } from "../../component/header";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useState } from "react";
 
 type FormData = {
   id: string;
@@ -32,14 +39,37 @@ type FormData = {
 
 export const HomePage = () => {
   const router = useRouter();
+  const [submited, submitState] = useState();
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
-    mode: "all",
+    mode: "onBlur",
+    reValidateMode: "onChange",
+    // defaultValues: {
+    //   id: "0",
+    //   name: "",
+    //   stock: "0",
+    //   bought: "0",
+    //   selling: "0",
+    // },
   });
+  // フォーム送信ボタンを押された時の処理
+  const onsubmit = (data: FormData) => {
+    console.log(data);
+    reset(); // フォームに入力した値をリセット
+  };
+  // nameを監視
+  // 入力のたびに更新される
+  console.log(watch("id"));
+  console.log(watch("name"));
+  console.log(watch("stock"));
+  console.log(watch("bought"));
+  console.log(watch("selling"));
+
   return (
     <>
       <Header />
@@ -53,100 +83,112 @@ export const HomePage = () => {
       >
         <VStack>
           <Heading>HOME</Heading>
-          <VStack spacing={3}>
-            <FormControl>
-              <HStack>
-                <InputGroup>
-                  <InputLeftAddon>id</InputLeftAddon>
-                  <Input
-                    variant="outline"
-                    placeholder="idを入力"
-                    type="text"
-                    {...register("id", {
-                      required: true,
-                      pattern: {
-                        value: /^[1-9][0-9]*$/,
-                        message: "数字を入力してください。",
-                      },
-                    })}
-                  ></Input>
-                </InputGroup>
-              </HStack>
-            </FormControl>
-            <FormControl>
-              <HStack border={"1px solid #ddd"} borderRadius={"md"} w={""}>
-                <FormLabel margin={"0 auto"} ps={"4"} pe={"2"}>
-                  name
-                </FormLabel>
-                <Input
-                  size={"sm"}
-                  variant="outline"
-                  placeholder="名前を入力"
-                  type="text"
-                  {...register("name", {
-                    required: true,
-                  })}
-                ></Input>
-                {/* <FormHelperText pe={"4"}>販売金額を入力</FormHelperText> */}
-              </HStack>
-            </FormControl>
-            <FormControl>
-              <HStack>
-                <InputGroup>
-                  <InputLeftAddon>stock</InputLeftAddon>
-                  <Input
-                    variant="outline"
-                    placeholder="在庫数を入力"
-                    type="text"
-                    {...register("stock", {
-                      required: true,
-                      pattern: {
-                        value: /^[1-9][0-9]*$/,
-                        message: "数字を入力してください。",
-                      },
-                    })}
-                  ></Input>
-                </InputGroup>
-              </HStack>
-            </FormControl>
-            <FormControl>
-              <HStack>
-                <InputGroup>
-                  <InputLeftAddon>bought</InputLeftAddon>
-                  <Input variant="outline" placeholder="仕入金額を入力"></Input>
-                </InputGroup>
-              </HStack>
-            </FormControl>
-            <FormControl variant="outline">
-              {/* <HStack>
-                <InputGroup>
-                  <InputLeftAddon>selling</InputLeftAddon>
-                  <Input variant="outline" placeholder="販売金額を入力"></Input>
-                </InputGroup>
-              </HStack> */}
-              <HStack border={"1px solid #ddd"} borderRadius={"md"} w={""}>
-                <FormLabel margin={"0 auto"} ps={"4"} pe={"2"}>
-                  selling
-                </FormLabel>
-                <NumberInput
-                  height={"100%"}
-                  size={"sm"}
-                  step={1}
-                  precision={0}
-                  defaultValue={0}
-                  min={0}
-                  clampValueOnBlur={false}
-                >
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-                <FormHelperText pe={"4"}>販売金額を入力</FormHelperText>
-              </HStack>
-            </FormControl>
-          </VStack>
+          {submitState.isSubmitted ? (
+            <Alert status="success" mb={4}>
+              <AlertIcon />
+              送信完了しました。
+            </Alert>
+          ) : (
+            <>
+              <VStack spacing={3}>
+                <form>
+                  <FormControl>
+                    <FormLabel>id</FormLabel>
+                    <Input
+                      textAlign={"right"}
+                      variant="outline"
+                      placeholder="idを入力"
+                      type="text"
+                      {...register("id", {
+                        required: true,
+                        pattern: {
+                          value: /^[1-9][0-9]*$/,
+                          message: "数字を入力してください。",
+                        },
+                      })}
+                    ></Input>
+                    <FormErrorMessage>{errors.id?.message}</FormErrorMessage>
+                  </FormControl>
+
+                  <FormControl>
+                    <FormLabel>name</FormLabel>
+                    <Input
+                      textAlign={"right"}
+                      variant="outline"
+                      placeholder="商品名を入力"
+                      type="text"
+                      {...register("name", {
+                        required: true,
+                      })}
+                    ></Input>
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>stock</FormLabel>
+                    <Input
+                      textAlign={"right"}
+                      variant="outline"
+                      placeholder="在庫数を入力"
+                      type="text"
+                      {...register("stock", {
+                        required: true,
+                        pattern: {
+                          value: /^[1-9][0-9]*$/,
+                          message: "数字を入力してください。",
+                        },
+                      })}
+                    ></Input>
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>bought</FormLabel>
+                    <Input
+                      textAlign={"right"}
+                      variant="outline"
+                      placeholder="仕入れ金額を入力"
+                      type="text"
+                      {...register("bought", {
+                        required: true,
+                        pattern: {
+                          value: /^[1-9][0-9]*$/,
+                          message: "数字を入力してください。",
+                        },
+                      })}
+                    ></Input>
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>selling</FormLabel>
+                    <Input
+                      textAlign={"right"}
+                      variant="outline"
+                      placeholder="販売金額を入力"
+                      type="text"
+                      {...register("selling", {
+                        required: "数字を入力",
+                        pattern: {
+                          value: /^[1-9][0-9]*$/,
+                          message: "数字を入力してください。",
+                        },
+                        onChange: () => {
+                          console.log();
+                        },
+                      })}
+                    ></Input>
+                  </FormControl>
+                  <HStack>
+                    <Spacer></Spacer>
+                    <Button
+                      type="submit"
+                      mt={4}
+                      mb={12}
+                      disabled={!formState.isValid}
+                      isLoading={formState.isSubmitting}
+                    >
+                      追加
+                    </Button>
+                  </HStack>
+                </form>
+              </VStack>
+            </>
+          )}
         </VStack>
       </Box>
       <Footer />
