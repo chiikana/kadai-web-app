@@ -20,6 +20,7 @@ import {
 import { useRouter } from "next/router";
 import { Footer } from "../../component/footer";
 import { Header } from "../../component/header";
+import Layout from "../../component/layout";
 
 export const HomePage = () => {
   const router = useRouter();
@@ -89,23 +90,23 @@ export const HomePage = () => {
   };
   return (
     <>
-      <Header />
-      <Box
-        bg={useColorModeValue("yellow.50", "gray.800")}
-        minH={"100vh"}
-        minW={"100vw"}
-        // display={"flex"}
-        justifyContent={"center"}
-        // alignItems={"center"}
-      >
-        <TableContainer
-          border="1px solid #999999"
-          // marginTop={8}
-          maxHeight="calc(100vh - 60px)"
-          overflowX="auto"
-          overflowY="auto"
+      <Layout>
+        <Box
+          bg={useColorModeValue("yellow.50", "gray.800")}
+          minH={"100vh"}
+          minW={"100vw"}
+          // display={"flex"}
+          justifyContent={"center"}
+          // alignItems={"center"}
         >
-          {/* <Table variant="striped" colorScheme="blue" size="md">
+          <TableContainer
+            border="1px solid #999999"
+            // marginTop={8}
+            maxHeight="calc(100vh - 60px)"
+            overflowX="auto"
+            overflowY="auto"
+          >
+            {/* <Table variant="striped" colorScheme="blue" size="md">
             <Thead
               borderBottom="1px solid #999999"
               left={0}
@@ -129,7 +130,7 @@ export const HomePage = () => {
               <Td _before={{ content: `"¥"` }}></Td>
               <Td _before={{ content: `"¥"` }}></Td>
             </Tr> */}
-          {/* <Tr>
+            {/* <Tr>
                 <Td>1</Td>
                 <Td>リンゴ</Td>
                 <Td _after={{ content: `"個"` }}>100</Td>
@@ -168,35 +169,35 @@ export const HomePage = () => {
               </Tr>
             </Tfoot>
           </Table> */}
-          <Table variant="striped" colorScheme="blue" size="md">
-            <Thead
-              borderBottom="1px solid #999999"
-              left={0}
-              position="sticky"
-              top={0}
-            >
-              <Tr>
-                <Th>id</Th>
-                <Th>name</Th>
-                <Th>stock</Th>
-                <Th>bought</Th>
-                <Th>seling</Th>
-              </Tr>
-            </Thead>
-            <Tbody>{tableBody()}</Tbody>
-            <Tfoot>
-              <Tr>
-                <Th>id</Th>
-                <Th>name</Th>
-                <Th>stock</Th>
-                <Th>bought</Th>
-                <Th>seling</Th>
-              </Tr>
-            </Tfoot>
-          </Table>
-        </TableContainer>
-      </Box>
-      <Footer />
+            <Table variant="striped" colorScheme="blue" size="md">
+              <Thead
+                borderBottom="1px solid #999999"
+                left={0}
+                position="sticky"
+                top={0}
+              >
+                <Tr>
+                  <Th>id</Th>
+                  <Th>name</Th>
+                  <Th>stock</Th>
+                  <Th>bought</Th>
+                  <Th>seling</Th>
+                </Tr>
+              </Thead>
+              <Tbody>{tableBody()}</Tbody>
+              <Tfoot>
+                <Tr>
+                  <Th>id</Th>
+                  <Th>name</Th>
+                  <Th>stock</Th>
+                  <Th>bought</Th>
+                  <Th>seling</Th>
+                </Tr>
+              </Tfoot>
+            </Table>
+          </TableContainer>
+        </Box>
+      </Layout>
     </>
   );
 };

@@ -78,18 +78,11 @@ export const HomePage = () => {
   return (
     <>
       <Layout>
-        <Box
-          bg={useColorModeValue("yellow.50", "gray.800")}
-          minH={"100vh"}
-          minW={"100vw"}
-          display={"flex"}
-          justifyContent={"center"}
-          // alignItems={"center"}
-        >
+        <Box>
           <VStack>
             <Heading>HOME</Heading>
 
-            <VStack spacing={3} w={"80vw"} h={"80vh"}>
+            <VStack spacing={3} w={"80vw"} h={"80vh"} alignItems={"center"}>
               <form>
                 <FormControl>
                   <FormLabel>id</FormLabel>
