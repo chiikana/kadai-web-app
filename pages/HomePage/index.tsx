@@ -1,33 +1,24 @@
 import {
-  Box,
-  Heading,
-  HStack,
-  VStack,
-  Text,
-  useColorModeValue,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  FormControl,
-  FormLabel,
-  NumberInput,
-  FormHelperText,
-  NumberInputField,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  NumberInputStepper,
-  Spacer,
-  Button,
-  InputRightAddon,
   Alert,
   AlertIcon,
+  Box,
+  Button,
+  FormControl,
   FormErrorMessage,
+  FormLabel,
+  Heading,
+  HStack,
+  Input,
+  Spacer,
+  useColorModeValue,
+  VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Footer } from "../../component/footer";
 import { Header } from "../../component/header";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
+import { ErrorMessage } from "@hookform/error-message";
 
 type FormData = {
   id: string;
@@ -39,16 +30,23 @@ type FormData = {
 
 export const HomePage = () => {
   const router = useRouter();
-  const [submited, submitState] = useState();
   const {
     register,
     handleSubmit,
     watch,
     reset,
-    formState: { errors },
+    formState: {
+      errors,
+      isDirty,
+      isValid,
+      isSubmitted,
+      isSubmitting,
+      touchedFields,
+      submitCount,
+    },
   } = useForm<FormData>({
-    mode: "onBlur",
-    reValidateMode: "onChange",
+    mode: "all",
+    // reValidateMode: "onChange",
     // defaultValues: {
     //   id: "0",
     //   name: "",
@@ -83,14 +81,14 @@ export const HomePage = () => {
       >
         <VStack>
           <Heading>HOME</Heading>
-          {submitState.isSubmitted ? (
+          {isSubmitted ? (
             <Alert status="success" mb={4}>
               <AlertIcon />
               送信完了しました。
             </Alert>
           ) : (
             <>
-              <VStack spacing={3}>
+              <VStack spacing={3} w={"80vw"} h={"80vh"}>
                 <form>
                   <FormControl>
                     <FormLabel>id</FormLabel>
@@ -107,7 +105,9 @@ export const HomePage = () => {
                         },
                       })}
                     ></Input>
-                    <FormErrorMessage>{errors.id?.message}</FormErrorMessage>
+                    <Box w={"100%"} h={"100%"}>
+                      <ErrorMessage errors={errors} name={"id"}></ErrorMessage>
+                    </Box>
                   </FormControl>
 
                   <FormControl>
@@ -121,6 +121,12 @@ export const HomePage = () => {
                         required: true,
                       })}
                     ></Input>
+                    <Box w={"100%"} h={"100%"}>
+                      <ErrorMessage
+                        errors={errors}
+                        name={"name"}
+                      ></ErrorMessage>
+                    </Box>
                   </FormControl>
                   <FormControl>
                     <FormLabel>stock</FormLabel>
@@ -137,6 +143,12 @@ export const HomePage = () => {
                         },
                       })}
                     ></Input>
+                    <Box w={"100%"} h={"100%"}>
+                      <ErrorMessage
+                        errors={errors}
+                        name={"stock"}
+                      ></ErrorMessage>
+                    </Box>
                   </FormControl>
                   <FormControl>
                     <FormLabel>bought</FormLabel>
@@ -153,6 +165,12 @@ export const HomePage = () => {
                         },
                       })}
                     ></Input>
+                    <Box w={"100%"} h={"100%"}>
+                      <ErrorMessage
+                        errors={errors}
+                        name={"bought"}
+                      ></ErrorMessage>
+                    </Box>
                   </FormControl>
                   <FormControl>
                     <FormLabel>selling</FormLabel>
@@ -167,11 +185,14 @@ export const HomePage = () => {
                           value: /^[1-9][0-9]*$/,
                           message: "数字を入力してください。",
                         },
-                        onChange: () => {
-                          console.log();
-                        },
                       })}
                     ></Input>
+                    <Box w={"100%"} h={"100%"}>
+                      <ErrorMessage
+                        errors={errors}
+                        name={"selling"}
+                      ></ErrorMessage>
+                    </Box>
                   </FormControl>
                   <HStack>
                     <Spacer></Spacer>
@@ -179,8 +200,8 @@ export const HomePage = () => {
                       type="submit"
                       mt={4}
                       mb={12}
-                      disabled={!formState.isValid}
-                      isLoading={formState.isSubmitting}
+                      disabled={!isDirty || !isValid}
+                      // isLoading={formState.isSubmitting}
                     >
                       追加
                     </Button>
