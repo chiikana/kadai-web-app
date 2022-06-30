@@ -16,14 +16,7 @@ export const HomePage = () => {
   return (
     <>
       <Layout>
-        <Box
-          bg={useColorModeValue("yellow.50", "gray.800")}
-          minH={"100vh"}
-          minW={"100vw"}
-          display={"flex"}
-          justifyContent={"center"}
-          // alignItems={"center"}
-        >
+        <Box>
           <VStack>
             <Heading>EDIT</Heading>
             <HStack>

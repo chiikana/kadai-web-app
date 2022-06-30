@@ -14,16 +14,16 @@ export default function Layout({ children }: Props) {
       <Navbar />
       <Box
         as={"main"}
-        bg={useColorModeValue("yellow.50", "gray.800")}
+        bg={useColorModeValue("yellow.50", "gray.600")}
         minH={"100vh"}
         minW={"100vw"}
         display={"flex"}
         justifyContent={"center"}
         // alignItems={"center"}
       >
-        <Box
-          minH={"100vh"}
-          minW={"100vw"}
+        {/* <Box
+          minH={"50vh"}
+          minW={"50vw"}
           pos={"absolute"}
           top={"50vh"}
           left={"50vw"}
@@ -31,10 +31,11 @@ export default function Layout({ children }: Props) {
           borderTop={"solid"}
           borderRight={"solid"}
           borderBottom={"solid"}
+          
         ></Box>
         <Box
-          minH={"100vh"}
-          minW={"100vw"}
+          minH={"50vh"}
+          minW={"50vw"}
           pos={"absolute"}
           top={"0vh"}
           left={"0vw"}
@@ -42,7 +43,7 @@ export default function Layout({ children }: Props) {
           borderTop={"solid"}
           borderRight={"solid"}
           borderBottom={"solid"}
-        ></Box>
+        ></Box> */}
         {children}
       </Box>
       <Footer />
