@@ -15,6 +15,7 @@ import {
   useDisclosure,
   useToast,
   VStack,
+  Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -99,13 +100,14 @@ export const HomePage = () => {
                       },
                     })}
                   ></Input>
-                  <Box w={"100%"} h={"100%"}>
-                    <p>
-                      <ErrorMessage errors={errors} name={"id"}></ErrorMessage>
-                    </p>
-                  </Box>
+                  <ErrorMessage
+                    errors={errors}
+                    name="id"
+                    render={({ message }) => (
+                      <Text color={"red.400"}>{message}</Text>
+                    )}
+                  />
                 </FormControl>
-
                 <FormControl>
                   <FormLabel>name</FormLabel>
                   <Input
@@ -117,9 +119,13 @@ export const HomePage = () => {
                       required: true,
                     })}
                   ></Input>
-                  <Box w={"100%"} h={"100%"}>
-                    <ErrorMessage errors={errors} name={"name"}></ErrorMessage>
-                  </Box>
+                  <ErrorMessage
+                    errors={errors}
+                    name="name"
+                    render={({ message }) => (
+                      <Text color={"red.400"}>{message}</Text>
+                    )}
+                  />
                 </FormControl>
                 <FormControl>
                   <FormLabel>stock</FormLabel>
@@ -136,9 +142,13 @@ export const HomePage = () => {
                       },
                     })}
                   ></Input>
-                  <Box w={"100%"} h={"100%"}>
-                    <ErrorMessage errors={errors} name={"stock"}></ErrorMessage>
-                  </Box>
+                  <ErrorMessage
+                    errors={errors}
+                    name="stock"
+                    render={({ message }) => (
+                      <Text color={"red.400"}>{message}</Text>
+                    )}
+                  />
                 </FormControl>
                 <FormControl>
                   <FormLabel>bought</FormLabel>
@@ -155,12 +165,13 @@ export const HomePage = () => {
                       },
                     })}
                   ></Input>
-                  <Box w={"100%"} h={"100%"}>
-                    <ErrorMessage
-                      errors={errors}
-                      name={"bought"}
-                    ></ErrorMessage>
-                  </Box>
+                  <ErrorMessage
+                    errors={errors}
+                    name="bought"
+                    render={({ message }) => (
+                      <Text color={"red.400"}>{message}</Text>
+                    )}
+                  />
                 </FormControl>
                 <FormControl>
                   <FormLabel>selling</FormLabel>
@@ -177,12 +188,13 @@ export const HomePage = () => {
                       },
                     })}
                   ></Input>
-                  <Box w={"100%"} h={"100%"}>
-                    <ErrorMessage
-                      errors={errors}
-                      name={"selling"}
-                    ></ErrorMessage>
-                  </Box>
+                  <ErrorMessage
+                    errors={errors}
+                    name="selling"
+                    render={({ message }) => (
+                      <Text color={"red.400"}>{message}</Text>
+                    )}
+                  />
                 </FormControl>
                 <HStack>
                   <Spacer></Spacer>
