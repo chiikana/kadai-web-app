@@ -214,7 +214,6 @@ export const HomePage = () => {
                 <Spacer></Spacer>
                 <Button
                   // type="submit"
-
                   disabled={!isValid}
                   isLoading={isSubmitting}
                   onClick={() => {
@@ -222,6 +221,7 @@ export const HomePage = () => {
                       title: "送信完了しました。",
                       status: "success",
                       position: "bottom",
+                      duration: 5000,
                       isClosable: true,
                     });
                   }}
