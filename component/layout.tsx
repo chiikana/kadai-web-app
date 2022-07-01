@@ -1,6 +1,6 @@
-import Navbar from "./navbar";
 import Footer from "./footer";
 import { useColorModeValue, Box } from "@chakra-ui/react";
+import Header from "./header";
 
 type Props = {
   children?: React.ReactNode;
@@ -11,12 +11,12 @@ type Props = {
 export default function Layout({ children }: Props) {
   return (
     <>
-      <Navbar />
+      <Header />
       <Box
         as={"main"}
-        bg={useColorModeValue("yellow.50", "gray.600")}
-        minH={"100vh"}
-        minW={"100vw"}
+        bg={useColorModeValue("gray.50", "gray.600")}
+        minH={"full"}
+        minW={"full"}
         display={"flex"}
         justifyContent={"center"}
         // alignItems={"center"}

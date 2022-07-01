@@ -27,7 +27,7 @@ import {
 } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 
-export const Navbar = () => {
+export const Navbar2 = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onToggle } = useDisclosure();
   const router = useRouter();
@@ -36,10 +36,10 @@ export const Navbar = () => {
     <Box>
       <Flex
         // bg={useColorModeValue("white", "gray.800")}
-        bg={useColorModeValue("teal.400", "gray.800")}
+        bg={useColorModeValue("gray.50", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
         // minH={"100vh"}
-        minW={"100vw"}
+        minW={"full"}
         minH={"60px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
@@ -71,7 +71,7 @@ export const Navbar = () => {
           <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontSize={useBreakpointValue({
-              base: "4vw",
+              base: "xl",
               md: "3xl",
             })}
             color={useColorModeValue("white", "white")}
@@ -128,7 +128,7 @@ export const Navbar = () => {
     </Box>
   );
 };
-export default Navbar;
+export default Navbar2;
 
 const DesktopNav = () => {
   const router = useRouter();

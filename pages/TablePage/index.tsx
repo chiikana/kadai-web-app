@@ -18,8 +18,6 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { Footer } from "../../component/footer";
-import { Header } from "../../component/header";
 import Layout from "../../component/layout";
 
 export const HomePage = () => {
@@ -80,9 +78,9 @@ export const HomePage = () => {
         <Tr key={index + 1}>
           <Td>{value.id}</Td>
           <Td>{value.name}</Td>
-          <Td>{value.stock}</Td>
-          <Td>{value.bought}</Td>
-          <Td>{value.selling}</Td>
+          <Td _after={{ content: `"個"` }}>{value.stock}</Td>
+          <Td _after={{ content: `"円"` }}>{value.bought}</Td>
+          <Td _after={{ content: `"円"` }}>{value.selling}</Td>
         </Tr>
       );
     });
@@ -95,7 +93,7 @@ export const HomePage = () => {
           <TableContainer
             border="1px solid #999999"
             // marginTop={8}
-            maxHeight="calc(100vh - 60px)"
+            maxHeight="full"
             overflowX="auto"
             overflowY="auto"
           >

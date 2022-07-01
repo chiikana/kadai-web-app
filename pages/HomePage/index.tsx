@@ -16,12 +16,12 @@ import {
   useToast,
   VStack,
   Text,
+  InputGroup,
+  InputRightAddon,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Footer } from "../../component/footer";
-import { Header } from "../../component/header";
 import { ErrorMessage } from "@hookform/error-message";
 import { motion } from "framer-motion";
 import Layout from "../../component/layout";
@@ -79,57 +79,61 @@ export const HomePage = () => {
   return (
     <>
       <Layout>
-        <Box>
-          <VStack>
-            <Heading>HOME</Heading>
-
-            <VStack spacing={3} w={"80vw"} h={"80vh"} alignItems={"center"}>
-              <form>
-                <FormControl>
-                  <FormLabel>id</FormLabel>
+        <VStack h={"100vh"} w={"100%"}>
+          <Heading pt={"10"} pb={"10"}>
+            HOME
+          </Heading>
+          <VStack spacing={"5px"} w={"100%"}>
+            <form>
+              <FormControl w={"100%"}>
+                <FormLabel>id</FormLabel>
+                <Input
+                  size={"lg"}
+                  textAlign={"left"}
+                  variant="outline"
+                  placeholder="idを入力"
+                  type="text"
+                  {...register("id", {
+                    required: true,
+                    pattern: {
+                      value: /^[1-9][0-9]*$/,
+                      message: "数字を入力してください。",
+                    },
+                  })}
+                ></Input>
+                <ErrorMessage
+                  errors={errors}
+                  name="id"
+                  render={({ message }) => (
+                    <Text color={"red.400"}>{message}</Text>
+                  )}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>name</FormLabel>
+                <Input
+                  size={"lg"}
+                  textAlign={"left"}
+                  variant="outline"
+                  placeholder="商品名を入力"
+                  type="text"
+                  {...register("name", {
+                    required: true,
+                  })}
+                ></Input>
+                <ErrorMessage
+                  errors={errors}
+                  name="name"
+                  render={({ message }) => (
+                    <Text color={"red.400"}>{message}</Text>
+                  )}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>stock</FormLabel>
+                <InputGroup size={"lg"}>
                   <Input
-                    textAlign={"left"}
-                    variant="outline"
-                    placeholder="idを入力"
-                    type="text"
-                    {...register("id", {
-                      required: true,
-                      pattern: {
-                        value: /^[1-9][0-9]*$/,
-                        message: "数字を入力してください。",
-                      },
-                    })}
-                  ></Input>
-                  <ErrorMessage
-                    errors={errors}
-                    name="id"
-                    render={({ message }) => (
-                      <Text color={"red.400"}>{message}</Text>
-                    )}
-                  />
-                </FormControl>
-                <FormControl>
-                  <FormLabel>name</FormLabel>
-                  <Input
-                    textAlign={"left"}
-                    variant="outline"
-                    placeholder="商品名を入力"
-                    type="text"
-                    {...register("name", {
-                      required: true,
-                    })}
-                  ></Input>
-                  <ErrorMessage
-                    errors={errors}
-                    name="name"
-                    render={({ message }) => (
-                      <Text color={"red.400"}>{message}</Text>
-                    )}
-                  />
-                </FormControl>
-                <FormControl>
-                  <FormLabel>stock</FormLabel>
-                  <Input
+                    _after={{ content: `"個"` }}
                     textAlign={"left"}
                     variant="outline"
                     placeholder="在庫数を入力"
@@ -142,17 +146,21 @@ export const HomePage = () => {
                       },
                     })}
                   ></Input>
-                  <ErrorMessage
-                    errors={errors}
-                    name="stock"
-                    render={({ message }) => (
-                      <Text color={"red.400"}>{message}</Text>
-                    )}
-                  />
-                </FormControl>
-                <FormControl>
-                  <FormLabel>bought</FormLabel>
+                  <InputRightAddon>個</InputRightAddon>
+                </InputGroup>
+                <ErrorMessage
+                  errors={errors}
+                  name="stock"
+                  render={({ message }) => (
+                    <Text color={"red.400"}>{message}</Text>
+                  )}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>bought</FormLabel>
+                <InputGroup size={"lg"}>
                   <Input
+                    size={"lg"}
                     textAlign={"left"}
                     variant="outline"
                     placeholder="仕入れ金額を入力"
@@ -165,17 +173,21 @@ export const HomePage = () => {
                       },
                     })}
                   ></Input>
-                  <ErrorMessage
-                    errors={errors}
-                    name="bought"
-                    render={({ message }) => (
-                      <Text color={"red.400"}>{message}</Text>
-                    )}
-                  />
-                </FormControl>
-                <FormControl>
-                  <FormLabel>selling</FormLabel>
+                  <InputRightAddon>円</InputRightAddon>
+                </InputGroup>
+                <ErrorMessage
+                  errors={errors}
+                  name="bought"
+                  render={({ message }) => (
+                    <Text color={"red.400"}>{message}</Text>
+                  )}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>selling</FormLabel>
+                <InputGroup size={"lg"}>
                   <Input
+                    size={"lg"}
                     textAlign={"left"}
                     variant="outline"
                     placeholder="販売金額を入力"
@@ -188,58 +200,58 @@ export const HomePage = () => {
                       },
                     })}
                   ></Input>
-                  <ErrorMessage
-                    errors={errors}
-                    name="selling"
-                    render={({ message }) => (
-                      <Text color={"red.400"}>{message}</Text>
-                    )}
-                  />
-                </FormControl>
-                <HStack>
-                  <Spacer></Spacer>
-                  <Button
-                    // type="submit"
-                    mt={4}
-                    mb={12}
-                    disabled={!isValid}
-                    isLoading={isSubmitting}
-                    onClick={() => {
-                      toast({
-                        title: "送信完了しました。",
-                        status: "success",
-                        position: "top",
-                        isClosable: true,
-                      });
-                    }}
-                  >
-                    追加
-                  </Button>
-                </HStack>
-              </form>
-              <>
-                {isAlert ? (
-                  // <Alert status="success"
+                  <InputRightAddon>円</InputRightAddon>
+                </InputGroup>
+                <ErrorMessage
+                  errors={errors}
+                  name="selling"
+                  render={({ message }) => (
+                    <Text color={"red.400"}>{message}</Text>
+                  )}
+                />
+              </FormControl>
+              <HStack mt={"5"} mb={12}>
+                <Spacer></Spacer>
+                <Button
+                  // type="submit"
 
-                  // >
-                  //   <AlertIcon />
-                  //   送信成功
-                  //   <CloseButton onClick={onClose} />
-                  // </Alert>
-                  <motion.div>
-                    <Alert status="success">
-                      <AlertIcon />
-                      送信成功
-                      <CloseButton onClick={onClose} />
-                    </Alert>
-                  </motion.div>
-                ) : (
-                  <Button onClick={onOpen}></Button>
-                )}
-              </>
-            </VStack>
+                  disabled={!isValid}
+                  isLoading={isSubmitting}
+                  onClick={() => {
+                    toast({
+                      title: "送信完了しました。",
+                      status: "success",
+                      position: "bottom",
+                      isClosable: true,
+                    });
+                  }}
+                >
+                  追加
+                </Button>
+              </HStack>
+            </form>
+            <>
+              {isAlert ? (
+                // <Alert status="success"
+
+                // >
+                //   <AlertIcon />
+                //   送信成功
+                //   <CloseButton onClick={onClose} />
+                // </Alert>
+                <motion.div>
+                  <Alert status="success">
+                    <AlertIcon />
+                    送信成功
+                    <CloseButton onClick={onClose} />
+                  </Alert>
+                </motion.div>
+              ) : (
+                <Button onClick={onOpen}></Button>
+              )}
+            </>
           </VStack>
-        </Box>
+        </VStack>
       </Layout>
     </>
   );
