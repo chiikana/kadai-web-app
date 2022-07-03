@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Navbar2 from "./navbar2";
+import Navbar from "./navbar";
 
 export const Header = () => {
   return (
@@ -7,7 +7,7 @@ export const Header = () => {
       <Box pos={"sticky"} top={0} left={0} w={"full"} h={"60px"} zIndex={100}>
         <title>あぷりけーしょん</title>
         {/* <Box as="p">へっだー上だよ</Box> */}
-        <Navbar2></Navbar2>
+        <Navbar></Navbar>
         {/* <Box as="p">へっだー下だよ</Box> */}
       </Box>
     </>

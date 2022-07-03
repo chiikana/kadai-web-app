@@ -15,8 +15,9 @@ import {
   useBreakpointValue,
   useDisclosure,
   useColorMode,
-  HStack,
-  Spacer,
+  VStack,
+  Avatar,
+  Center,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -27,18 +28,22 @@ import {
   SunIcon,
 } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export const Navbar = () => {
+  const [isLogIn, toggleLogIn] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onToggle } = useDisclosure();
   const router = useRouter();
 
   return (
     <Box>
-      <HStack
+      <Flex
         // bg={useColorModeValue("white", "gray.800")}
         bg={useColorModeValue("gray.50", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
+        // minH={"100vh"}
+        minW={"full"}
         minH={"60px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
@@ -61,12 +66,19 @@ export const Navbar = () => {
             aria-label={"Toggle Navigation"}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
+
+        <Flex
+          flex={{ base: 1 }}
+          justify={{ base: "center", md: "start" }}
+          alignItems={"center"}
+        >
           <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
-            // fontFamily={"heading"}
-            fontSize={"3xl"}
-            color={useColorModeValue("white", "white")}
+            fontSize={useBreakpointValue({
+              base: "xl",
+              md: "3xl",
+            })}
+            color={useColorModeValue("gray.800", "white")}
           >
             管理ソフト
           </Text>
@@ -75,47 +87,78 @@ export const Navbar = () => {
             <DesktopNav />
           </Flex>
         </Flex>
-        <Spacer></Spacer>
-        <Stack
-          flex={{ base: 1, md: 0 }}
-          justify={"flex-end"}
-          direction={"row"}
-          spacing={6}
-        >
-          <Button
-            display={{ base: "none", md: "inline-flex" }}
-            onClick={toggleColorMode}
-          >
-            {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-          </Button>
-          <Button
-            display={{ base: "none", md: "inline-flex" }}
-            // as={"a"}
-            fontSize={"sm"}
-            fontWeight={400}
-            onClick={() => {
-              router.push("/");
-            }}
-            // variant={"link"}
-            // href={"#"}
-          >
-            Sign In
-          </Button>
-          <Button
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            fontWeight={600}
-            color={"white"}
-            bg={"pink.400"}
-            // href={"#"}
-            _hover={{
-              bg: "pink.300",
-            }}
-          >
-            Sign Up
-          </Button>
-        </Stack>
-      </HStack>
+
+        <>
+          {isLogIn ? (
+            <Stack
+              flex={{ base: 1, md: 0 }}
+              justify={"flex-end"}
+              direction={"row"}
+              spacing={6}
+            >
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                onClick={toggleColorMode}
+              >
+                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              </Button>
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize={"sm"}
+                fontWeight={400}
+                onClick={() => {
+                  toggleLogIn(false);
+                }}
+              >
+                Sign Out
+              </Button>
+              <Center>
+                <Avatar size={"sm"}></Avatar>
+              </Center>
+            </Stack>
+          ) : (
+            <Stack
+              flex={{ base: 1, md: 0 }}
+              justify={"flex-end"}
+              direction={"row"}
+              spacing={6}
+            >
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                onClick={toggleColorMode}
+              >
+                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              </Button>
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize={"sm"}
+                fontWeight={400}
+                onClick={() => {
+                  router.push("/");
+                }}
+              >
+                Sign In
+              </Button>
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize={"sm"}
+                fontWeight={600}
+                color={"white"}
+                bg={"pink.400"}
+                // href={"#"}
+                _hover={{
+                  bg: "pink.300",
+                }}
+                onClick={() => {
+                  toggleLogIn(true);
+                }}
+              >
+                Sign Up
+              </Button>
+            </Stack>
+          )}
+        </>
+      </Flex>
 
       <Collapse in={isOpen} animateOpacity>
         <MobileNav />
@@ -127,7 +170,7 @@ export default Navbar;
 
 const DesktopNav = () => {
   const router = useRouter();
-  const linkColor = useColorModeValue("white", "gray.200");
+  const linkColor = useColorModeValue("gray.800", "gray.200");
   const linkHoverColor = useColorModeValue("gray.400", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
@@ -220,7 +263,7 @@ const DesktopSubNav = ({ label, process, subLabel }: routeItem) => {
 
 const MobileNav = () => {
   return (
-    <Stack
+    <VStack
       bg={useColorModeValue("white", "gray.800")}
       p={4}
       display={{ md: "none" }}
@@ -228,7 +271,7 @@ const MobileNav = () => {
       {ROUTE_ITEMS.map((routeItem) => (
         <MobilerouteItem key={routeItem.label} {...routeItem} />
       ))}
-    </Stack>
+    </VStack>
   );
 };
 
