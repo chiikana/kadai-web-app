@@ -16,6 +16,8 @@ import {
   useDisclosure,
   useColorMode,
   VStack,
+  Avatar,
+  Center,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -26,8 +28,10 @@ import {
   SunIcon,
 } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export const Navbar2 = () => {
+  const [isLogIn, toggleLogIn] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onToggle } = useDisclosure();
   const router = useRouter();
@@ -84,42 +88,76 @@ export const Navbar2 = () => {
           </Flex>
         </Flex>
 
-        <Stack
-          flex={{ base: 1, md: 0 }}
-          justify={"flex-end"}
-          direction={"row"}
-          spacing={6}
-        >
-          <Button
-            display={{ base: "none", md: "inline-flex" }}
-            onClick={toggleColorMode}
-          >
-            {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-          </Button>
-          <Button
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            fontWeight={400}
-            onClick={() => {
-              router.push("/");
-            }}
-          >
-            Sign In
-          </Button>
-          <Button
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            fontWeight={600}
-            color={"white"}
-            bg={"pink.400"}
-            // href={"#"}
-            _hover={{
-              bg: "pink.300",
-            }}
-          >
-            Sign Up
-          </Button>
-        </Stack>
+        <>
+          {isLogIn ? (
+            <Stack
+              flex={{ base: 1, md: 0 }}
+              justify={"flex-end"}
+              direction={"row"}
+              spacing={6}
+            >
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                onClick={toggleColorMode}
+              >
+                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              </Button>
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize={"sm"}
+                fontWeight={400}
+                onClick={() => {
+                  toggleLogIn(false);
+                }}
+              >
+                Sign Out
+              </Button>
+              <Center>
+                <Avatar size={"sm"}></Avatar>
+              </Center>
+            </Stack>
+          ) : (
+            <Stack
+              flex={{ base: 1, md: 0 }}
+              justify={"flex-end"}
+              direction={"row"}
+              spacing={6}
+            >
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                onClick={toggleColorMode}
+              >
+                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              </Button>
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize={"sm"}
+                fontWeight={400}
+                onClick={() => {
+                  router.push("/");
+                }}
+              >
+                Sign In
+              </Button>
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize={"sm"}
+                fontWeight={600}
+                color={"white"}
+                bg={"pink.400"}
+                // href={"#"}
+                _hover={{
+                  bg: "pink.300",
+                }}
+                onClick={() => {
+                  toggleLogIn(true);
+                }}
+              >
+                Sign Up
+              </Button>
+            </Stack>
+          )}
+        </>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
