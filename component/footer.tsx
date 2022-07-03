@@ -34,11 +34,15 @@ export const Footer = () => {
             <Link href={"/HomePage/"} passHref replace>
               <a>Home</a>
             </Link>
-            <Link href="/[code]" as="/HomePage">
-              About
+            <Link href={"/TablePage/"} passHref replace>
+              <a>Table</a>
             </Link>
-            <Link href={"#"}>Blog</Link>
-            <Link href={"#"}>Contact</Link>
+            <Link href={"/EditPage/"} passHref replace>
+              <a>Edit</a>
+            </Link>
+            <Link href={"/StartPage/"} passHref replace>
+              <a>Start</a>
+            </Link>
           </Stack>
         </Container>
 
