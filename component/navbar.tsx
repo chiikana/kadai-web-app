@@ -262,12 +262,94 @@ const DesktopSubNav = ({ label, process, subLabel }: routeItem) => {
 };
 
 const MobileNav = () => {
+  const [isLogIn, toggleLogIn] = useState(false);
+  const { colorMode, toggleColorMode } = useColorMode();
+  const router = useRouter();
   return (
     <VStack
       bg={useColorModeValue("white", "gray.800")}
       p={4}
       display={{ md: "none" }}
     >
+      <Flex
+        py={2}
+        justify={"space-between"}
+        align={"center"}
+        _hover={{
+          textDecoration: "none",
+        }}
+      >
+        <>
+          {isLogIn ? (
+            <Stack
+              flex={{ base: 1, md: 0 }}
+              justify={"flex-end"}
+              direction={"row"}
+              spacing={6}
+            >
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                onClick={toggleColorMode}
+              >
+                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              </Button>
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize={"sm"}
+                fontWeight={400}
+                onClick={() => {
+                  toggleLogIn(false);
+                }}
+              >
+                Sign Out
+              </Button>
+              <Center>
+                <Avatar size={"sm"}></Avatar>
+              </Center>
+            </Stack>
+          ) : (
+            <Stack
+              flex={{ base: 1, md: 0 }}
+              justify={"flex-end"}
+              direction={"row"}
+              spacing={6}
+            >
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                onClick={toggleColorMode}
+              >
+                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              </Button>
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize={"sm"}
+                fontWeight={400}
+                onClick={() => {
+                  router.push("/");
+                }}
+              >
+                Sign In
+              </Button>
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize={"sm"}
+                fontWeight={600}
+                color={"white"}
+                bg={"pink.400"}
+                // href={"#"}
+                _hover={{
+                  bg: "pink.300",
+                }}
+                onClick={() => {
+                  toggleLogIn(true);
+                }}
+              >
+                Sign Up
+              </Button>
+            </Stack>
+          )}
+        </>
+      </Flex>
       {ROUTE_ITEMS.map((routeItem) => (
         <MobilerouteItem key={routeItem.label} {...routeItem} />
       ))}
