@@ -2,16 +2,19 @@ import {
   Box,
   chakra,
   Container,
-  Link,
+  // Link,
   Stack,
   useColorModeValue,
   VisuallyHidden,
   Text,
 } from "@chakra-ui/react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { ReactNode } from "react";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
 export const Footer = () => {
+  // router = useRouter();
   return (
     <>
       {/* <Box as="p">フッター上だよ</Box> */}
@@ -28,8 +31,12 @@ export const Footer = () => {
           align={"center"}
         >
           <Stack direction={"row"} spacing={6}>
-            <Link href={"#"}>Home</Link>
-            <Link href={"#"}>About</Link>
+            <Link href={"/HomePage/"} passHref replace>
+              <a>Home</a>
+            </Link>
+            <Link href="/[code]" as="/HomePage">
+              About
+            </Link>
             <Link href={"#"}>Blog</Link>
             <Link href={"#"}>Contact</Link>
           </Stack>

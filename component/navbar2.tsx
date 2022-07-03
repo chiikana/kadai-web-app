@@ -74,7 +74,7 @@ export const Navbar2 = () => {
               base: "xl",
               md: "3xl",
             })}
-            color={useColorModeValue("white", "white")}
+            color={useColorModeValue("gray.800", "white")}
           >
             管理ソフト
           </Text>
@@ -132,7 +132,7 @@ export default Navbar2;
 
 const DesktopNav = () => {
   const router = useRouter();
-  const linkColor = useColorModeValue("white", "gray.200");
+  const linkColor = useColorModeValue("gray.800", "gray.200");
   const linkHoverColor = useColorModeValue("gray.400", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
