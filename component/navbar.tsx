@@ -29,6 +29,7 @@ import {
 } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { ModalSignIn, ModalSignUp } from "./sign";
 
 export const Navbar = () => {
   const [isLogIn, toggleLogIn] = useState(false);
@@ -129,7 +130,7 @@ export const Navbar = () => {
               >
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
-              <Button
+              {/* <Button
                 display={{ base: "none", md: "inline-flex" }}
                 fontSize={"sm"}
                 fontWeight={400}
@@ -138,23 +139,9 @@ export const Navbar = () => {
                 }}
               >
                 Sign In
-              </Button>
-              <Button
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize={"sm"}
-                fontWeight={600}
-                color={"white"}
-                bg={"pink.400"}
-                // href={"#"}
-                _hover={{
-                  bg: "pink.300",
-                }}
-                onClick={() => {
-                  toggleLogIn(true);
-                }}
-              >
-                Sign Up
-              </Button>
+              </Button> */}
+              <ModalSignIn></ModalSignIn>
+              <ModalSignUp></ModalSignUp>
             </Stack>
           )}
         </>
