@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
 
 import { extendTheme } from "@chakra-ui/react";
+import { useState } from "react";
 
 const colors = {
   brand: {
@@ -14,6 +15,7 @@ const colors = {
 const theme = extendTheme({ colors });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [isLogIn, toggleLogIn] = useState(false);
   return (
     <ChakraProvider theme={theme}>
       <Component {...pageProps} />
