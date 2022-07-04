@@ -21,20 +21,7 @@ import { useRouter } from "next/router";
 import Layout from "../../component/layout";
 
 export const HomePage = () => {
-  const router = useRouter();
-  let listValue = 5;
-  let listCount = 5;
-  const dummyThList = [
-    ["id", "name", "stock", "bought price", "selling price"],
-  ];
-  const dummyTbList = [
-    ["1", "リンゴ", "100", "200", "300"],
-    ["2", "バナナ", "150", "250", "350"],
-    ["3", "キウイ", "200", "300", "400"],
-    ["4", "ナシ", "250", "350", "450"],
-    ["5", "パイナップル", "300", "300", "500"],
-  ];
-  let dummyData = [
+  const dummyData = [
     {
       id: 1,
       name: "リンゴ",
