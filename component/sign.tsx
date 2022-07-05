@@ -23,11 +23,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { SmallCloseIcon } from "@chakra-ui/icons";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import { AppContext } from "../pages/_app";
 
 export const ModalSignIn = (): JSX.Element => {
+  const { isSign, setSign } = useContext(AppContext);
   type FormSign = {
     Uname: string;
     Email: string;
@@ -175,6 +177,8 @@ export const ModalSignIn = (): JSX.Element => {
                 Cancel
               </Button>
               <Button
+                type={"submit"}
+                isLoading={isSubmitting}
                 bg={"blue.400"}
                 color={"white"}
                 w="full"
@@ -183,6 +187,7 @@ export const ModalSignIn = (): JSX.Element => {
                 }}
                 onClick={() => {
                   // toggleLogIn(true);
+                  setSign(true);
                 }}
               >
                 Submit
@@ -196,6 +201,7 @@ export const ModalSignIn = (): JSX.Element => {
 };
 
 export const ModalSignUp = (): JSX.Element => {
+  const { isSign, setSign } = useContext(AppContext);
   type FormSign = {
     Uname: string;
     Email: string;
@@ -373,6 +379,8 @@ export const ModalSignUp = (): JSX.Element => {
                 Cancel
               </Button>
               <Button
+                type={"submit"}
+                isLoading={isSubmitting}
                 bg={"blue.400"}
                 color={"white"}
                 w="full"
@@ -381,6 +389,7 @@ export const ModalSignUp = (): JSX.Element => {
                 }}
                 onClick={() => {
                   // toggleLogIn(true);
+                  setSign(true);
                 }}
               >
                 Submit

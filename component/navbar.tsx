@@ -28,10 +28,13 @@ import {
   SunIcon,
 } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ModalSignIn, ModalSignUp } from "./sign";
+import { FormProvider } from "react-hook-form";
+import { AppContext } from "../pages/_app";
 
 export const Navbar = () => {
+  const { isSign, setSign } = useContext(AppContext);
   const [isLogIn, toggleLogIn] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onToggle } = useDisclosure();
@@ -90,7 +93,7 @@ export const Navbar = () => {
         </Flex>
 
         <>
-          {isLogIn ? (
+          {isSign ? (
             <Stack
               flex={{ base: 1, md: 0 }}
               justify={"flex-end"}
@@ -108,7 +111,7 @@ export const Navbar = () => {
                 fontSize={"sm"}
                 fontWeight={400}
                 onClick={() => {
-                  toggleLogIn(false);
+                  setSign(false);
                 }}
               >
                 Sign Out
@@ -130,16 +133,6 @@ export const Navbar = () => {
               >
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
-              {/* <Button
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize={"sm"}
-                fontWeight={400}
-                onClick={() => {
-                  router.push("/");
-                }}
-              >
-                Sign In
-              </Button> */}
               <ModalSignIn></ModalSignIn>
               <ModalSignUp></ModalSignUp>
             </Stack>
