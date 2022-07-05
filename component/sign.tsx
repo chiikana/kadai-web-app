@@ -51,8 +51,9 @@ export const ModalSignIn = (): JSX.Element => {
       submitCount,
     },
   } = useForm<FormSign>({
-    mode: "onBlur",
-    reValidateMode: "onChange",
+    mode: "all",
+    // mode: "onBlur",
+    // reValidateMode: "onChange",
     // defaultValues: {
     //   id: "0",
     //   name: "",
@@ -197,8 +198,9 @@ export const ModalSignUp = (): JSX.Element => {
       submitCount,
     },
   } = useForm<FormSign>({
-    mode: "onBlur",
-    reValidateMode: "onChange",
+    mode: "all",
+    // mode: "onBlur",
+    // reValidateMode: "onChange",
     // defaultValues: {
     //   id: "0",
     //   name: "",

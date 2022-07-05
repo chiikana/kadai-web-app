@@ -51,8 +51,9 @@ export const HomePage = () => {
       submitCount,
     },
   } = useForm<FormData>({
-    mode: "onBlur",
-    reValidateMode: "onChange",
+    mode: "all",
+    // mode: "onBlur",
+    // reValidateMode: "onChange",
     // defaultValues: {
     //   id: "0",
     //   name: "",
