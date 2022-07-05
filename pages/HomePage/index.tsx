@@ -51,8 +51,8 @@ export const HomePage = () => {
       submitCount,
     },
   } = useForm<FormData>({
-    mode: "all",
-    // reValidateMode: "onChange",
+    mode: "onBlur",
+    reValidateMode: "onChange",
     // defaultValues: {
     //   id: "0",
     //   name: "",
@@ -232,13 +232,6 @@ export const HomePage = () => {
             </form>
             <>
               {isAlert ? (
-                // <Alert status="success"
-
-                // >
-                //   <AlertIcon />
-                //   送信成功
-                //   <CloseButton onClick={onClose} />
-                // </Alert>
                 <motion.div>
                   <Alert status="success">
                     <AlertIcon />

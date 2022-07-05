@@ -14,7 +14,6 @@ import { ReactNode } from "react";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
 export const Footer = () => {
-  // router = useRouter();
   return (
     <>
       {/* <Box as="p">フッター上だよ</Box> */}

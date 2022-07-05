@@ -51,8 +51,8 @@ export const ModalSignIn = (): JSX.Element => {
       submitCount,
     },
   } = useForm<FormSign>({
-    mode: "all",
-    // reValidateMode: "onChange",
+    mode: "onBlur",
+    reValidateMode: "onChange",
     // defaultValues: {
     //   id: "0",
     //   name: "",
@@ -83,7 +83,7 @@ export const ModalSignIn = (): JSX.Element => {
         isOpen={isOpen}
         onClose={onClose}
         onCloseComplete={() => {
-          reset({ Uname: "", Email: "", Upass: "" });
+          reset({ Uname: "", Upass: "" });
         }}
       >
         <ModalOverlay />
@@ -99,38 +99,11 @@ export const ModalSignIn = (): JSX.Element => {
                 type="text"
                 {...register("Uname", {
                   required: true,
-                  // pattern: {
-                  //   value: /^[1-9][0-9]*$/,
-                  //   message: "数字を入力してください。",
-                  // },
                 })}
               />
               <ErrorMessage
                 errors={errors}
                 name="Uname"
-                render={({ message }) => (
-                  <Text color={"red.400"}>{message}</Text>
-                )}
-              />
-            </FormControl>
-            <FormControl id="email" isRequired>
-              <FormLabel>Email address</FormLabel>
-              <Input
-                placeholder="your-email@example.com"
-                _placeholder={{ color: "gray.500" }}
-                type="email"
-                {...register("Email", {
-                  required: true,
-                  pattern: {
-                    value:
-                      /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/,
-                    message: "E-mailの書式ではありません。",
-                  },
-                })}
-              />
-              <ErrorMessage
-                errors={errors}
-                name="Email"
                 render={({ message }) => (
                   <Text color={"red.400"}>{message}</Text>
                 )}
@@ -189,6 +162,7 @@ export const ModalSignIn = (): JSX.Element => {
                   // toggleLogIn(true);
                   setSign(true);
                 }}
+                disabled={!isValid}
               >
                 Submit
               </Button>
@@ -223,8 +197,8 @@ export const ModalSignUp = (): JSX.Element => {
       submitCount,
     },
   } = useForm<FormSign>({
-    mode: "all",
-    // reValidateMode: "onChange",
+    mode: "onBlur",
+    reValidateMode: "onChange",
     // defaultValues: {
     //   id: "0",
     //   name: "",
@@ -391,6 +365,7 @@ export const ModalSignUp = (): JSX.Element => {
                   // toggleLogIn(true);
                   setSign(true);
                 }}
+                disabled={!isValid}
               >
                 Submit
               </Button>
