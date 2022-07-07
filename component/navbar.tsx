@@ -18,6 +18,12 @@ import {
   VStack,
   Avatar,
   Center,
+  HStack,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -27,6 +33,16 @@ import {
   MoonIcon,
   SunIcon,
 } from "@chakra-ui/icons";
+import {
+  FiHome,
+  FiTrendingUp,
+  FiCompass,
+  FiStar,
+  FiSettings,
+  FiMenu,
+  FiBell,
+  FiChevronDown,
+} from "react-icons/fi";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { ModalSignIn, ModalSignUp } from "./sign";
@@ -51,9 +67,9 @@ export const Navbar = () => {
         minH={"60px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
-        borderBottom={1}
-        borderStyle={"solid"}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
+        // borderBottom={1}
+        // borderStyle={"solid"}
+        // borderColor={useColorModeValue("gray.200", "gray.900")}
         // align={"center"}
       >
         <Flex
@@ -99,6 +115,7 @@ export const Navbar = () => {
               justify={"flex-end"}
               direction={"row"}
               spacing={6}
+              alignItems={"center"}
             >
               <Button
                 display={{ base: "none", md: "inline-flex" }}
@@ -106,19 +123,41 @@ export const Navbar = () => {
               >
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
-              <Button
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize={"sm"}
-                fontWeight={400}
-                onClick={() => {
-                  setSign(false);
-                }}
+              <Flex
+                // alignItems={"center"}
+                direction={"row"}
               >
-                Sign Out
-              </Button>
-              <Center>
-                <Avatar size={"sm"}></Avatar>
-              </Center>
+                <Menu>
+                  <MenuButton
+                    py={2}
+                    transition="all 0.3s"
+                    _focus={{ boxShadow: "none" }}
+                  >
+                    <HStack>
+                      <Avatar size={"sm"} src={""} />
+                      <Box display={{ base: "none", md: "flex" }}>
+                        <FiChevronDown />
+                      </Box>
+                    </HStack>
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem>ああああ ああああ</MenuItem>
+                    <MenuDivider />
+                    <MenuItem>Profile</MenuItem>
+                    <MenuItem>Settings</MenuItem>
+                    <MenuItem>Billing</MenuItem>
+                    <MenuDivider />
+                    <MenuItem
+                      onClick={() => {
+                        setSign(false);
+                      }}
+                    >
+                      Sign out
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+              </Flex>
+              {/* </HStack> */}
             </Stack>
           ) : (
             <Stack
@@ -126,6 +165,7 @@ export const Navbar = () => {
               justify={"flex-end"}
               direction={"row"}
               spacing={6}
+              alignItems={"center"}
             >
               <Button
                 display={{ base: "none", md: "inline-flex" }}

@@ -21,29 +21,6 @@ export default function Layout({ children }: Props) {
         justifyContent={"center"}
         // alignItems={"center"}
       >
-        {/* <Box
-          minH={"50vh"}
-          minW={"50vw"}
-          pos={"absolute"}
-          top={"50vh"}
-          left={"50vw"}
-          borderLeft={"solid"}
-          borderTop={"solid"}
-          borderRight={"solid"}
-          borderBottom={"solid"}
-          
-        ></Box>
-        <Box
-          minH={"50vh"}
-          minW={"50vw"}
-          pos={"absolute"}
-          top={"0vh"}
-          left={"0vw"}
-          borderLeft={"solid"}
-          borderTop={"solid"}
-          borderRight={"solid"}
-          borderBottom={"solid"}
-        ></Box> */}
         {children}
       </Box>
       <Footer />

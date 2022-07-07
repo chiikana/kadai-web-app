@@ -22,15 +22,24 @@ export const AppContext = React.createContext(
   }
 );
 
+export const ScrollContext = React.createContext(
+  {} as {
+    isScrolled: boolean;
+    setScrolled: Dispatch<React.SetStateAction<boolean>>;
+  }
+);
+
 function MyApp({ Component, pageProps }: AppProps) {
   const [isSign, setSign] = useState(false);
-  const [isLogIn, toggleLogIn] = useState(false);
+  const [isScrolled, setScrolled] = useState(false);
   return (
-    <AppContext.Provider value={{ isSign, setSign }}>
-      <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
-      </ChakraProvider>
-    </AppContext.Provider>
+    <ScrollContext.Provider value={{ isScrolled, setScrolled }}>
+      <AppContext.Provider value={{ isSign, setSign }}>
+        <ChakraProvider theme={theme}>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </AppContext.Provider>
+    </ScrollContext.Provider>
   );
 }
 
