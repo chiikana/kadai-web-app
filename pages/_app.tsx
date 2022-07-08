@@ -32,6 +32,7 @@ export const ScrollContext = React.createContext(
 function MyApp({ Component, pageProps }: AppProps) {
   const [isSign, setSign] = useState(false);
   const [isScrolled, setScrolled] = useState(false);
+
   return (
     <ScrollContext.Provider value={{ isScrolled, setScrolled }}>
       <AppContext.Provider value={{ isSign, setSign }}>
