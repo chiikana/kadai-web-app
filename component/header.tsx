@@ -4,11 +4,12 @@ import { useContext, useEffect } from "react";
 import { ScrollContext } from "../pages/_app";
 
 export const Header = () => {
+  const toggleBorderColor = useColorModeValue("gray.200", "gray.500");
+
   const { isScrolled, setScrolled } = useContext(ScrollContext);
   const toggleVisibility = () => {
     window.scrollY > 0 ? setScrolled(true) : setScrolled(false);
   };
-
   useEffect(() => {
     window.addEventListener("scroll", toggleVisibility);
     return () => window.removeEventListener("scroll", toggleVisibility);
@@ -24,7 +25,7 @@ export const Header = () => {
           <Box
             borderBottom={"1px"}
             borderBottomStyle={"solid"}
-            borderBottomColor={"gray.500"}
+            borderBottomColor={toggleBorderColor}
           ></Box>
         ) : (
           <Box></Box>

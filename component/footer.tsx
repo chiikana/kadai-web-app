@@ -14,15 +14,18 @@ import { ReactNode } from "react";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
 export const Footer = () => {
+  const toggleTextColor = useColorModeValue("gray.800", "white");
+  const toggleBgColor = useColorModeValue("gray.50", "gray.800");
+  const toggleBorderColor = useColorModeValue("gray.200", "gray.900");
   return (
     <>
       {/* <Box as="p">フッター上だよ</Box> */}
       <Box
-        bg={useColorModeValue("gray.50", "teal.900")}
-        color={useColorModeValue("gray.700", "gray.200")}
+        bg={toggleBgColor}
+        color={toggleTextColor}
         borderTop={1}
         borderStyle={"solid"}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
+        borderColor={toggleBorderColor}
       >
         <Container
           as={Stack}
@@ -62,7 +65,7 @@ export const Footer = () => {
             justify={{ base: "center", md: "space-between" }}
             align={{ base: "center", md: "center" }}
           >
-            <Text>© 2022 Chakra Templates. All rights reserved</Text>
+            <Text>© kanato suzaki. All rights reserved</Text>
             <Stack direction={"row"} spacing={6}>
               <SocialButton label={"Twitter"} href={"#"}>
                 <FaTwitter />

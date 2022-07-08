@@ -9,12 +9,13 @@ type Props = {
 };
 
 export default function Layout({ children }: Props) {
+  const toggleBgColor = useColorModeValue("gray.50", "gray.800");
   return (
     <>
       <Header />
       <Box
         as={"main"}
-        bg={useColorModeValue("gray.50", "gray.600")}
+        bg={toggleBgColor}
         minH={"full"}
         minW={"full"}
         display={"flex"}

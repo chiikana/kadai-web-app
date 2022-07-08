@@ -214,6 +214,10 @@ export const ModalSignUp = (): JSX.Element => {
 
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
+
+  const toggleNavHoverColor = useColorModeValue("teal.50", "teal.900");
+  const navAccentColor = "teal.400";
+  const navAccentHoverColor = "teal.300";
   return (
     <>
       <Button
@@ -221,10 +225,10 @@ export const ModalSignUp = (): JSX.Element => {
         fontSize={"sm"}
         fontWeight={600}
         color={"white"}
-        bg={"pink.400"}
+        bg={navAccentColor}
         // href={"#"}
         _hover={{
-          bg: "pink.300",
+          bg: navAccentHoverColor,
         }}
         onClick={onOpen}
       >

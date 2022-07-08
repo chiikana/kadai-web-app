@@ -48,20 +48,28 @@ import { useContext, useState } from "react";
 import { ModalSignIn, ModalSignUp } from "./sign";
 import { FormProvider } from "react-hook-form";
 import { AppContext } from "../pages/_app";
+import {
+  lightBorderColor,
+  lightBgColor,
+  lightTextColor,
+  darkBorderColor,
+  darkBgColor,
+  darkTextColor,
+} from "./color";
 
 export const Navbar = () => {
   const { isSign, setSign } = useContext(AppContext);
-  const [isLogIn, toggleLogIn] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onToggle } = useDisclosure();
-  const router = useRouter();
+  const toggleTextColor = useColorModeValue("gray.800", "white");
+  const toggleBgColor = useColorModeValue("gray.50", "gray.800");
 
   return (
     <Box>
       <Flex
-        // bg={useColorModeValue("white", "gray.800")}
-        bg={useColorModeValue("gray.50", "gray.800")}
-        color={useColorModeValue("gray.600", "white")}
+        // bg={useColorModeValue("gray.50", "gray.800")}
+        bg={toggleBgColor}
+        color={toggleTextColor}
         // minH={"100vh"}
         minW={"full"}
         minH={"60px"}
@@ -98,7 +106,7 @@ export const Navbar = () => {
               base: "xl",
               md: "3xl",
             })}
-            color={useColorModeValue("gray.800", "white")}
+            color={toggleTextColor}
           >
             管理ソフト
           </Text>
@@ -190,10 +198,12 @@ export default Navbar;
 
 const DesktopNav = () => {
   const router = useRouter();
-  const linkColor = useColorModeValue("gray.800", "gray.200");
+  // const linkColor = useColorModeValue("gray.800", "gray.200");
+  const linkColor = useColorModeValue("gray.800", "white");
+  // const linkHoverColor = useColorModeValue("gray.400", "white");
   const linkHoverColor = useColorModeValue("gray.400", "white");
-  const popoverContentBgColor = useColorModeValue("white", "gray.800");
-
+  // const popoverContentBgColor = useColorModeValue("white", "gray.800");
+  const popoverContentBgColor = useColorModeValue("gray.50", "gray.800");
   return (
     <Stack direction={"row"} spacing={4}>
       {ROUTE_ITEMS.map((routeItem) => (
@@ -241,6 +251,11 @@ const DesktopNav = () => {
 };
 
 const DesktopSubNav = ({ label, process, subLabel }: routeItem) => {
+  const toggleTextColor = useColorModeValue("gray.800", "white");
+  const toggleBgColor = useColorModeValue("gray.50", "gray.800");
+  const toggleBorderColor = useColorModeValue("gray.200", "gray.900");
+  const toggleSubNavHoverColor = useColorModeValue("teal.50", "teal.900");
+  const subNavTextColor = "green.400";
   const router = useRouter();
   return (
     <Box
@@ -252,13 +267,13 @@ const DesktopSubNav = ({ label, process, subLabel }: routeItem) => {
       display={"block"}
       p={2}
       rounded={"md"}
-      _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
+      _hover={{ bg: toggleSubNavHoverColor }}
     >
       <Stack direction={"row"} align={"center"}>
         <Box>
           <Text
             transition={"all .3s ease"}
-            _groupHover={{ color: "pink.400" }}
+            _groupHover={{ color: subNavTextColor }}
             fontWeight={500}
           >
             {label}
@@ -274,7 +289,7 @@ const DesktopSubNav = ({ label, process, subLabel }: routeItem) => {
           align={"center"}
           flex={1}
         >
-          <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
+          <Icon color={subNavTextColor} w={5} h={5} as={ChevronRightIcon} />
         </Flex>
       </Stack>
     </Box>
@@ -285,101 +300,31 @@ const MobileNav = () => {
   const [isLogIn, toggleLogIn] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
   const router = useRouter();
+  const toggleTextColor = useColorModeValue("gray.800", "white");
+  const toggleBgColor = useColorModeValue("gray.50", "gray.800");
+  const toggleBorderColor = useColorModeValue("gray.200", "gray.900");
   return (
-    <VStack
-      bg={useColorModeValue("white", "gray.800")}
+    <Stack
+      bg={toggleBgColor}
       p={4}
       display={{ md: "none" }}
+      borderBottom={"1px"}
+      borderBottomStyle={"solid"}
+      borderBottomColor={toggleBorderColor}
     >
-      <Flex
-        py={2}
-        justify={"space-between"}
-        align={"center"}
-        _hover={{
-          textDecoration: "none",
-        }}
-      >
-        <>
-          {isLogIn ? (
-            <Stack
-              flex={{ base: 1, md: 0 }}
-              justify={"flex-end"}
-              direction={"row"}
-              spacing={6}
-            >
-              <Button
-                display={{ base: "none", md: "inline-flex" }}
-                onClick={toggleColorMode}
-              >
-                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-              </Button>
-              <Button
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize={"sm"}
-                fontWeight={400}
-                onClick={() => {
-                  toggleLogIn(false);
-                }}
-              >
-                Sign Out
-              </Button>
-              <Center>
-                <Avatar size={"sm"}></Avatar>
-              </Center>
-            </Stack>
-          ) : (
-            <Stack
-              flex={{ base: 1, md: 0 }}
-              justify={"flex-end"}
-              direction={"row"}
-              spacing={6}
-            >
-              <Button
-                display={{ base: "none", md: "inline-flex" }}
-                onClick={toggleColorMode}
-              >
-                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-              </Button>
-              <Button
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize={"sm"}
-                fontWeight={400}
-                onClick={() => {
-                  router.push("/");
-                }}
-              >
-                Sign In
-              </Button>
-              <Button
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize={"sm"}
-                fontWeight={600}
-                color={"white"}
-                bg={"pink.400"}
-                // href={"#"}
-                _hover={{
-                  bg: "pink.300",
-                }}
-                onClick={() => {
-                  toggleLogIn(true);
-                }}
-              >
-                Sign Up
-              </Button>
-            </Stack>
-          )}
-        </>
-      </Flex>
       {ROUTE_ITEMS.map((routeItem) => (
         <MobilerouteItem key={routeItem.label} {...routeItem} />
       ))}
-    </VStack>
+    </Stack>
   );
 };
 
 const MobilerouteItem = ({ label, children, process }: routeItem) => {
   const { isOpen, onToggle } = useDisclosure();
   const router = useRouter();
+  const toggleTextColor = useColorModeValue("gray.800", "white");
+  const toggleBgColor = useColorModeValue("gray.50", "gray.800");
+  const toggleBoderColor = useColorModeValue("gray.200", "gray.900");
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
@@ -394,10 +339,7 @@ const MobilerouteItem = ({ label, children, process }: routeItem) => {
           textDecoration: "none",
         }}
       >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue("gray.600", "gray.200")}
-        >
+        <Text fontWeight={600} color={toggleTextColor}>
           {label}
         </Text>
         {children && (
@@ -417,7 +359,7 @@ const MobilerouteItem = ({ label, children, process }: routeItem) => {
           pl={4}
           borderLeft={1}
           borderStyle={"solid"}
-          borderColor={useColorModeValue("gray.200", "gray.700")}
+          borderColor={toggleBoderColor}
           align={"start"}
         >
           {children &&
