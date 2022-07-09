@@ -6,9 +6,9 @@ import { ScrollContext } from "../pages/_app";
 export const Header = () => {
   const toggleBorderColor = useColorModeValue("gray.200", "gray.500");
 
-  const { isScrolled, setScrolled } = useContext(ScrollContext);
+  const { isScrolled, onScrolled } = useContext(ScrollContext);
   const toggleVisibility = () => {
-    window.scrollY > 0 ? setScrolled(true) : setScrolled(false);
+    window.scrollY > 0 ? onScrolled(true) : onScrolled(false);
   };
   useEffect(() => {
     window.addEventListener("scroll", toggleVisibility);

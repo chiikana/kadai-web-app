@@ -45,7 +45,9 @@ import {
 } from "react-icons/fi";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
-import { ModalSignIn, ModalSignUp } from "./sign";
+import { ModalSignIn } from "./signIn";
+// import { ModalSignUp } from "./signUp";
+import { ChoiceSosial } from "./signModal";
 import { FormProvider } from "react-hook-form";
 import { AppContext } from "../pages/_app";
 import {
@@ -58,7 +60,7 @@ import {
 } from "./color";
 
 export const Navbar = () => {
-  const { isSign, setSign } = useContext(AppContext);
+  const { isSign, onSign } = useContext(AppContext);
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onToggle } = useDisclosure();
   const toggleTextColor = useColorModeValue("gray.800", "white");
@@ -157,7 +159,7 @@ export const Navbar = () => {
                     <MenuDivider />
                     <MenuItem
                       onClick={() => {
-                        setSign(false);
+                        onSign(false);
                       }}
                     >
                       Sign out
@@ -182,7 +184,8 @@ export const Navbar = () => {
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
               <ModalSignIn></ModalSignIn>
-              <ModalSignUp></ModalSignUp>
+              {/* <ModalSignUp></ModalSignUp> */}
+              <ChoiceSosial></ChoiceSosial>
             </Stack>
           )}
         </>
