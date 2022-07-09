@@ -34,6 +34,7 @@ import { AppContext, ChoiceSosialContext } from "../pages/_app";
 import { app } from "../src/utils/firebase/init";
 // import { useAuthContext } from "../src/context/AuthContext";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { Router, useRouter } from "next/router";
 
 export const EmailProvider = () => {
   // const { user } = useAuthContext();
@@ -244,6 +245,7 @@ export const GuestProvider = () => {
   const auth = getAuth(app);
   // const isLoggedIn = !!user;
   // const [username, setUsername] = useState("");
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -355,6 +357,7 @@ export const GuestProvider = () => {
           }}
           onClick={() => {
             onSign(true);
+            router.push("/HomePage/");
           }}
           disabled={!isValid}
         >
