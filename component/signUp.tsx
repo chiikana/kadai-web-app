@@ -100,6 +100,7 @@ export const EmailProvider = () => {
                   message: "E-mailの書式ではありません。",
                 },
               })}
+              onChange={handleChangeEmail}
             />
             <ErrorMessage
               errors={errors}
@@ -120,6 +121,7 @@ export const EmailProvider = () => {
                   message: "半角英数字8文字以上32文字以下のパスワードを入力",
                 },
               })}
+              onChange={handleChangePassword}
             />
             <ErrorMessage
               errors={errors}
@@ -217,7 +219,7 @@ export const GuestProvider = () => {
   return (
     <Center>
       <VStack>
-        <form>
+        <form onSubmit={handleSubmit}>
           <FormControl id="email" isRequired>
             <FormLabel>Email Adress</FormLabel>
             <Input
@@ -232,6 +234,7 @@ export const GuestProvider = () => {
                   message: "E-mailの書式ではありません。",
                 },
               })}
+              onChange={handleChangeEmail}
             />
             <ErrorMessage
               errors={errors}
@@ -252,6 +255,7 @@ export const GuestProvider = () => {
                   message: "半角英数字8文字以上32文字以下のパスワードを入力",
                 },
               })}
+              onChange={handleChangePassword}
             />
             <ErrorMessage
               errors={errors}
