@@ -76,7 +76,7 @@ export const HomePage = () => {
   return (
     <>
       <Layout>
-        <Box>
+        <Box h={"100vh"} w={"100%"}>
           <TableContainer
             border="1px solid #999999"
             // marginTop={8}
@@ -150,8 +150,8 @@ export const HomePage = () => {
             <Table variant="striped" colorScheme="blue" size="md">
               <Thead
                 borderBottom="1px solid #999999"
-                left={0}
                 position="sticky"
+                left={0}
                 top={0}
               >
                 <Tr>

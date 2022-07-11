@@ -65,7 +65,7 @@ export const ChoiceSosial = () => {
           isOpen={isOpen}
           onClose={onClose}
           onCloseComplete={() => {
-            onChoice(0);
+            // onChoice(0);
             console.log(isChoice);
           }}
         >
@@ -83,6 +83,7 @@ export const ChoiceSosial = () => {
                     leftIcon={<MdEmail />}
                     onClick={() => {
                       onChoice(1);
+                      onClose();
                       router.push("/SignUp/");
                     }}
                   >
@@ -97,7 +98,9 @@ export const ChoiceSosial = () => {
                     variant={"outline"}
                     leftIcon={<FcGoogle />}
                     onClick={() => {
-                      onChoice(1);
+                      onChoice(2);
+                      onClose();
+                      router.push("/SignUp/");
                     }}
                   >
                     <Center>
@@ -111,7 +114,8 @@ export const ChoiceSosial = () => {
                     variant={"outline"}
                     leftIcon={<FaUserCircle />}
                     onClick={() => {
-                      onChoice(2);
+                      onChoice(3);
+                      onClose();
                       router.push("/SignUp/");
                     }}
                   >

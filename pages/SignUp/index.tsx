@@ -7,6 +7,7 @@ import {
   Input,
   Stack,
   useColorModeValue,
+  VStack,
   HStack,
   Avatar,
   AvatarBadge,
@@ -21,6 +22,7 @@ import {
   ModalCloseButton,
   ModalFooter,
   Text,
+  Link,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import { AppContext, ChoiceSosialContext } from "../_app";
@@ -34,11 +36,14 @@ export const SignUpPage = (): JSX.Element => {
   return (
     <Layout>
       <>
-        <>
+        <VStack h={"100vh"} w={"100%"}>
           {/* {isChoice === 0 && <ChoiceModal />} */}
           {isChoice === 1 && <EmailProvider />}
-          {isChoice === 2 && <GuestProvider />}
-        </>
+          {isChoice === 3 && <GuestProvider />}
+          <Link href={"/SignIn/"}>
+            <a>すでに登録している人はこちら</a>
+          </Link>
+        </VStack>
       </>
     </Layout>
   );
