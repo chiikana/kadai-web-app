@@ -45,11 +45,9 @@ import {
 } from "react-icons/fi";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
-import { ModalSignIn } from "./signIn";
-// import { ModalSignUp } from "./signUp";
-import { ChoiceSosial } from "./signModal";
+import { ChoiceSignUpSosial, ChoiceSignInSosial } from "./signModal";
 import { FormProvider } from "react-hook-form";
-import { AppContext } from "../pages/_app";
+import { AppContext, UserNameContext } from "../pages/_app";
 import {
   lightBorderColor,
   lightBgColor,
@@ -58,8 +56,10 @@ import {
   darkBgColor,
   darkTextColor,
 } from "./color";
+import { useAuthContext } from "../src/hooks/context/AuthContext";
 
 export const Navbar = () => {
+  const { userName, setUserName } = useContext(UserNameContext);
   const { isSign, onSign } = useContext(AppContext);
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onToggle } = useDisclosure();
@@ -151,7 +151,7 @@ export const Navbar = () => {
                     </HStack>
                   </MenuButton>
                   <MenuList>
-                    <MenuItem>ああああ ああああ</MenuItem>
+                    <MenuItem>{userName}</MenuItem>
                     <MenuDivider />
                     <MenuItem>Profile</MenuItem>
                     <MenuItem>Settings</MenuItem>
@@ -183,9 +183,8 @@ export const Navbar = () => {
               >
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
-              <ModalSignIn></ModalSignIn>
-              {/* <ModalSignUp></ModalSignUp> */}
-              <ChoiceSosial></ChoiceSosial>
+              <ChoiceSignInSosial></ChoiceSignInSosial>
+              <ChoiceSignUpSosial></ChoiceSignUpSosial>
             </Stack>
           )}
         </>
