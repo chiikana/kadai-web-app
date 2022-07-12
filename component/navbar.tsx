@@ -160,6 +160,7 @@ export const Navbar = () => {
                     <MenuItem
                       onClick={() => {
                         onSign(false);
+                        setUserName("");
                       }}
                     >
                       Sign out

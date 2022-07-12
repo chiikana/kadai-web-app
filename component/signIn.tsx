@@ -30,7 +30,11 @@ import { SmallCloseIcon } from "@chakra-ui/icons";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { AppContext, ChoiceSosialContext } from "../pages/_app";
+import {
+  AppContext,
+  ChoiceSosialContext,
+  UserNameContext,
+} from "../pages/_app";
 
 import { app } from "../src/utils/firebase/init";
 // import { useAuthContext } from "../src/context/AuthContext";
@@ -59,6 +63,9 @@ export const EmailProvider = () => {
   };
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.currentTarget.value);
+  };
+  const handleClose = async () => {
+    await router.push("/");
   };
 
   const { isSign, onSign } = useContext(AppContext);
@@ -147,6 +154,8 @@ export const EmailProvider = () => {
               onClose;
               onChoice(0);
               reset({ Uname: "", Email: "", Upass: "" });
+              handleClose;
+              // router.push("/HomePage/");
             }}
           >
             Cancel
@@ -164,6 +173,7 @@ export const EmailProvider = () => {
               onSign(true);
               reset({ Uname: "", Email: "", Upass: "" });
               onChoice(0);
+              handleClose;
               // router.push("/HomePage/");
             }}
             disabled={!isValid}
@@ -180,24 +190,34 @@ export const GuestProvider = () => {
   const { user } = useAuthContext();
   const auth = getAuth(app);
   // const isLoggedIn = !!user;
-  // const [username, setUsername] = useState("");
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isSign, onSign } = useContext(AppContext);
   const { isChoice, onChoice } = useContext(ChoiceSosialContext);
+  const { userName, setUserName } = useContext(UserNameContext);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await createUserWithEmailAndPassword(auth, email, password);
+    onChoice(0);
     router.push("/HoemPage/");
+    onSign(true);
   };
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.currentTarget.value);
   };
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.currentTarget.value);
+  };
+  const handleClose = async () => {
+    await router.push("/HomePage/");
+  };
+  const setGuest = () => {
+    setEmail(`"test@test.com"`);
+    setPassword(`"test1111"`);
+    setUserName(`"Guest"`);
   };
 
   type FormSign = {
@@ -224,6 +244,9 @@ export const GuestProvider = () => {
     <Center>
       <VStack>
         <Text>ゲストログインしますか？</Text>
+        <form onSubmit={handleSubmit}>
+          <FormControl>{}</FormControl>
+        </form>
         <Stack spacing={6} direction={["column", "row"]}>
           <Button
             bg={"red.400"}
@@ -233,16 +256,15 @@ export const GuestProvider = () => {
               bg: "red.500",
             }}
             onClick={() => {
-              onClose;
               onChoice(0);
-              reset({ Uname: "", Email: "", Upass: "" });
+              handleClose;
+              // router.push("/HomePage/");
             }}
           >
             Cancel
           </Button>
           <Button
             type={"submit"}
-            isLoading={isSubmitting}
             bg={"blue.400"}
             color={"white"}
             w="full"
@@ -250,9 +272,9 @@ export const GuestProvider = () => {
               bg: "blue.500",
             }}
             onClick={() => {
-              onSign(true);
-              onChoice(0);
-              router.push("/HomePage/");
+              setGuest;
+              handleClose;
+              // router.push("/HomePage/");
             }}
           >
             Submit

@@ -56,6 +56,9 @@ export const EmailProvider = () => {
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.currentTarget.value);
   };
+  const handleClose = async () => {
+    await router.push("/");
+  };
 
   const { isSign, onSign } = useContext(AppContext);
   type FormSign = {
@@ -143,6 +146,7 @@ export const EmailProvider = () => {
               onClose;
               onChoice(0);
               reset({ Uname: "", Email: "", Upass: "" });
+              handleClose;
             }}
           >
             Cancel
@@ -160,7 +164,8 @@ export const EmailProvider = () => {
               onSign(true);
               reset({ Uname: "", Email: "", Upass: "" });
               onChoice(0);
-              router.push("/HomePage/");
+              handleClose;
+              // router.push("/HomePage/");
             }}
             disabled={!isValid}
           >
@@ -194,6 +199,9 @@ export const GuestProvider = () => {
   };
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.currentTarget.value);
+  };
+  const handleClose = async () => {
+    await router.push("/");
   };
 
   type FormSign = {
@@ -277,6 +285,7 @@ export const GuestProvider = () => {
               onClose;
               onChoice(0);
               reset({ Uname: "", Email: "", Upass: "" });
+              handleClose;
             }}
           >
             Cancel
@@ -292,9 +301,9 @@ export const GuestProvider = () => {
             }}
             onClick={() => {
               onSign(true);
-              reset({ Uname: "", Email: "", Upass: "" });
               onChoice(0);
-              router.push("/HomePage/");
+              reset({ Uname: "", Email: "", Upass: "" });
+              handleClose;
             }}
             disabled={!isValid}
           >

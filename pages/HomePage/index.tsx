@@ -231,7 +231,7 @@ export const HomePage = () => {
                 </Button>
               </HStack>
             </form>
-            <>
+            {/* <>
               {isAlert ? (
                 <motion.div>
                   <Alert status="success">
@@ -243,7 +243,7 @@ export const HomePage = () => {
               ) : (
                 <Button onClick={onOpen}></Button>
               )}
-            </>
+            </> */}
           </VStack>
         </VStack>
       </Layout>
