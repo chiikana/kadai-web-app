@@ -219,6 +219,15 @@ export const GuestProvider = () => {
     setPassword(`"test1111"`);
     setUserName(`"Guest"`);
   };
+  const submitted = () => {
+    setEmail(`"test@test.com"`);
+    setPassword(`"test1111"`);
+    setUserName(`"Guest"`);
+    createUserWithEmailAndPassword(auth, email, password);
+    onChoice(0);
+    onSign(true);
+    // router.push("/HoemPage/");
+  };
 
   type FormSign = {
     Uname: string;
@@ -272,9 +281,15 @@ export const GuestProvider = () => {
               bg: "blue.500",
             }}
             onClick={() => {
-              setGuest;
-              handleClose;
-              // router.push("/HomePage/");
+              // setGuest;
+              // submitted;
+              setEmail(`"test@test.com"`);
+              setPassword(`"test1111"`);
+              setUserName(`"Guest"`);
+              createUserWithEmailAndPassword(auth, email, password);
+              onChoice(0);
+              onSign(true);
+              router.push("/HomePage/");
             }}
           >
             Submit
