@@ -16,11 +16,21 @@ import {
   Td,
   Tfoot,
   TableContainer,
+  Center,
+  Button,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Layout from "../../component/layout";
 
+import { getFirestore, Firestore, getDocs } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
+
+import "../../src/utils/firebase/init"; // Initialize FirebaseApp
+import { useEffect } from "react";
+import { db } from "../../src/utils/firebase/init";
+
 export const HomePage = () => {
+  const firestore: Firestore = getFirestore();
   const dummyData = [
     {
       id: 1,
@@ -58,6 +68,13 @@ export const HomePage = () => {
       selling: 300,
     },
   ];
+
+  useEffect(() => {
+    const dmyDataRef = collection(db, "dummy_data");
+    getDocs(dmyDataRef).then((querySnapshot) => {
+      querySnapshot.docs.forEach((doc) => console.log(doc.data()));
+    });
+  }, []);
 
   const tableBody = () => {
     const output = dummyData.map((value, index) => {
@@ -176,6 +193,9 @@ export const HomePage = () => {
           </TableContainer>
         </Box>
       </Layout>
+      <Center>
+        <Button onClick={() => {}}>Reload</Button>
+      </Center>
     </>
   );
 };

@@ -285,7 +285,7 @@ export const GuestProvider = () => {
               // submitted;
               setEmail(`"test@test.com"`);
               setPassword(`"test1111"`);
-              setUserName(`"Guest"`);
+              setUserName(`Guest`);
               createUserWithEmailAndPassword(auth, email, password);
               onChoice(0);
               onSign(true);

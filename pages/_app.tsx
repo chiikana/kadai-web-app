@@ -6,6 +6,7 @@ import { extendTheme } from "@chakra-ui/react";
 import { Dispatch, useState } from "react";
 import React from "react";
 import { AuthProvider } from "../src/hooks/context/AuthContext";
+import "../src/utils/firebase/init"; // Initialize FirebaseApp
 
 const colors = {
   brand: {
