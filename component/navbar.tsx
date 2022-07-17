@@ -399,13 +399,13 @@ const ROUTE_ITEMS: Array<routeItem> = [
     label: "Table",
     children: [
       {
-        label: "Table",
+        label: "DummyData-Table",
         subLabel: "View Table",
         process: "/TablePage/",
       },
       {
-        label: "Edit",
-        subLabel: "Edit Table",
+        label: "GuestData-Table",
+        subLabel: "View Table",
         process: "/EditPage/",
       },
     ],
