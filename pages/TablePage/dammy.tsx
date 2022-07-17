@@ -17,10 +17,108 @@ import {
   Tfoot,
   TableContainer,
 } from "@chakra-ui/react";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { useRouter } from "next/router";
+import { useEffect, useLayoutEffect } from "react";
 import Layout from "../../component/layout";
+import { db } from "../../src/utils/firebase/init";
+
+// const DummyDataMethod = async () => {
+//   class Dmy {
+//     name: string;
+//     stack: number;
+//     bought: number;
+//     selling: number;
+//     constructor(name: string, stack: number, bought: number, selling: number) {
+//       this.name = name;
+//       this.stack = stack;
+//       this.bought = bought;
+//       this.selling = selling;
+//     }
+//     toString() {
+//       return (
+//         this.name + ", " + this.stack + ", " + this.bought + ", " + this.selling
+//       );
+//     }
+//   }
+
+//   // Firestore data converter
+//   const dmyConverter = {
+//     toFirestore: (dmy: {
+//       name: string;
+//       stack: number;
+//       bought: number;
+//       selling: number;
+//     }) => {
+//       return {
+//         name: dmy.name,
+//         stack: dmy.stack,
+//         bought: dmy.bought,
+//         selling: dmy.selling,
+//       };
+//     },
+//     fromFirestore: (snapshot: { data: (arg0: any) => any }, options: any) => {
+//       const data = snapshot.data(options);
+//       return new Dmy(data.name, data.stack, data.bought, data.selling);
+//     },
+//   };
+
+//   const ref = doc(db, "dummy_data").withConverter(dmyConverter);
+//   const docSnap = await getDoc(ref);
+//   if (docSnap.exists()) {
+//     // Convert to City object
+//     const dmy = docSnap.data();
+//     // Use a City instance method
+//     console.log(dmy.toString());
+//   } else {
+//     console.log("No such document!");
+//   }
+// };
 
 export const HomePage = () => {
+  useLayoutEffect(() => {
+    const road = async () => {
+      let data_id = 0;
+      const colRef = collection(db, "dummy_data");
+      const docRef = doc(colRef, `${data_id + 1}`);
+      const docSnap = await getDoc(docRef);
+      const querySnapshot = await getDocs(colRef);
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        console.log(docSnap.data());
+        return (
+          <Tr>
+            <Td>{doc.id}</Td>
+            <Td>{doc.data().name}</Td>
+            <Td _after={{ content: `"個"` }}>{doc.data().stock}</Td>
+            <Td _after={{ content: `"円"` }}>{doc.data().bought}</Td>
+            <Td _after={{ content: `"円"` }}>{doc.data().selling}</Td>
+          </Tr>
+        );
+      });
+    };
+    road();
+  }, []);
+
+  useEffect(() => {
+    // DummyDataMethod;
+    // const dmyDataRef = collection(db, "dummy_data");
+    // getDocs(dmyDataRef).then((querySnapshot) => {
+    //   querySnapshot.docs.forEach((doc) => {
+    //     console.log(doc.id, "=>", doc.data());
+    //     // return (
+    //     //   <Tr key={doc.data()}>
+    //     //     <Td>{value.id}</Td>
+    //     //     <Td>{value.name}</Td>
+    //     //     <Td _after={{ content: `"個"` }}>{value.stock}</Td>
+    //     //     <Td _after={{ content: `"円"` }}>{value.bought}</Td>
+    //     //     <Td _after={{ content: `"円"` }}>{value.selling}</Td>
+    //     //   </Tr>
+    //     // );
+    //   });
+    // });
+  }, []);
   const dummyData = [
     {
       id: 1,
