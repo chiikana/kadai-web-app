@@ -26,6 +26,8 @@ import { ErrorMessage } from "@hookform/error-message";
 import { motion } from "framer-motion";
 import Layout from "../../component/layout";
 
+import json from "../../component/guestData_table.json";
+
 type FormData = {
   id: string;
   name: string;
@@ -225,6 +227,16 @@ export const HomePage = () => {
                       duration: 5000,
                       isClosable: true,
                     });
+                    const pushData = {
+                      _id: "guest",
+                      id: watch("id"),
+                      name: watch("name"),
+                      stock: watch("stock"),
+                      bought: watch("bought"),
+                      selling: watch("selling"),
+                    };
+                    json.push(pushData);
+                    reset();
                   }}
                 >
                   追加

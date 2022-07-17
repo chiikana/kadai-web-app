@@ -98,9 +98,6 @@ export const TableViewPage = () => {
           </TableContainer>
         </Box>
       </Layout>
-      <Center>
-        <Button onClick={() => {}}>Reload</Button>
-      </Center>
     </>
   );
 };

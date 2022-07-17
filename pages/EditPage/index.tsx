@@ -38,15 +38,17 @@ export const TableViewPage = () => {
 
   const tableBody = (dmyData: any) => {
     const output = dmyData.map((item: any, index: any) => {
-      return (
-        <Tr key={index}>
-          <Td>{item.id}</Td>
-          <Td>{item.name}</Td>
-          <Td _after={{ content: `"個"` }}>{item.stock}</Td>
-          <Td _after={{ content: `"円"` }}>{item.bought}</Td>
-          <Td _after={{ content: `"円"` }}>{item.selling}</Td>
-        </Tr>
-      );
+      if (index !== 0) {
+        return (
+          <Tr key={index}>
+            <Td>{item.id}</Td>
+            <Td>{item.name}</Td>
+            <Td _after={{ content: `"個"` }}>{item.stock}</Td>
+            <Td _after={{ content: `"円"` }}>{item.bought}</Td>
+            <Td _after={{ content: `"円"` }}>{item.selling}</Td>
+          </Tr>
+        );
+      }
     });
     return output;
   };
@@ -98,9 +100,6 @@ export const TableViewPage = () => {
           </TableContainer>
         </Box>
       </Layout>
-      <Center>
-        <Button onClick={() => {}}>Reload</Button>
-      </Center>
     </>
   );
 };
