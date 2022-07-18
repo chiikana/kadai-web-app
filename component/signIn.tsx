@@ -47,8 +47,8 @@ export const EmailProvider = () => {
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.currentTarget.value);
   };
-  const handleClose = async () => {
-    await router.push("/");
+  const handleClose = () => {
+    router.push("/HomePage/");
   };
 
   const { isSign, onSign } = useContext(AppContext);
@@ -137,8 +137,8 @@ export const EmailProvider = () => {
               onClose;
               onChoice(0);
               reset({ Uname: "", Email: "", Upass: "" });
-              handleClose;
-              // router.push("/HomePage/");
+              // handleClose;
+              router.push("/HomePage/");
             }}
           >
             Cancel
@@ -156,7 +156,7 @@ export const EmailProvider = () => {
               onSign(true);
               reset({ Uname: "", Email: "", Upass: "" });
               onChoice(0);
-              handleClose;
+              // handleClose;
               // router.push("/HomePage/");
             }}
             disabled={!isValid}
@@ -249,8 +249,8 @@ export const GuestProvider = () => {
             }}
             onClick={() => {
               onChoice(0);
-              handleClose;
-              // router.push("/HomePage/");
+              // handleClose;
+              router.push("/HomePage/");
             }}
           >
             Cancel
