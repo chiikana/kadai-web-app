@@ -372,7 +372,7 @@ const ROUTE_ITEMS: Array<routeItem> = [
     children: [
       {
         label: "DummyData-Table",
-        subLabel: "最初から入力されているダミーデータを表示します。",
+        subLabel: "ダミーデータを表示します。",
         process: "/TablePage/",
       },
       {
