@@ -125,9 +125,9 @@ export const Navbar = () => {
                   <MenuList>
                     <MenuItem>{userName}</MenuItem>
                     <MenuDivider />
-                    <MenuItem>Profile</MenuItem>
+                    {/* <MenuItem>Profile</MenuItem>
                     <MenuItem>Settings</MenuItem>
-                    <MenuItem>Billing</MenuItem>
+                    <MenuItem>Billing</MenuItem> */}
                     <MenuDivider />
                     <MenuItem
                       onClick={() => {

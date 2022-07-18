@@ -86,7 +86,7 @@ export const HomePage = () => {
                   size={"lg"}
                   textAlign={"left"}
                   variant="outline"
-                  placeholder="idを入力"
+                  placeholder="商品idを入力"
                   type="text"
                   {...register("id", {
                     required: true,
