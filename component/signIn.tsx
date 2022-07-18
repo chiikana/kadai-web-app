@@ -157,7 +157,7 @@ export const EmailProvider = () => {
               reset({ Uname: "", Email: "", Upass: "" });
               onChoice(0);
               // handleClose;
-              // router.push("/HomePage/");
+              router.push("/HomePage/");
             }}
             disabled={!isValid}
           >
