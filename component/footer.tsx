@@ -45,7 +45,7 @@ export const Footer = () => {
             <Link href={"/EditPage/"} passHref replace>
               <a>Edit</a>
             </Link>
-            <Link href={"/StartPage/"} passHref replace>
+            <Link href={"/"} passHref replace>
               <a>Start</a>
             </Link>
           </Stack>
