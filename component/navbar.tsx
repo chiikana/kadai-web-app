@@ -372,14 +372,26 @@ const ROUTE_ITEMS: Array<routeItem> = [
     children: [
       {
         label: "DummyData-Table",
-        subLabel: "View Table",
+        subLabel: "最初から入力されているダミーデータを表示します。",
         process: "/TablePage/",
       },
       {
         label: "GuestData-Table",
-        subLabel: "View Table",
+        subLabel: "HomePageで入力した値を表示します。",
         process: "/EditPage/",
       },
     ],
+    // children: [
+    //   {
+    //     label: "DummyData-Table",
+    //     subLabel: "View Table",
+    //     process: "/TablePage/",
+    //   },
+    //   {
+    //     label: "GuestData-Table",
+    //     subLabel: "View Table",
+    //     process: "/EditPage/",
+    //   },
+    // ],
   },
 ];
