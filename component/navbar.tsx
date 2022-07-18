@@ -1,62 +1,40 @@
 import {
-  Box,
-  Flex,
-  Text,
-  IconButton,
-  Button,
-  Stack,
-  Collapse,
-  Icon,
-  Link,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  useColorModeValue,
-  useBreakpointValue,
-  useDisclosure,
-  useColorMode,
-  VStack,
-  Avatar,
-  Center,
-  HStack,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-} from "@chakra-ui/react";
-import {
-  HamburgerIcon,
-  CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
+  CloseIcon,
+  HamburgerIcon,
   MoonIcon,
   SunIcon,
 } from "@chakra-ui/icons";
 import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
-  FiMenu,
-  FiBell,
-  FiChevronDown,
-} from "react-icons/fi";
+  Avatar,
+  Box,
+  Button,
+  Collapse,
+  Flex,
+  HStack,
+  Icon,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Stack,
+  Text,
+  useBreakpointValue,
+  useColorMode,
+  useColorModeValue,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
-import { ChoiceSignUpSosial, ChoiceSignInSosial } from "./signModal";
-import { FormProvider } from "react-hook-form";
+import { FiChevronDown } from "react-icons/fi";
 import { AppContext, UserNameContext } from "../pages/_app";
-import {
-  lightBorderColor,
-  lightBgColor,
-  lightTextColor,
-  darkBorderColor,
-  darkBgColor,
-  darkTextColor,
-} from "./color";
-import { useAuthContext } from "../src/hooks/context/AuthContext";
+import { ChoiceSignInSosial, ChoiceSignUpSosial } from "./signModal";
 
 export const Navbar = () => {
   const { userName, setUserName } = useContext(UserNameContext);
@@ -69,18 +47,12 @@ export const Navbar = () => {
   return (
     <Box>
       <Flex
-        // bg={useColorModeValue("gray.50", "gray.800")}
         bg={toggleBgColor}
         color={toggleTextColor}
-        // minH={"100vh"}
         minW={"full"}
         minH={"60px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
-        // borderBottom={1}
-        // borderStyle={"solid"}
-        // borderColor={useColorModeValue("gray.200", "gray.900")}
-        // align={"center"}
       >
         <Flex
           flex={{ base: 1, md: "auto" }}
@@ -153,9 +125,9 @@ export const Navbar = () => {
                   <MenuList>
                     <MenuItem>{userName}</MenuItem>
                     <MenuDivider />
-                    <MenuItem>Profile</MenuItem>
+                    {/* <MenuItem>Profile</MenuItem>
                     <MenuItem>Settings</MenuItem>
-                    <MenuItem>Billing</MenuItem>
+                    <MenuItem>Billing</MenuItem> */}
                     <MenuDivider />
                     <MenuItem
                       onClick={() => {

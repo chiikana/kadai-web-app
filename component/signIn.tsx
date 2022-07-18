@@ -1,35 +1,18 @@
 import {
   Button,
-  Flex,
+  Center,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Stack,
-  useColorModeValue,
-  HStack,
-  VStack,
-  Avatar,
-  AvatarBadge,
-  IconButton,
-  Center,
-  Modal,
-  ModalBody,
-  useDisclosure,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalFooter,
   Text,
+  useColorModeValue,
+  useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
-import { FaUserCircle } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { MdEmail } from "react-icons/md";
-import { SmallCloseIcon } from "@chakra-ui/icons";
+import { ErrorMessage } from "@hookform/error-message";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import {
   AppContext,
   ChoiceSosialContext,
@@ -39,11 +22,11 @@ import {
 import { app } from "../src/utils/firebase/init";
 // import { useAuthContext } from "../src/context/AuthContext";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
+  getAuth,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useAuthContext } from "../src/hooks/context/AuthContext";
 
 export const EmailProvider = () => {
@@ -64,8 +47,8 @@ export const EmailProvider = () => {
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.currentTarget.value);
   };
-  const handleClose = async () => {
-    await router.push("/");
+  const handleClose = () => {
+    router.push("/HomePage/");
   };
 
   const { isSign, onSign } = useContext(AppContext);
@@ -154,8 +137,8 @@ export const EmailProvider = () => {
               onClose;
               onChoice(0);
               reset({ Uname: "", Email: "", Upass: "" });
-              handleClose;
-              // router.push("/HomePage/");
+              // handleClose;
+              router.push("/HomePage/");
             }}
           >
             Cancel
@@ -173,7 +156,7 @@ export const EmailProvider = () => {
               onSign(true);
               reset({ Uname: "", Email: "", Upass: "" });
               onChoice(0);
-              handleClose;
+              // handleClose;
               // router.push("/HomePage/");
             }}
             disabled={!isValid}
@@ -266,8 +249,8 @@ export const GuestProvider = () => {
             }}
             onClick={() => {
               onChoice(0);
-              handleClose;
-              // router.push("/HomePage/");
+              // handleClose;
+              router.push("/HomePage/");
             }}
           >
             Cancel

@@ -1,33 +1,18 @@
 import {
   Box,
-  Heading,
-  HStack,
-  VStack,
-  Text,
-  useColorMode,
-  useColorModeValue,
-  Flex,
   Table,
-  TableCaption,
-  Thead,
-  Th,
-  Tr,
+  TableContainer,
   Tbody,
   Td,
   Tfoot,
-  TableContainer,
-  Center,
-  Button,
+  Th,
+  Thead,
+  Tr,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Layout from "../../component/layout";
 
-import { getFirestore, Firestore, getDocs, getDoc } from "firebase/firestore";
-import { collection, doc, setDoc } from "firebase/firestore";
-
 import "../../src/utils/firebase/init"; // Initialize FirebaseApp
-import { useEffect, useLayoutEffect, useState } from "react";
-import { db } from "../../src/utils/firebase/init";
 
 import json from "../../component/guestData_table.json";
 
@@ -59,7 +44,6 @@ export const TableViewPage = () => {
         <Box h={"100vh"} w={"100%"}>
           <TableContainer
             border="1px solid #999999"
-            // marginTop={8}
             maxHeight="full"
             overflowX="auto"
             overflowY="auto"
@@ -79,13 +63,6 @@ export const TableViewPage = () => {
                   <Th>seling</Th>
                 </Tr>
               </Thead>
-              {/* <Tbody>{tableBody(ids, names, stocks, boughts, sellings)}</Tbody> */}
-              {/* <Tbody>
-                {datas.map((value, index) => {
-                  console.log("index=>", index, "/ value=>", value);
-                  return <Tr key={index}>{value}</Tr>;
-                })}
-              </Tbody> */}
               <Tbody>{tableBody(data)}</Tbody>
               <Tfoot>
                 <Tr>
