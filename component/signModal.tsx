@@ -80,7 +80,7 @@ export const ChoiceSignUpSosial = () => {
                   </Button>
 
                   {/* Google */}
-                  <Button
+                  {/* <Button
                     w={"full"}
                     variant={"outline"}
                     leftIcon={<FcGoogle />}
@@ -93,7 +93,7 @@ export const ChoiceSignUpSosial = () => {
                     <Center>
                       <Text>Sign in with Google</Text>
                     </Center>
-                  </Button>
+                  </Button> */}
                 </Stack>
               </Center>
             </ModalBody>
@@ -157,7 +157,7 @@ export const ChoiceSignInSosial = () => {
                   </Button>
 
                   {/* Google */}
-                  <Button
+                  {/* <Button
                     w={"full"}
                     variant={"outline"}
                     leftIcon={<FcGoogle />}
@@ -170,7 +170,7 @@ export const ChoiceSignInSosial = () => {
                     <Center>
                       <Text>Sign in with Google</Text>
                     </Center>
-                  </Button>
+                  </Button> */}
 
                   {/* Guest */}
                   <Button
