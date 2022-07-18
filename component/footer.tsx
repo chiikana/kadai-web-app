@@ -2,14 +2,12 @@ import {
   Box,
   chakra,
   Container,
-  // Link,
   Stack,
+  Text,
   useColorModeValue,
   VisuallyHidden,
-  Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { ReactNode } from "react";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 

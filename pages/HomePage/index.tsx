@@ -1,29 +1,21 @@
 import {
-  Alert,
-  AlertIcon,
-  Box,
   Button,
-  CloseButton,
   FormControl,
-  FormErrorMessage,
   FormLabel,
   Heading,
   HStack,
   Input,
+  InputGroup,
+  InputRightAddon,
   Spacer,
-  useColorModeValue,
+  Text,
   useDisclosure,
   useToast,
   VStack,
-  Text,
-  InputGroup,
-  InputRightAddon,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { motion } from "framer-motion";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
 import Layout from "../../component/layout";
 
 import json from "../../component/guestData_table.json";
@@ -243,19 +235,6 @@ export const HomePage = () => {
                 </Button>
               </HStack>
             </form>
-            {/* <>
-              {isAlert ? (
-                <motion.div>
-                  <Alert status="success">
-                    <AlertIcon />
-                    送信成功
-                    <CloseButton onClick={onClose} />
-                  </Alert>
-                </motion.div>
-              ) : (
-                <Button onClick={onOpen}></Button>
-              )}
-            </> */}
           </VStack>
         </VStack>
       </Layout>

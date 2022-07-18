@@ -1,36 +1,23 @@
 import {
   Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  Stack,
-  useColorModeValue,
-  HStack,
-  Avatar,
-  AvatarBadge,
-  IconButton,
   Center,
   Modal,
   ModalBody,
-  useDisclosure,
-  ModalOverlay,
+  ModalCloseButton,
   ModalContent,
   ModalHeader,
-  ModalCloseButton,
-  ModalFooter,
+  ModalOverlay,
+  Stack,
   Text,
+  useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import React, { useContext } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { MdEmail } from "react-icons/md";
-import { SmallCloseIcon } from "@chakra-ui/icons";
-import React, { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
-import { AppContext, ChoiceSosialContext } from "../pages/_app";
-import { useRouter } from "next/router";
+import { ChoiceSosialContext } from "../pages/_app";
 
 export const ChoiceSignUpSosial = () => {
   const router = useRouter();
@@ -107,22 +94,6 @@ export const ChoiceSignUpSosial = () => {
                       <Text>Sign in with Google</Text>
                     </Center>
                   </Button>
-
-                  {/* Guest
-                  <Button
-                    w={"full"}
-                    variant={"outline"}
-                    leftIcon={<FaUserCircle />}
-                    onClick={() => {
-                      onChoice(3);
-                      onClose();
-                      router.push("/SignUp/");
-                    }}
-                  >
-                    <Center>
-                      <Text>Sign in with Guest</Text>
-                    </Center>
-                  </Button> */}
                 </Stack>
               </Center>
             </ModalBody>

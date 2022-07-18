@@ -1,5 +1,4 @@
 import { Box, Text } from "@chakra-ui/react";
-import type { NextPage } from "next";
 
 import { useRouter } from "next/router";
 
@@ -19,7 +18,6 @@ const StartPage = () => {
       >
         <Text fontSize={"40vh"}>START</Text>
       </Box>
-      {/* <HomePage></HomePage> */}
     </>
   );
 };

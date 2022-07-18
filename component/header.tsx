@@ -1,7 +1,7 @@
-import { Box, useColorModeValue, Text, Flex } from "@chakra-ui/react";
-import Navbar from "./navbar";
+import { Box, useColorModeValue } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { ScrollContext } from "../pages/_app";
+import Navbar from "./navbar";
 
 export const Header = () => {
   const toggleBorderColor = useColorModeValue("gray.200", "gray.500");

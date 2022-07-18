@@ -1,41 +1,24 @@
 import {
   Button,
-  Flex,
+  Center,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Stack,
-  useColorModeValue,
-  HStack,
-  VStack,
-  Avatar,
-  AvatarBadge,
-  IconButton,
-  Center,
-  Modal,
-  ModalBody,
-  useDisclosure,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalFooter,
   Text,
+  useColorModeValue,
+  useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
-import { FaUserCircle } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { MdEmail } from "react-icons/md";
-import { SmallCloseIcon } from "@chakra-ui/icons";
+import { ErrorMessage } from "@hookform/error-message";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import { AppContext, ChoiceSosialContext } from "../pages/_app";
 
 import { app } from "../src/utils/firebase/init";
 // import { useAuthContext } from "../src/context/AuthContext";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { Router, useRouter } from "next/router";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { useRouter } from "next/router";
 
 export const EmailProvider = () => {
   // const { user } = useAuthContext();

@@ -1,35 +1,10 @@
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  Stack,
-  useColorModeValue,
-  VStack,
-  HStack,
-  Avatar,
-  AvatarBadge,
-  IconButton,
-  Center,
-  Modal,
-  ModalBody,
-  useDisclosure,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalFooter,
-  Text,
-  Link,
-} from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
-import { AppContext, ChoiceSosialContext } from "../_app";
-import { GuestProvider, EmailProvider } from "../../component/signUp";
+import { Heading, Link, useDisclosure, VStack } from "@chakra-ui/react";
+import { useContext } from "react";
+import { EmailProvider, GuestProvider } from "../../component/signUp";
+import { ChoiceSosialContext } from "../_app";
 
-import Layout from "../../component/layout";
 import { useRouter } from "next/router";
+import Layout from "../../component/layout";
 
 export const SignUpPage = (): JSX.Element => {
   const router = useRouter();
