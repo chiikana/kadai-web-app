@@ -8,6 +8,7 @@ import {
   VisuallyHidden,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { ReactNode } from "react";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
@@ -15,6 +16,7 @@ export const Footer = () => {
   const toggleTextColor = useColorModeValue("gray.800", "white");
   const toggleBgColor = useColorModeValue("gray.50", "gray.800");
   const toggleBorderColor = useColorModeValue("gray.200", "gray.900");
+  const router = useRouter();
   return (
     <>
       {/* <Box as="p">フッター上だよ</Box> */}
@@ -65,13 +67,29 @@ export const Footer = () => {
           >
             <Text>© kanato suzaki. All rights reserved</Text>
             <Stack direction={"row"} spacing={6}>
-              <SocialButton label={"Twitter"} href={"#"}>
+              <SocialButton
+                label={"Twitter"}
+                onClick={() => {
+                  router.push("/JumpPage/");
+                }}
+                // href={"/JumpPage/"}
+              >
                 <FaTwitter />
               </SocialButton>
-              <SocialButton label={"YouTube"} href={"#"}>
+              <SocialButton
+                label={"YouTube"}
+                onClick={() => {
+                  router.push("/JumpPage/");
+                }}
+              >
                 <FaYoutube />
               </SocialButton>
-              <SocialButton label={"Instagram"} href={"#"}>
+              <SocialButton
+                label={"Instagram"}
+                onClick={() => {
+                  router.push("/JumpPage/");
+                }}
+              >
                 <FaInstagram />
               </SocialButton>
             </Stack>
@@ -87,11 +105,13 @@ export default Footer;
 const SocialButton = ({
   children,
   label,
-  href,
+  // href,
+  onClick,
 }: {
   children: ReactNode;
   label: string;
-  href: string;
+  // href: string;
+  onClick: () => void;
 }) => {
   return (
     <chakra.button
@@ -101,7 +121,8 @@ const SocialButton = ({
       h={8}
       cursor={"pointer"}
       as={"a"}
-      href={href}
+      // href={href}
+      onClick={onClick}
       display={"inline-flex"}
       alignItems={"center"}
       justifyContent={"center"}

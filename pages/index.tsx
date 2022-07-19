@@ -7,12 +7,16 @@ const Home: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
+    let tid: NodeJS.Timeout;
     const onload = () => {
-      setTimeout(() => {
+      tid = setTimeout(() => {
         router.push("/HomePage/");
       }, 2000);
     };
     onload();
+    return () => {
+      clearTimeout(tid);
+    };
   });
   return (
     <>
