@@ -41,7 +41,7 @@ export const TableViewPage = () => {
       <Layout>
         <Box h={"100vh"} w={"100%"}>
           <TableContainer
-            border="1px solid #999999"
+            borderY={"1px solid #999999"}
             maxHeight="full"
             overflowX="auto"
             overflowY="auto"

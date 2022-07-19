@@ -129,7 +129,8 @@ export const EmailProvider = () => {
               onClose;
               onChoice(0);
               reset({ Uname: "", Email: "", Upass: "" });
-              handleClose;
+              // handleClose;
+              router.push("/HomePage/");
             }}
           >
             Cancel
@@ -147,8 +148,8 @@ export const EmailProvider = () => {
               onSign(true);
               reset({ Uname: "", Email: "", Upass: "" });
               onChoice(0);
-              handleClose;
-              // router.push("/HomePage/");
+              // handleClose;
+              router.push("/HomePage/");
             }}
             disabled={!isValid}
           >
