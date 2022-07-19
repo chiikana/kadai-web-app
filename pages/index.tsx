@@ -20,6 +20,7 @@ const Home: NextPage = () => {
   });
   return (
     <>
+      <title>在庫管理アプリ</title>
       <Box
         minH={"100vh"}
         minW={"100vw"}
