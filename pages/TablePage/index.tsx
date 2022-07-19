@@ -57,8 +57,8 @@ export const TableViewPage = () => {
                   <Th>id</Th>
                   <Th>name</Th>
                   <Th>stock</Th>
-                  <Th>bought</Th>
-                  <Th>seling</Th>
+                  <Th>cost</Th>
+                  <Th>price</Th>
                 </Tr>
               </Thead>
               <Tbody>{tableBody(data)}</Tbody>
@@ -67,8 +67,8 @@ export const TableViewPage = () => {
                   <Th>id</Th>
                   <Th>name</Th>
                   <Th>stock</Th>
-                  <Th>bought</Th>
-                  <Th>seling</Th>
+                  <Th>cost</Th>
+                  <Th>price</Th>
                 </Tr>
               </Tfoot>
             </Table>
