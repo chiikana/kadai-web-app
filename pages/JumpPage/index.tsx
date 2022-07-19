@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 import Layout from "../../component/layout";
+import React from "react";
 
 export const JumpPage = (): JSX.Element => {
   const router = useRouter();
