@@ -24,8 +24,8 @@ type FormData = {
   id: string;
   name: string;
   stock: string;
-  bought: string;
-  selling: string;
+  cost: string;
+  price: string;
 };
 
 export const HomePage = () => {
@@ -52,7 +52,7 @@ export const HomePage = () => {
     //   id: "0",
     //   name: "",
     //   stock: "0",
-    //   bought: "0",
+    //   cost: "0",
     //   selling: "0",
     // },
   });
@@ -66,8 +66,8 @@ export const HomePage = () => {
   console.log(watch("id"));
   console.log(watch("name"));
   console.log(watch("stock"));
-  console.log(watch("bought"));
-  console.log(watch("selling"));
+  console.log(watch("cost"));
+  console.log(watch("price"));
   const toast = useToast();
   const { isOpen: isAlert, onOpen, onClose } = useDisclosure();
 
@@ -152,15 +152,15 @@ export const HomePage = () => {
                 />
               </FormControl>
               <FormControl>
-                <FormLabel>bought</FormLabel>
+                <FormLabel>cost</FormLabel>
                 <InputGroup size={"lg"}>
                   <Input
                     size={"lg"}
                     textAlign={"left"}
                     variant="outline"
-                    placeholder="仕入れ金額を入力"
+                    placeholder="製作費を入力"
                     type="text"
-                    {...register("bought", {
+                    {...register("cost", {
                       required: true,
                       pattern: {
                         value: /^[1-9][0-9]*$/,
@@ -172,14 +172,14 @@ export const HomePage = () => {
                 </InputGroup>
                 <ErrorMessage
                   errors={errors}
-                  name="bought"
+                  name="cost"
                   render={({ message }) => (
                     <Text color={"red.400"}>{message}</Text>
                   )}
                 />
               </FormControl>
               <FormControl>
-                <FormLabel>selling</FormLabel>
+                <FormLabel>price</FormLabel>
                 <InputGroup size={"lg"}>
                   <Input
                     size={"lg"}
@@ -187,7 +187,7 @@ export const HomePage = () => {
                     variant="outline"
                     placeholder="販売金額を入力"
                     type="text"
-                    {...register("selling", {
+                    {...register("price", {
                       required: true,
                       pattern: {
                         value: /^[1-9][0-9]*$/,
@@ -199,7 +199,7 @@ export const HomePage = () => {
                 </InputGroup>
                 <ErrorMessage
                   errors={errors}
-                  name="selling"
+                  name="price"
                   render={({ message }) => (
                     <Text color={"red.400"}>{message}</Text>
                   )}
@@ -224,8 +224,8 @@ export const HomePage = () => {
                       id: watch("id"),
                       name: watch("name"),
                       stock: watch("stock"),
-                      bought: watch("bought"),
-                      selling: watch("selling"),
+                      bought: watch("cost"),
+                      selling: watch("price"),
                     };
                     json.push(pushData);
                     reset();

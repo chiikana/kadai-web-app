@@ -20,6 +20,7 @@ export default function Layout({ children }: Props) {
         minW={"full"}
         display={"flex"}
         justifyContent={"center"}
+        zIndex={0}
       >
         {children}
       </Box>

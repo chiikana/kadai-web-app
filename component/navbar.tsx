@@ -77,7 +77,7 @@ export const Navbar = () => {
           <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontSize={useBreakpointValue({
-              base: "xl",
+              base: "lg",
               md: "3xl",
             })}
             color={toggleTextColor}

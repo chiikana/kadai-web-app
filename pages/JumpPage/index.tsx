@@ -4,17 +4,24 @@ import { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 import Layout from "../../component/layout";
+import React from "react";
 
 export const JumpPage = (): JSX.Element => {
   const router = useRouter();
-  const [timerCnt, setTimerCnt] = useState();
+  const [timerCnt, setTimerCnt] = useState(5);
 
   useEffect(() => {
     let tid: NodeJS.Timeout;
     const onload = () => {
-      tid = setTimeout(() => {
-        router.push("/HomePage/");
-      }, 5000);
+      tid = setInterval(() => {
+        setTimerCnt(timerCnt - 1);
+        if (timerCnt <= 1) {
+          router.push("/HomePage/");
+        }
+      }, 1000);
+      // tid = setTimeout(() => {
+      //   router.push("/HomePage/");
+      // }, 5000);
     };
     onload();
     return () => {
@@ -38,6 +45,7 @@ export const JumpPage = (): JSX.Element => {
           <Text>
             開発段階のためソーシャルアカウントへのジャンプはしません。
           </Text>
+          <Text>{timerCnt}秒後にHomeへ移動します</Text>
           <Link href={"/HomePage/"} passHref replace>
             <a>
               <Text fontSize={"2.5vw"}>ClickでHomeへ</Text>

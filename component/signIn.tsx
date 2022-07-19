@@ -22,9 +22,9 @@ import {
 import { app } from "../src/utils/firebase/init";
 // import { useAuthContext } from "../src/context/AuthContext";
 import {
-  createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
+  signInAnonymously,
 } from "firebase/auth";
 import { useRouter } from "next/router";
 import { useAuthContext } from "../src/hooks/context/AuthContext";
@@ -172,6 +172,7 @@ export const EmailProvider = () => {
 export const GuestProvider = () => {
   const { user } = useAuthContext();
   const auth = getAuth(app);
+
   // const isLoggedIn = !!user;
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -183,9 +184,9 @@ export const GuestProvider = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await createUserWithEmailAndPassword(auth, email, password);
+    await signInWithEmailAndPassword(auth, email, password);
     onChoice(0);
-    router.push("/HoemPage/");
+    router.push("/HomePage/");
     onSign(true);
   };
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -206,7 +207,7 @@ export const GuestProvider = () => {
     setEmail(`"test@test.com"`);
     setPassword(`"test1111"`);
     setUserName(`"Guest"`);
-    createUserWithEmailAndPassword(auth, email, password);
+    signInWithEmailAndPassword(auth, email, password);
     onChoice(0);
     onSign(true);
     // router.push("/HoemPage/");
@@ -232,6 +233,7 @@ export const GuestProvider = () => {
   const toggleNavHoverColor = useColorModeValue("teal.50", "teal.900");
   const navAccentColor = "teal.400";
   const navAccentHoverColor = "teal.300";
+
   return (
     <Center>
       <VStack>
@@ -266,13 +268,23 @@ export const GuestProvider = () => {
             onClick={() => {
               // setGuest;
               // submitted;
-              setEmail(`"test@test.com"`);
-              setPassword(`"test1111"`);
-              setUserName(`Guest`);
-              createUserWithEmailAndPassword(auth, email, password);
-              onChoice(0);
-              onSign(true);
-              router.push("/HomePage/");
+              // setEmail(`"test@test.com"`);
+              // setPassword(`"test1111"`);
+              // setUserName(`Guest`);
+              // signInWithEmailAndPassword(auth, email, password);
+              signInAnonymously(auth)
+                .then(() => {
+                  // Signed in..
+                  setUserName(`Guest`);
+                  onChoice(0);
+                  onSign(true);
+                  router.push("/HomePage/");
+                })
+                .catch((error) => {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  // ...
+                });
             }}
           >
             Submit

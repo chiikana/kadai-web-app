@@ -26,6 +26,7 @@ export const Footer = () => {
         borderTop={1}
         borderStyle={"solid"}
         borderColor={toggleBorderColor}
+        top={"100vh"}
       >
         <Container
           as={Stack}
