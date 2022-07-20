@@ -58,7 +58,7 @@ export const ChoiceSignUpSosial = () => {
         >
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Sign Up</ModalHeader>
+            <ModalHeader>SIGN UP</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
               <Center p={8}>
@@ -135,7 +135,7 @@ export const ChoiceSignInSosial = () => {
         >
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Sign Up</ModalHeader>
+            <ModalHeader>SIGN IN</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
               <Center p={8}>
