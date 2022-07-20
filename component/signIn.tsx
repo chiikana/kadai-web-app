@@ -178,7 +178,7 @@ export const EmailProvider = () => {
             }}
             disabled={!isValid}
           >
-            Submit
+            Sign In
           </Button>
         </Stack>
         <Text textColor={"red"}>{Error}</Text>
@@ -306,7 +306,7 @@ export const GuestProvider = () => {
                 });
             }}
           >
-            Submit
+            Sign In
           </Button>
         </Stack>
       </VStack>
