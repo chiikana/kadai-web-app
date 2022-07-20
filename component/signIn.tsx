@@ -35,6 +35,7 @@ export const EmailProvider = () => {
   // const isLoggedIn = !!user;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [Error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -69,6 +70,7 @@ export const EmailProvider = () => {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isChoice, onChoice } = useContext(ChoiceSosialContext);
+  const { userName, setUserName } = useContext(UserNameContext);
 
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -153,17 +155,33 @@ export const EmailProvider = () => {
               bg: "blue.500",
             }}
             onClick={() => {
-              onSign(true);
-              reset({ Uname: "", Email: "", Upass: "" });
-              onChoice(0);
+              const auth = getAuth();
+              signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                  // Signed in
+                  const user = userCredential.user;
+                  setUserName(email.split("@")[0]);
+                  onSign(true);
+                  reset({ Uname: "", Email: "", Upass: "" });
+                  onChoice(0);
+                  router.push("/HomePage/");
+                  // ...
+                })
+                .catch((error) => {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  console.log(errorCode);
+                  console.log(errorMessage);
+                  setError("アカウントが見つかりません");
+                });
               // handleClose;
-              router.push("/HomePage/");
             }}
             disabled={!isValid}
           >
             Submit
           </Button>
         </Stack>
+        <Text textColor={"red"}>{Error}</Text>
       </VStack>
     </Center>
   );
@@ -279,6 +297,7 @@ export const GuestProvider = () => {
                   onChoice(0);
                   onSign(true);
                   router.push("/HomePage/");
+                  console.log("Sign-in successful.");
                 })
                 .catch((error) => {
                   const errorCode = error.code;

@@ -30,6 +30,7 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import { getAuth, signOut } from "firebase/auth";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
@@ -131,8 +132,18 @@ export const Navbar = () => {
                     <MenuDivider />
                     <MenuItem
                       onClick={() => {
-                        onSign(false);
-                        setUserName("");
+                        const auth = getAuth();
+                        signOut(auth)
+                          .then(() => {
+                            // Sign-out successful.
+                            onSign(false);
+                            setUserName("");
+                            console.log("Sign-out successful.");
+                          })
+                          .catch((error) => {
+                            // An error happened.
+                            console.log("An error happened.");
+                          });
                       }}
                     >
                       Sign out
