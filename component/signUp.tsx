@@ -13,7 +13,11 @@ import {
 import { ErrorMessage } from "@hookform/error-message";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { AppContext, ChoiceSosialContext } from "../pages/_app";
+import {
+  AppContext,
+  ChoiceSosialContext,
+  UserNameContext,
+} from "../pages/_app";
 
 import { app } from "../src/utils/firebase/init";
 // import { useAuthContext } from "../src/context/AuthContext";
@@ -61,6 +65,8 @@ export const EmailProvider = () => {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isChoice, onChoice } = useContext(ChoiceSosialContext);
+  const { userName, setUserName } = useContext(UserNameContext);
+  const [Error, setError] = useState("");
 
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -145,17 +151,34 @@ export const EmailProvider = () => {
               bg: "blue.500",
             }}
             onClick={() => {
-              onSign(true);
-              reset({ Uname: "", Email: "", Upass: "" });
-              onChoice(0);
-              // handleClose;
-              router.push("/HomePage/");
+              const auth = getAuth();
+              createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                  // Signed in
+                  const user = userCredential.user;
+                  setUserName(email.split("@")[0]);
+                  onSign(true);
+                  onChoice(0);
+                  reset({ Uname: "", Email: "", Upass: "" });
+                  handleClose;
+                  router.push("/HomePage/");
+                  // ...
+                })
+                .catch((error) => {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  console.log(errorCode);
+                  console.log(errorMessage);
+                  setError(errorMessage);
+                  // ..
+                });
             }}
             disabled={!isValid}
           >
             Submit
           </Button>
         </Stack>
+        <Text>{Error}</Text>
       </VStack>
     </Center>
   );
@@ -284,10 +307,22 @@ export const GuestProvider = () => {
               bg: "blue.500",
             }}
             onClick={() => {
-              onSign(true);
-              onChoice(0);
-              reset({ Uname: "", Email: "", Upass: "" });
-              handleClose;
+              const auth = getAuth();
+              createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                  // Signed in
+                  const user = userCredential.user;
+                  onSign(true);
+                  onChoice(0);
+                  reset({ Uname: "", Email: "", Upass: "" });
+                  handleClose;
+                  // ...
+                })
+                .catch((error) => {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  // ..
+                });
             }}
             disabled={!isValid}
           >
