@@ -1,5 +1,6 @@
 import {
   Box,
+  Heading,
   Table,
   TableContainer,
   Tbody,
@@ -40,6 +41,7 @@ export const TableViewPage = () => {
     <>
       <Layout>
         <Box h={"100vh"} w={"100%"}>
+          <Heading textAlign={"center"}>DummyData-Table</Heading>
           <TableContainer
             borderY={"1px solid #999999"}
             maxHeight="full"

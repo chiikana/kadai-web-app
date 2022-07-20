@@ -175,7 +175,7 @@ export const EmailProvider = () => {
             }}
             disabled={!isValid}
           >
-            Submit
+            Sign Up
           </Button>
         </Stack>
         <Text>{Error}</Text>

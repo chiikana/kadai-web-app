@@ -1,5 +1,6 @@
 import {
   Box,
+  Heading,
   Table,
   TableContainer,
   Tbody,
@@ -8,6 +9,7 @@ import {
   Th,
   Thead,
   Tr,
+  VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Layout from "../../component/layout";
@@ -21,8 +23,8 @@ export const TableViewPage = () => {
 
   let data = json;
 
-  const tableBody = (dmyData: any) => {
-    const output = dmyData.map((item: any, index: any) => {
+  const tableBody = (gstData: any) => {
+    const output = gstData.map((item: any, index: any) => {
       if (index !== 0) {
         return (
           <Tr key={index}>
@@ -42,6 +44,7 @@ export const TableViewPage = () => {
     <>
       <Layout>
         <Box h={"100vh"} w={"100%"}>
+          <Heading textAlign={"center"}>GuestData-Table</Heading>
           <TableContainer
             borderY={"1px solid #999999"}
             maxHeight="full"
