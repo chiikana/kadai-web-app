@@ -1,24 +1,23 @@
-import { Heading, useDisclosure, VStack } from "@chakra-ui/react";
-import { useContext } from "react";
-import { EmailProvider, GuestProvider } from "../../component/signIn";
-import { ChoiceSosialContext } from "../_app";
+import { Center, Heading, useDisclosure, VStack } from "@chakra-ui/react"
+import { useContext } from "react"
+import { EmailSignin, GuestSignin } from "@/components/Signin"
+import { ChoiceSosialContext } from "../_app"
 
-import Layout from "../../component/layout";
+import { Layout } from "@/components/Layout"
 
-export const SignUpPage = (): JSX.Element => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isChoice, onChoice } = useContext(ChoiceSosialContext);
+export const SigninPage = (): JSX.Element => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { choice, setChoice } = useContext(ChoiceSosialContext)
   return (
-    <Layout>
-      <>
-        <VStack h={"100vh"} w={"100%"}>
-          <Heading>SIGN IN</Heading>
-          {/* {isChoice === 0 && <ChoiceModal />} */}
-          {isChoice === 1 && <EmailProvider />}
-          {isChoice === 3 && <GuestProvider />}
-        </VStack>
-      </>
+    <Layout hasHeader={true}>
+      <Center>
+        {/* <VStack h={"100vh"} w={"100%"}> */}
+        {/* <Heading>ログイン</Heading> */}
+        {/* {choice === 0 && <ChoiceModal />} */}
+        {choice === 1 && <EmailSignin />}
+        {choice === 3 && <GuestSignin />}
+      </Center>
     </Layout>
-  );
-};
-export default SignUpPage;
+  )
+}
+export default SigninPage

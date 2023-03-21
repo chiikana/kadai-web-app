@@ -9,18 +9,16 @@ import {
   Th,
   Thead,
   Tr,
-} from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import Layout from "../../component/layout";
+} from "@chakra-ui/react"
+import { useRouter } from "next/router"
+import { Layout } from "@/components/Layout"
 
-import "../../src/utils/firebase/init"; // Initialize FirebaseApp
-
-import json from "../../component/dmyData_table.json";
+import json from "@/components/dmyData_table.json"
 
 export const TableViewPage = () => {
-  const router = useRouter();
+  const router = useRouter()
 
-  let data = json;
+  let data = json
 
   const tableBody = (dmyData: any) => {
     const output = dmyData.map((item: any, index: any) => {
@@ -32,10 +30,10 @@ export const TableViewPage = () => {
           <Td _after={{ content: `"円"` }}>{item.bought}</Td>
           <Td _after={{ content: `"円"` }}>{item.selling}</Td>
         </Tr>
-      );
-    });
-    return output;
-  };
+      )
+    })
+    return output
+  }
 
   return (
     <>
@@ -49,12 +47,7 @@ export const TableViewPage = () => {
             overflowY="auto"
           >
             <Table variant="striped" colorScheme="blue" size="md">
-              <Thead
-                borderBottom="1px solid #999999"
-                position="sticky"
-                left={0}
-                top={0}
-              >
+              <Thead borderBottom="1px solid #999999" position="sticky" left={0} top={0}>
                 <Tr>
                   <Th>id</Th>
                   <Th>name</Th>
@@ -78,6 +71,6 @@ export const TableViewPage = () => {
         </Box>
       </Layout>
     </>
-  );
-};
-export default TableViewPage;
+  )
+}
+export default TableViewPage

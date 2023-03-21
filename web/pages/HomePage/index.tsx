@@ -12,38 +12,30 @@ import {
   useDisclosure,
   useToast,
   VStack,
-} from "@chakra-ui/react";
-import { ErrorMessage } from "@hookform/error-message";
-import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
-import Layout from "../../component/layout";
+} from "@chakra-ui/react"
+import { ErrorMessage } from "@hookform/error-message"
+import { useRouter } from "next/router"
+import { useForm } from "react-hook-form"
+import { Layout } from "@/components/Layout"
 
-import json from "../../component/guestData_table.json";
+import json from "@/components/guestData_table.json"
 
 type FormData = {
-  id: string;
-  name: string;
-  stock: string;
-  cost: string;
-  price: string;
-};
+  id: string
+  name: string
+  stock: string
+  cost: string
+  price: string
+}
 
 export const HomePage = () => {
-  const router = useRouter();
+  const router = useRouter()
   const {
     register,
     handleSubmit,
     watch,
     reset,
-    formState: {
-      errors,
-      isDirty,
-      isValid,
-      isSubmitted,
-      isSubmitting,
-      touchedFields,
-      submitCount,
-    },
+    formState: { errors, isDirty, isValid, isSubmitted, isSubmitting, touchedFields, submitCount },
   } = useForm<FormData>({
     mode: "all",
     // mode: "onBlur",
@@ -55,21 +47,21 @@ export const HomePage = () => {
     //   cost: "0",
     //   selling: "0",
     // },
-  });
+  })
   // フォーム送信ボタンを押された時の処理
   const onsubmit = (data: FormData) => {
-    console.log(data);
-    reset(); // フォームに入力した値をリセット
-  };
+    console.log(data)
+    reset() // フォームに入力した値をリセット
+  }
   // nameを監視
   // 入力のたびに更新される
-  console.log(watch("id"));
-  console.log(watch("name"));
-  console.log(watch("stock"));
-  console.log(watch("cost"));
-  console.log(watch("price"));
-  const toast = useToast();
-  const { isOpen: isAlert, onOpen, onClose } = useDisclosure();
+  console.log(watch("id"))
+  console.log(watch("name"))
+  console.log(watch("stock"))
+  console.log(watch("cost"))
+  console.log(watch("price"))
+  const toast = useToast()
+  const { isOpen: isAlert, onOpen, onClose } = useDisclosure()
 
   return (
     <>
@@ -99,9 +91,7 @@ export const HomePage = () => {
                 <ErrorMessage
                   errors={errors}
                   name="id"
-                  render={({ message }) => (
-                    <Text color={"red.400"}>{message}</Text>
-                  )}
+                  render={({ message }) => <Text color={"red.400"}>{message}</Text>}
                 />
               </FormControl>
               <FormControl>
@@ -119,9 +109,7 @@ export const HomePage = () => {
                 <ErrorMessage
                   errors={errors}
                   name="name"
-                  render={({ message }) => (
-                    <Text color={"red.400"}>{message}</Text>
-                  )}
+                  render={({ message }) => <Text color={"red.400"}>{message}</Text>}
                 />
               </FormControl>
               <FormControl>
@@ -146,9 +134,7 @@ export const HomePage = () => {
                 <ErrorMessage
                   errors={errors}
                   name="stock"
-                  render={({ message }) => (
-                    <Text color={"red.400"}>{message}</Text>
-                  )}
+                  render={({ message }) => <Text color={"red.400"}>{message}</Text>}
                 />
               </FormControl>
               <FormControl>
@@ -173,9 +159,7 @@ export const HomePage = () => {
                 <ErrorMessage
                   errors={errors}
                   name="cost"
-                  render={({ message }) => (
-                    <Text color={"red.400"}>{message}</Text>
-                  )}
+                  render={({ message }) => <Text color={"red.400"}>{message}</Text>}
                 />
               </FormControl>
               <FormControl>
@@ -200,9 +184,7 @@ export const HomePage = () => {
                 <ErrorMessage
                   errors={errors}
                   name="price"
-                  render={({ message }) => (
-                    <Text color={"red.400"}>{message}</Text>
-                  )}
+                  render={({ message }) => <Text color={"red.400"}>{message}</Text>}
                 />
               </FormControl>
               <HStack mt={"5"} mb={12}>
@@ -218,7 +200,7 @@ export const HomePage = () => {
                       position: "bottom",
                       duration: 5000,
                       isClosable: true,
-                    });
+                    })
                     const pushData = {
                       _id: "guest",
                       id: watch("id"),
@@ -226,9 +208,9 @@ export const HomePage = () => {
                       stock: watch("stock"),
                       bought: watch("cost"),
                       selling: watch("price"),
-                    };
-                    json.push(pushData);
-                    reset();
+                    }
+                    json.push(pushData)
+                    reset()
                   }}
                 >
                   追加
@@ -239,6 +221,6 @@ export const HomePage = () => {
         </VStack>
       </Layout>
     </>
-  );
-};
-export default HomePage;
+  )
+}
+export default HomePage

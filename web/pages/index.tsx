@@ -1,44 +1,38 @@
-import { Box, Heading, Text, VStack } from "@chakra-ui/react";
-import type { NextPage } from "next";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { Layout } from "@/components/Layout"
+import { ChoiceSigninSosial, ChoiceSignupSosial } from "@/components/SignModal"
+import { Box, Button, Center, HStack, SimpleGrid } from "@chakra-ui/react"
+import { useRouter } from "next/router"
 
-const Home: NextPage = () => {
-  const router = useRouter();
+const Home = () => {
+  const router = useRouter()
 
-  useEffect(() => {
-    let tid: NodeJS.Timeout;
-    const onload = () => {
-      tid = setTimeout(() => {
-        router.push("/HomePage/");
-      }, 2000);
-    };
-    onload();
-    return () => {
-      clearTimeout(tid);
-    };
-  });
   return (
-    <>
-      <title>在庫管理アプリ</title>
-      <Box
-        minH={"100vh"}
-        minW={"100vw"}
-        display={"flex"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        onClick={() => {
-          router.push("/HomePage/");
-        }}
-      >
-        <VStack>
-          <Heading fontSize={"20vh"}>在庫管理アプリ</Heading>
-          <Text fontSize={"20vh"}>Click to START</Text>
-        </VStack>
-      </Box>
-      {/* <HomePage></HomePage> */}
-    </>
-  );
-};
-
-export default Home;
+    <Layout hasHeader={false}>
+      <Center>
+        <HStack>
+          {/* <Button
+            size={"lg"}
+            colorScheme={"teal"}
+            onClick={() => {
+              router.push("/signin/")
+            }}
+          >
+            ログイン
+          </Button> */}
+          {/* <Button
+            size={"lg"}
+            colorScheme={"teal"}
+            onClick={() => {
+              router.push("/signup/")
+            }}
+            >
+            新規登録
+          </Button> */}
+          <ChoiceSigninSosial />
+          <ChoiceSignupSosial />
+        </HStack>
+      </Center>
+    </Layout>
+  )
+}
+export default Home

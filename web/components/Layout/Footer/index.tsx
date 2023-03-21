@@ -1,3 +1,4 @@
+import { ToggleTheme } from "@/libs/utils/themes"
 import {
   Box,
   chakra,
@@ -6,29 +7,31 @@ import {
   Text,
   useColorModeValue,
   VisuallyHidden,
-} from "@chakra-ui/react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { ReactNode } from "react";
-import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+} from "@chakra-ui/react"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import { ReactNode } from "react"
+import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa"
 
 export const Footer = () => {
-  const toggleTextColor = useColorModeValue("gray.800", "white");
-  const toggleBgColor = useColorModeValue("gray.50", "gray.800");
-  const toggleBorderColor = useColorModeValue("gray.200", "gray.900");
-  const router = useRouter();
+  // const toggleTextColor = useColorModeValue("gray.800", "white")
+  // const toggleBgColor = useColorModeValue("gray.50", "gray.800")
+  // const toggleBorderColor = useColorModeValue("gray.200", "gray.900")
+  const { toggleTextColor, toggleMainBgColor, toggleBorderColor } = ToggleTheme()
+  const router = useRouter()
   return (
     <>
       {/* <Box as="p">フッター上だよ</Box> */}
       <Box
-        bg={toggleBgColor}
+        bg={toggleMainBgColor}
         color={toggleTextColor}
         borderTop={1}
         borderStyle={"solid"}
         borderColor={toggleBorderColor}
         top={"100vh"}
+        maxH={"60px"}
       >
-        <Container
+        {/* <Container
           as={Stack}
           maxW={"6xl"}
           py={4}
@@ -50,7 +53,7 @@ export const Footer = () => {
               <a>Start</a>
             </Link>
           </Stack>
-        </Container>
+        </Container> */}
 
         <Box
           borderTopWidth={1}
@@ -71,7 +74,7 @@ export const Footer = () => {
               <SocialButton
                 label={"Twitter"}
                 onClick={() => {
-                  router.push("/JumpPage/");
+                  router.push("/JumpPage/")
                 }}
                 // href={"/JumpPage/"}
               >
@@ -80,7 +83,7 @@ export const Footer = () => {
               <SocialButton
                 label={"YouTube"}
                 onClick={() => {
-                  router.push("/JumpPage/");
+                  router.push("/JumpPage/")
                 }}
               >
                 <FaYoutube />
@@ -88,7 +91,7 @@ export const Footer = () => {
               <SocialButton
                 label={"Instagram"}
                 onClick={() => {
-                  router.push("/JumpPage/");
+                  router.push("/JumpPage/")
                 }}
               >
                 <FaInstagram />
@@ -99,9 +102,8 @@ export const Footer = () => {
       </Box>
       {/* <Box as="p">フッター下だよ</Box> */}
     </>
-  );
-};
-export default Footer;
+  )
+}
 
 const SocialButton = ({
   children,
@@ -109,10 +111,10 @@ const SocialButton = ({
   // href,
   onClick,
 }: {
-  children: ReactNode;
-  label: string;
+  children: ReactNode
+  label: string
   // href: string;
-  onClick: () => void;
+  onClick: () => void
 }) => {
   return (
     <chakra.button
@@ -135,5 +137,5 @@ const SocialButton = ({
       <VisuallyHidden>{label}</VisuallyHidden>
       {children}
     </chakra.button>
-  );
-};
+  )
+}

@@ -1,3 +1,4 @@
+import { ToggleTheme } from "@/libs/utils/themes"
 import {
   ChevronDownIcon,
   ChevronRightIcon,
@@ -5,7 +6,7 @@ import {
   HamburgerIcon,
   MoonIcon,
   SunIcon,
-} from "@chakra-ui/icons";
+} from "@chakra-ui/icons"
 import {
   Avatar,
   Box,
@@ -29,26 +30,27 @@ import {
   useColorMode,
   useColorModeValue,
   useDisclosure,
-} from "@chakra-ui/react";
-import { getAuth, signOut } from "firebase/auth";
-import { useRouter } from "next/router";
-import { useContext, useState } from "react";
-import { FiChevronDown } from "react-icons/fi";
-import { AppContext, UserNameContext } from "../pages/_app";
-import { ChoiceSignInSosial, ChoiceSignUpSosial } from "./signModal";
+} from "@chakra-ui/react"
+import { getAuth, signOut } from "firebase/auth"
+import { useRouter } from "next/router"
+import { useContext, useState } from "react"
+import { FiChevronDown } from "react-icons/fi"
+import { AppContext, UserNameContext } from "@/pages/_app"
+import { ChoiceSigninSosial, ChoiceSignupSosial } from "@/components/SignModal"
 
 export const Navbar = () => {
-  const { userName, setUserName } = useContext(UserNameContext);
-  const { isSign, onSign } = useContext(AppContext);
-  const { colorMode, toggleColorMode } = useColorMode();
-  const { isOpen, onToggle } = useDisclosure();
-  const toggleTextColor = useColorModeValue("gray.800", "white");
-  const toggleBgColor = useColorModeValue("gray.50", "gray.800");
+  const { userName, setUserName } = useContext(UserNameContext)
+  const { isSign, onSign } = useContext(AppContext)
+  const { colorMode, toggleColorMode } = useColorMode()
+  const { isOpen, onToggle } = useDisclosure()
+  // const toggleTextColor = useColorModeValue("gray.800", "white")
+  // const toggleMainBgColor = useColorModeValue("gray.50", "gray.800")
+  const { toggleTextColor, toggleMainBgColor, toggleBorderColor } = ToggleTheme()
 
   return (
     <Box>
       <Flex
-        bg={toggleBgColor}
+        bg={toggleMainBgColor}
         color={toggleTextColor}
         minW={"full"}
         minH={"60px"}
@@ -62,19 +64,13 @@ export const Navbar = () => {
         >
           <IconButton
             onClick={onToggle}
-            icon={
-              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-            }
+            icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
             variant={"ghost"}
             aria-label={"Toggle Navigation"}
           />
         </Flex>
 
-        <Flex
-          flex={{ base: 1 }}
-          justify={{ base: "center", md: "start" }}
-          alignItems={"center"}
-        >
+        <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }} alignItems={"center"}>
           <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontSize={useBreakpointValue({
@@ -83,7 +79,7 @@ export const Navbar = () => {
             })}
             color={toggleTextColor}
           >
-            管理ソフト
+            在庫管理アプリ
           </Text>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
@@ -92,68 +88,61 @@ export const Navbar = () => {
         </Flex>
 
         <>
-          {isSign ? (
-            <Stack
-              flex={{ base: 1, md: 0 }}
-              justify={"flex-end"}
+          {/* {isSign ? ( */}
+          <Stack
+            flex={{ base: 1, md: 0 }}
+            justify={"flex-end"}
+            direction={"row"}
+            spacing={6}
+            alignItems={"center"}
+          >
+            <Button display={{ base: "none", md: "inline-flex" }} onClick={toggleColorMode}>
+              {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+            </Button>
+            <Flex
+              // alignItems={"center"}
               direction={"row"}
-              spacing={6}
-              alignItems={"center"}
             >
-              <Button
-                display={{ base: "none", md: "inline-flex" }}
-                onClick={toggleColorMode}
-              >
-                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-              </Button>
-              <Flex
-                // alignItems={"center"}
-                direction={"row"}
-              >
-                <Menu>
-                  <MenuButton
-                    py={2}
-                    transition="all 0.3s"
-                    _focus={{ boxShadow: "none" }}
-                  >
-                    <HStack>
-                      <Avatar size={"sm"} src={""} />
-                      <Box display={{ base: "none", md: "flex" }}>
-                        <FiChevronDown />
-                      </Box>
-                    </HStack>
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem>{userName}</MenuItem>
-                    <MenuDivider />
-                    {/* <MenuItem>Profile</MenuItem>
+              <Menu>
+                <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: "none" }}>
+                  <HStack>
+                    <Avatar size={"sm"} src={""} />
+                    <Box display={{ base: "none", md: "flex" }}>
+                      <FiChevronDown />
+                    </Box>
+                  </HStack>
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>{userName}</MenuItem>
+                  <MenuDivider />
+                  {/* <MenuItem>Profile</MenuItem>
                     <MenuItem>Settings</MenuItem>
                     <MenuItem>Billing</MenuItem> */}
-                    <MenuDivider />
-                    <MenuItem
-                      onClick={() => {
-                        const auth = getAuth();
-                        signOut(auth)
-                          .then(() => {
-                            // Sign-out successful.
-                            onSign(false);
-                            setUserName("");
-                            console.log("Sign-out successful.");
-                          })
-                          .catch((error) => {
-                            // An error happened.
-                            console.log("An error happened.");
-                          });
-                      }}
-                    >
-                      Sign out
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
-              </Flex>
-              {/* </HStack> */}
-            </Stack>
-          ) : (
+                  <MenuDivider />
+                  <MenuItem
+                    onClick={() => {
+                      const auth = getAuth()
+                      signOut(auth)
+                        .then(() => {
+                          // Sign-out successful.
+                          onSign(false)
+                          setUserName("")
+                          console.log("Sign-out successful.")
+                        })
+                        .catch((error) => {
+                          // An error happened.
+                          console.log("An error happened.")
+                        })
+                    }}
+                  >
+                    ログアウト
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            </Flex>
+            {/* </HStack> */}
+          </Stack>
+          {/* ) : (
             <Stack
               flex={{ base: 1, md: 0 }}
               justify={"flex-end"}
@@ -161,16 +150,13 @@ export const Navbar = () => {
               spacing={6}
               alignItems={"center"}
             >
-              <Button
-                display={{ base: "none", md: "inline-flex" }}
-                onClick={toggleColorMode}
-              >
+              <Button display={{ base: "none", md: "inline-flex" }} onClick={toggleColorMode}>
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
-              <ChoiceSignInSosial></ChoiceSignInSosial>
-              <ChoiceSignUpSosial></ChoiceSignUpSosial>
+              <ChoiceSigninSosial />
+              <ChoiceSignupSosial />
             </Stack>
-          )}
+          )} */}
         </>
       </Flex>
 
@@ -178,18 +164,18 @@ export const Navbar = () => {
         <MobileNav />
       </Collapse>
     </Box>
-  );
-};
-export default Navbar;
+  )
+}
+export default Navbar
 
 const DesktopNav = () => {
-  const router = useRouter();
+  const router = useRouter()
   // const linkColor = useColorModeValue("gray.800", "gray.200");
-  const linkColor = useColorModeValue("gray.800", "white");
+  const linkColor = useColorModeValue("gray.800", "white")
   // const linkHoverColor = useColorModeValue("gray.400", "white");
-  const linkHoverColor = useColorModeValue("gray.400", "white");
+  const linkHoverColor = useColorModeValue("gray.400", "white")
   // const popoverContentBgColor = useColorModeValue("white", "gray.800");
-  const popoverContentBgColor = useColorModeValue("gray.50", "gray.800");
+  const popoverContentBgColor = useColorModeValue("gray.50", "gray.800")
   return (
     <Stack direction={"row"} spacing={4}>
       {ROUTE_ITEMS.map((routeItem) => (
@@ -199,7 +185,7 @@ const DesktopNav = () => {
               <Box
                 p={2}
                 onClick={() => {
-                  router.push(`${routeItem.process ?? ""}`);
+                  router.push(`${routeItem.process ?? ""}`)
                 }}
                 fontSize={"sm"}
                 fontWeight={500}
@@ -233,21 +219,21 @@ const DesktopNav = () => {
         </Box>
       ))}
     </Stack>
-  );
-};
+  )
+}
 
 const DesktopSubNav = ({ label, process, subLabel }: routeItem) => {
-  const toggleTextColor = useColorModeValue("gray.800", "white");
-  const toggleBgColor = useColorModeValue("gray.50", "gray.800");
-  const toggleBorderColor = useColorModeValue("gray.200", "gray.900");
-  const toggleSubNavHoverColor = useColorModeValue("teal.50", "teal.900");
-  const subNavTextColor = "green.400";
-  const router = useRouter();
+  const toggleTextColor = useColorModeValue("gray.800", "white")
+  const toggleMainBgColor = useColorModeValue("gray.50", "gray.800")
+  const toggleBorderColor = useColorModeValue("gray.200", "gray.900")
+  const toggleSubNavHoverColor = useColorModeValue("teal.50", "teal.900")
+  const subNavTextColor = "green.400"
+  const router = useRouter()
   return (
     <Box
       // href={process}
       onClick={() => {
-        router.push(`${process}`);
+        router.push(`${process}`)
       }}
       role={"group"}
       display={"block"}
@@ -279,19 +265,19 @@ const DesktopSubNav = ({ label, process, subLabel }: routeItem) => {
         </Flex>
       </Stack>
     </Box>
-  );
-};
+  )
+}
 
 const MobileNav = () => {
-  const [isLogIn, toggleLogIn] = useState(false);
-  const { colorMode, toggleColorMode } = useColorMode();
-  const router = useRouter();
-  const toggleTextColor = useColorModeValue("gray.800", "white");
-  const toggleBgColor = useColorModeValue("gray.50", "gray.800");
-  const toggleBorderColor = useColorModeValue("gray.200", "gray.900");
+  const [isLogIn, toggleLogIn] = useState(false)
+  const { colorMode, toggleColorMode } = useColorMode()
+  const router = useRouter()
+  const toggleTextColor = useColorModeValue("gray.800", "white")
+  const toggleMainBgColor = useColorModeValue("gray.50", "gray.800")
+  const toggleBorderColor = useColorModeValue("gray.200", "gray.900")
   return (
     <Stack
-      bg={toggleBgColor}
+      bg={toggleMainBgColor}
       p={4}
       display={{ md: "none" }}
       borderBottom={"1px"}
@@ -302,22 +288,22 @@ const MobileNav = () => {
         <MobilerouteItem key={routeItem.label} {...routeItem} />
       ))}
     </Stack>
-  );
-};
+  )
+}
 
 const MobilerouteItem = ({ label, children, process }: routeItem) => {
-  const { isOpen, onToggle } = useDisclosure();
-  const router = useRouter();
-  const toggleTextColor = useColorModeValue("gray.800", "white");
-  const toggleBgColor = useColorModeValue("gray.50", "gray.800");
-  const toggleBoderColor = useColorModeValue("gray.200", "gray.900");
+  const { isOpen, onToggle } = useDisclosure()
+  const router = useRouter()
+  const toggleTextColor = useColorModeValue("gray.800", "white")
+  const toggleMainBgColor = useColorModeValue("gray.50", "gray.800")
+  const toggleBoderColor = useColorModeValue("gray.200", "gray.900")
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
       <Flex
         py={2}
         onClick={() => {
-          router.push(`${process ?? ""}`);
+          router.push(`${process ?? ""}`)
         }}
         justify={"space-between"}
         align={"center"}
@@ -354,7 +340,7 @@ const MobilerouteItem = ({ label, children, process }: routeItem) => {
                 py={2}
                 key={child.label}
                 onClick={() => {
-                  router.push(`${child.process}`);
+                  router.push(`${child.process}`)
                 }}
               >
                 {child.label}
@@ -363,14 +349,14 @@ const MobilerouteItem = ({ label, children, process }: routeItem) => {
         </Stack>
       </Collapse>
     </Stack>
-  );
-};
+  )
+}
 
 interface routeItem {
-  label: string;
-  subLabel?: string;
-  children?: Array<routeItem>;
-  process?: string;
+  label: string
+  subLabel?: string
+  children?: Array<routeItem>
+  process?: string
 }
 
 const ROUTE_ITEMS: Array<routeItem> = [
@@ -405,4 +391,4 @@ const ROUTE_ITEMS: Array<routeItem> = [
     //   },
     // ],
   },
-];
+]
