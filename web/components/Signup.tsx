@@ -14,8 +14,6 @@ import { ErrorMessage } from "@hookform/error-message"
 import React, { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import { AppContext, ChoiceSosialContext, UserNameContext } from "../pages/_app"
-
-import { app } from "../src/libs/utils/firebase/init"
 // import { useAuthContext } from "../src/context/AuthContext";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth"
 import { useRouter } from "next/router"
