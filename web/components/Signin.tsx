@@ -26,7 +26,7 @@ import { supabase } from "@/libs/utils/supabaseClient"
 import { ToggleTheme } from "@/libs/utils/themes"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 import { useRouter } from "next/router"
-import { useAuthContext } from "@/hooks/context/AuthContext"
+// import { useAuthContext } from "@/hooks/context/AuthContext"
 
 // export const EmailProvider = () => {
 //   // const { user } = useAuthContext();
