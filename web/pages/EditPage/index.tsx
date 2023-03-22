@@ -14,8 +14,6 @@ import {
 import { useRouter } from "next/router"
 import { Layout } from "@/components/Layout"
 
-import "../../src/libs/utils/firebase/init" // Initialize FirebaseApp
-
 import json from "../../components/guestData_table.json"
 
 export const TableViewPage = () => {
