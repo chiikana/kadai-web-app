@@ -1,23 +1,11 @@
-import "../styles/globals.css"
 import type { AppProps } from "next/app"
 import { ChakraProvider } from "@chakra-ui/react"
-
-import { extendTheme } from "@chakra-ui/react"
 import { Dispatch, useState } from "react"
 import React from "react"
 import { AuthProvider } from "../src/hooks/context/AuthContext"
-import "../src/libs/utils/firebase/init" // Initialize FirebaseApp
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs"
 import { SessionContextProvider, Session } from "@supabase/auth-helpers-react"
-
-const colors = {
-  brand: {
-    900: "#1a365d",
-    800: "#153e75",
-    700: "#2a69ac",
-  },
-}
-const theme = extendTheme({ colors })
+import { ScrollProvider } from "@/hooks/context/ScrollContext"
 
 export const AppContext = React.createContext(
   {} as {
@@ -26,12 +14,12 @@ export const AppContext = React.createContext(
   }
 )
 
-export const ScrollContext = React.createContext(
-  {} as {
-    isScrolled: boolean
-    setScrolled: Dispatch<React.SetStateAction<boolean>>
-  }
-)
+// export const ScrollContext = React.createContext(
+//   {} as {
+//     isScrolled: boolean
+//     setScrolled: Dispatch<React.SetStateAction<boolean>>
+//   }
+// )
 
 export const ChoiceSosialContext = React.createContext(
   {} as {
@@ -62,13 +50,15 @@ function MyApp({ Component, pageProps }: AppProps<{ initialSession: Session }>) 
       <AuthProvider>
         <UserNameContext.Provider value={{ userName, setUserName }}>
           <ChoiceSosialContext.Provider value={{ choice, setChoice }}>
-            <ScrollContext.Provider value={{ isScrolled, setScrolled }}>
-              <AppContext.Provider value={{ isSign, onSign }}>
-                <ChakraProvider theme={theme}>
+            {/* <ScrollContext.Provider value={{ isScrolled, setScrolled }}> */}
+            <AppContext.Provider value={{ isSign, onSign }}>
+              <ChakraProvider>
+                <ScrollProvider>
                   <Component {...pageProps} />
-                </ChakraProvider>
-              </AppContext.Provider>
-            </ScrollContext.Provider>
+                </ScrollProvider>
+              </ChakraProvider>
+            </AppContext.Provider>
+            {/* </ScrollContext.Provider> */}
           </ChoiceSosialContext.Provider>
         </UserNameContext.Provider>
       </AuthProvider>
