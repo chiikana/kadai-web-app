@@ -1,5 +1,5 @@
 {
-  "name": "zaikokanri-web-app",
+  "name": "syouhin-kanri-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -21,7 +21,6 @@
     "@supabase/auth-helpers-nextjs": "^0.5.6",
     "@supabase/auth-helpers-react": "^0.3.1",
     "@supabase/supabase-js": "^2.11.0",
-    "firebase": "^9.8.4",
     "framer-motion": "^6",
     "next": "^13.2.4",
     "react": "^18.2.0",
