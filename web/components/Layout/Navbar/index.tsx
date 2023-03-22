@@ -33,23 +33,38 @@ import {
 } from "@chakra-ui/react"
 // import { getAuth, signOut } from "firebase/auth"
 import { useRouter } from "next/router"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { FiChevronDown } from "react-icons/fi"
 import { AppContext, UserNameContext } from "@/pages/_app"
 import { ChoiceSigninSosial, ChoiceSignupSosial } from "@/components/SignModal"
 import { useAuthContext } from "@/hooks/context/AuthContext"
+import { useProfileFromUserId } from "@/hooks/useProfileFromUserId"
+import { Profile } from "@/types/profile"
+import { supabase } from "@/libs/utils/supabaseClient"
 
 export const Navbar = () => {
-  const { userData } = useAuthContext()
-
-  const { userName, setUserName } = useContext(UserNameContext)
+  const userData = useAuthContext()
+  const router = useRouter()
   const { isSign, onSign } = useContext(AppContext)
   const { colorMode, toggleColorMode } = useColorMode()
   const { isOpen, onToggle } = useDisclosure()
   // const toggleTextColor = useColorModeValue("gray.800", "white")
   // const toggleMainBgColor = useColorModeValue("gray.50", "gray.800")
   const { toggleTextColor, toggleMainBgColor, toggleBorderColor } = ToggleTheme()
-  const username = userData?.user
+  const { userName, setUserName } = useContext(UserNameContext)
+  const userProfile = useProfileFromUserId(userData.userData!.userId)
+  // const username = userProfile!.username
+
+  useEffect(() => {
+    console.log(userProfile.username)
+    setUserName(userProfile.username)
+    console.log("userName=> ", userName)
+  }, [])
+
+  const handleSignout = async () => {
+    supabase.auth.signOut()
+    router.replace("/")
+  }
 
   return (
     <Box>
@@ -117,27 +132,16 @@ export const Navbar = () => {
                   </HStack>
                 </MenuButton>
                 <MenuList>
-                  {/* <MenuItem value={user?.user}></MenuItem> */}
+                  {/* <MenuItem value={userData?.userId.name}></MenuItem> */}
                   <MenuItem>{userName}</MenuItem>
                   <MenuDivider />
-                  {/* <MenuItem>Profile</MenuItem>
-                    <MenuItem>Settings</MenuItem>
-                    <MenuItem>Billing</MenuItem> */}
+                  <MenuItem>Profile</MenuItem>
+                  <MenuItem>Settings</MenuItem>
+                  {/* <MenuItem>Billing</MenuItem> */}
                   <MenuDivider />
                   <MenuItem
                     onClick={() => {
-                      // const auth = getAuth()
-                      // signOut(auth)
-                      //   .then(() => {
-                      //     // Sign-out successful.
-                      //     onSign(false)
-                      //     setUserName("")
-                      //     console.log("Sign-out successful.")
-                      //   })
-                      //   .catch((error) => {
-                      //     // An error happened.
-                      //     console.log("An error happened.")
-                      //   })
+                      handleSignout()
                     }}
                   >
                     ログアウト

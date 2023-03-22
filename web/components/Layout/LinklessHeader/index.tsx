@@ -22,7 +22,6 @@ export const LinklessHeader = () => {
   return (
     <Box pos={"sticky"} top={0} w={"full"} h={"60px"} zIndex={100}>
       <title>在庫管理アプリ</title>
-      {/* <Text>へっだー上だよ</Text> */}
       <Box>
         <Flex
           bg={toggleMainBgColor}
@@ -83,7 +82,6 @@ export const LinklessHeader = () => {
           </>
         </Flex>
       </Box>
-      {/* <Text>へっだー下だよ</Text> */}
       {isScrolled ? (
         <Box
           borderBottom={"1px"}

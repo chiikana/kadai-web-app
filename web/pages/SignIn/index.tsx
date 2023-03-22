@@ -9,7 +9,7 @@ export const SigninPage = (): JSX.Element => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { choice, setChoice } = useContext(ChoiceSosialContext)
   return (
-    <Layout hasHeader={true}>
+    <Layout hasHeader={false}>
       <Center>
         {/* <VStack h={"100vh"} w={"100%"}> */}
         {/* <Heading>ログイン</Heading> */}

@@ -21,6 +21,7 @@
       "@/libs/*": ["src/libs/*"],
       "@/services/*": ["src/services/*"],
       "@/assets/*": ["src/assets/*"],
+      "@/types/*": ["src/types/*"],
       "@/pages/*": ["pages/*"]
     }
   },
