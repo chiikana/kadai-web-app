@@ -1,53 +1,39 @@
 import { ReactNode, createContext, useState, useContext, useEffect, Dispatch } from "react"
-import { getAuth, onAuthStateChanged } from "firebase/auth"
-import type { User } from "firebase/auth"
-import { useRouter } from "next/router"
-import { app } from "../../libs/utils/firebase/init"
 
-export type UserType = User | null
-
-export type AuthContextProps = {
-  user: UserType
+export type ScrollContextProps = {
+  isScrolled: boolean
 }
 
-export type AuthProps = {
+export type ScrollProps = {
   children: ReactNode
 }
 
-const AuthContext = createContext<Partial<AuthContextProps>>({})
+const ScrollContext = createContext<Partial<ScrollContextProps>>({})
 
-export const useAuthContext = () => {
-  return useContext(AuthContext)
+export const useScrollContext = () => {
+  return useContext(ScrollContext)
 }
 
-export const ScrollContextTTTT = createContext(
-  {} as {
-    isScrolled: boolean
-    onScrolled: Dispatch<React.SetStateAction<boolean>>
-  }
-)
+// export const ScrollContext = createContext(
+//   {} as {
+//     isScrolled: boolean
+//     setScrolled: Dispatch<React.SetStateAction<boolean>>
+//   }
+// )
 
-export const AuthProvider = ({ children }: AuthProps) => {
-  const router = useRouter()
-  const auth = getAuth(app)
-  const [user, setUser] = useState<UserType>(null)
-  // const isAvailableForViewing =
-  //   router.pathname === "/about" ||
-  //   router.pathname === "/login" ||
-  //   router.pathname === "/signup";
-  const value = {
-    user,
+export const ScrollProvider = ({ children }: ScrollProps) => {
+  const [isScrolled, setScrolled] = useState<boolean>()
+  const toggleVisibility = () => {
+    window.scrollY > 0 ? setScrolled(true) : setScrolled(false)
   }
-
   useEffect(() => {
-    const authStateChanged = onAuthStateChanged(auth, async (user) => {
-      setUser(user)
-      // !user && !isAvailableForViewing && (await router.push("/login"));
-    })
-    return () => {
-      authStateChanged()
-    }
+    window.addEventListener("scroll", toggleVisibility)
+    return () => window.removeEventListener("scroll", toggleVisibility)
   })
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  const value = {
+    isScrolled,
+  }
+
+  return <ScrollContext.Provider value={value}>{children}</ScrollContext.Provider>
 }

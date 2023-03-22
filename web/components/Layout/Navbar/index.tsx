@@ -37,8 +37,11 @@ import { useContext, useState } from "react"
 import { FiChevronDown } from "react-icons/fi"
 import { AppContext, UserNameContext } from "@/pages/_app"
 import { ChoiceSigninSosial, ChoiceSignupSosial } from "@/components/SignModal"
+import { useAuthContext } from "@/hooks/context/AuthContext"
 
 export const Navbar = () => {
+  const { userData } = useAuthContext()
+
   const { userName, setUserName } = useContext(UserNameContext)
   const { isSign, onSign } = useContext(AppContext)
   const { colorMode, toggleColorMode } = useColorMode()
@@ -46,6 +49,7 @@ export const Navbar = () => {
   // const toggleTextColor = useColorModeValue("gray.800", "white")
   // const toggleMainBgColor = useColorModeValue("gray.50", "gray.800")
   const { toggleTextColor, toggleMainBgColor, toggleBorderColor } = ToggleTheme()
+  const username = userData?.user
 
   return (
     <Box>
@@ -113,6 +117,7 @@ export const Navbar = () => {
                   </HStack>
                 </MenuButton>
                 <MenuList>
+                  {/* <MenuItem value={user?.user}></MenuItem> */}
                   <MenuItem>{userName}</MenuItem>
                   <MenuDivider />
                   {/* <MenuItem>Profile</MenuItem>
