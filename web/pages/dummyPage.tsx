@@ -9,31 +9,28 @@ import {
   Th,
   Thead,
   Tr,
-  VStack,
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { Layout } from "@/components/Layout"
 
-import json from "../components/guestData_table.json"
+import json from "@/components/dmyData_table.json"
 
 export const TableViewPage = () => {
   const router = useRouter()
 
   let data = json
 
-  const tableBody = (gstData: any) => {
-    const output = gstData.map((item: any, index: any) => {
-      if (index !== 0) {
-        return (
-          <Tr key={index}>
-            <Td>{item.id}</Td>
-            <Td>{item.name}</Td>
-            <Td _after={{ content: `"個"` }}>{item.stock}</Td>
-            <Td _after={{ content: `"円"` }}>{item.bought}</Td>
-            <Td _after={{ content: `"円"` }}>{item.selling}</Td>
-          </Tr>
-        )
-      }
+  const tableBody = (dmyData: any) => {
+    const output = dmyData.map((item: any, index: any) => {
+      return (
+        <Tr key={index}>
+          <Td>{item.id}</Td>
+          <Td>{item.name}</Td>
+          <Td _after={{ content: `"個"` }}>{item.stock}</Td>
+          <Td _after={{ content: `"円"` }}>{item.bought}</Td>
+          <Td _after={{ content: `"円"` }}>{item.selling}</Td>
+        </Tr>
+      )
     })
     return output
   }
@@ -42,7 +39,7 @@ export const TableViewPage = () => {
     <>
       <Layout>
         <Box h={"100vh"} w={"100%"}>
-          <Heading textAlign={"center"}>GuestData-Table</Heading>
+          <Heading textAlign={"center"}>DummyData-Table</Heading>
           <TableContainer
             borderY={"1px solid #999999"}
             maxHeight="full"

@@ -21,7 +21,6 @@ import {
 import React, { useContext, useEffect, useRef, useState } from "react"
 import { ErrorMessage } from "@hookform/error-message"
 import { useForm } from "react-hook-form"
-import { AppContext, ChoiceSosialContext, UserNameContext } from "@/pages/_app"
 import { supabase } from "@/libs/utils/supabaseClient"
 import { ToggleTheme } from "@/libs/utils/themes"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
@@ -29,11 +28,6 @@ import { useRouter } from "next/router"
 
 export const EmailSignin = () => {
   const { toggleTextColor, toggleSubBgColor, toggleBorderColor } = ToggleTheme()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [Error, setError] = useState("")
-
-  const { isSign, onSign } = useContext(AppContext)
   type FormSign = {
     username: string
     email: string
@@ -47,17 +41,6 @@ export const EmailSignin = () => {
   } = useForm<FormSign>({
     mode: "all",
   })
-
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const { choice, setChoice } = useContext(ChoiceSosialContext)
-  const { userName, setUserName } = useContext(UserNameContext)
-
-  const initialRef = useRef(null)
-  const finalRef = useRef(null)
-
-  const toggleNavHoverColor = useColorModeValue("teal.50", "teal.900")
-  const navAccentColor = "teal.400"
-  const navAccentHoverColor = "teal.300"
   const { subAccentColor } = ToggleTheme()
   const defaultData = {
     email: "",
@@ -91,7 +74,7 @@ export const EmailSignin = () => {
           duration: 1500,
           isClosable: true,
         })
-        router.push("/homePage/")
+        router.replace("/homePage")
       }
     } catch (error) {
       console.log("Did not run signin protcol")
@@ -185,7 +168,7 @@ export const EmailSignin = () => {
             {/* <Checkbox>ログインを維持する</Checkbox> */}
             <Link
               onClick={() => {
-                router.push("/resetPassword/")
+                router.replace("/resetPassword/")
               }}
             >
               パスワードを忘れた場合
@@ -246,7 +229,7 @@ export const GuestSignin = () => {
           duration: 1500,
           isClosable: true,
         })
-        router.push("/homePage")
+        router.replace("/homePage")
       }
     } catch (error) {
       console.log("Did not run signin protcol")
@@ -292,7 +275,7 @@ export const GuestSignin = () => {
               variant="solid"
               colorScheme="red"
               onClick={(e) => {
-                router.push("/")
+                router.replace("/")
               }}
             >
               いいえ

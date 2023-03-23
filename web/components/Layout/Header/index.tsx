@@ -20,12 +20,13 @@ export const Header = () => {
   const { isScrolled } = useScrollContext()
   return (
     <>
-      <Box pos={"sticky"} top={0} left={0} w={"full"} h={"60px"} zIndex={100}>
+      <Box pos={"sticky"} top={0} left={0} w={"full"} maxH={"60px"} zIndex={100}>
         <title>在庫管理アプリ</title>
         <Navbar />
         {isScrolled ? (
           <Box
             borderBottom={"1px"}
+            boxSizing={"border-box"}
             borderBottomStyle={"solid"}
             borderBottomColor={toggleBorderColor}
           ></Box>

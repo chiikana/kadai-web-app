@@ -20,6 +20,7 @@ export const Layout = (props: Props) => {
       gridTemplateRows={"auto 1fr auto"}
       gridTemplateColumns={"100%"}
       minH={"100vh"}
+      maxH={"100vh"}
       bg={toggleMainBgColor}
     >
       {hasHeader ? <Header /> : <LinklessHeader />}

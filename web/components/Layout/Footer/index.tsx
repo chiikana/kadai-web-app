@@ -20,18 +20,16 @@ export const Footer = () => {
   const { toggleTextColor, toggleMainBgColor, toggleBorderColor } = ToggleTheme()
   const router = useRouter()
   return (
-    <>
-      {/* <Box as="p">フッター上だよ</Box> */}
-      <Box
-        bg={toggleMainBgColor}
-        color={toggleTextColor}
-        borderTop={1}
-        borderStyle={"solid"}
-        borderColor={toggleBorderColor}
-        top={"100vh"}
-        maxH={"60px"}
-      >
-        {/* <Container
+    <Box
+      bg={toggleMainBgColor}
+      color={toggleTextColor}
+      borderTop={"1px"}
+      borderStyle={"solid"}
+      boxSizing={"border-box"}
+      borderColor={toggleBorderColor}
+      maxH={"60px"}
+    >
+      {/* <Container
           as={Stack}
           maxW={"6xl"}
           py={4}
@@ -55,53 +53,53 @@ export const Footer = () => {
           </Stack>
         </Container> */}
 
-        <Box
-          borderTopWidth={1}
-          borderStyle={"solid"}
-          borderColor={useColorModeValue("gray.200", "gray.700")}
+      <Box
+      // borderTopWidth={"1px"}
+      // borderStyle={"solid"}
+      // boxSizing={"border-box"}
+      // borderColor={toggleBorderColor}
+      >
+        <Container
+          as={Stack}
+          maxH={"100%"}
+          maxW={"6xl"}
+          py={4}
+          direction={{ base: "column", md: "row" }}
+          spacing={4}
+          justify={{ base: "center", md: "space-between" }}
+          align={{ base: "center", md: "center" }}
         >
-          <Container
-            as={Stack}
-            maxW={"6xl"}
-            py={4}
-            direction={{ base: "column", md: "row" }}
-            spacing={4}
-            justify={{ base: "center", md: "space-between" }}
-            align={{ base: "center", md: "center" }}
-          >
-            <Text>© kanato suzaki. All rights reserved</Text>
-            <Stack direction={"row"} spacing={6}>
-              <SocialButton
-                label={"Twitter"}
-                onClick={() => {
-                  router.push("/jumpPage/")
-                }}
-                // href={"/jumpPage/"}
-              >
-                <FaTwitter />
-              </SocialButton>
-              <SocialButton
-                label={"YouTube"}
-                onClick={() => {
-                  router.push("/jumpPage/")
-                }}
-              >
-                <FaYoutube />
-              </SocialButton>
-              <SocialButton
-                label={"Instagram"}
-                onClick={() => {
-                  router.push("/jumpPage/")
-                }}
-              >
-                <FaInstagram />
-              </SocialButton>
-            </Stack>
-          </Container>
-        </Box>
+          <Text>© kanato suzaki. All rights reserved</Text>
+          <Stack direction={"row"} spacing={6}>
+            <SocialButton
+              label={"Twitter"}
+              onClick={() => {
+                router.push("/jumpPage")
+              }}
+              // href={"/jumpPage/"}
+            >
+              <FaTwitter />
+            </SocialButton>
+            <SocialButton
+              label={"YouTube"}
+              onClick={() => {
+                router.push("/jumpPage")
+              }}
+            >
+              <FaYoutube />
+            </SocialButton>
+            <SocialButton
+              label={"Instagram"}
+              onClick={() => {
+                router.push("/jumpPage")
+              }}
+            >
+              <FaInstagram />
+            </SocialButton>
+          </Stack>
+        </Container>
       </Box>
-      {/* <Box as="p">フッター下だよ</Box> */}
-    </>
+    </Box>
   )
 }
 

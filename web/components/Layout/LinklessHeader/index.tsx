@@ -20,14 +20,14 @@ export const LinklessHeader = () => {
   // })
   const { isScrolled } = useScrollContext()
   return (
-    <Box pos={"sticky"} top={0} w={"full"} h={"60px"} zIndex={100}>
+    <Box pos={"sticky"} top={0} w={"full"} maxH={"60px"} zIndex={100}>
       <title>在庫管理アプリ</title>
       <Box>
         <Flex
           bg={toggleMainBgColor}
           color={toggleTextColor}
-          minW={"full"}
-          minH={"60px"}
+          // minW={"full"}
+          // minH={"59px"}
           py={{ base: 2 }}
           px={{ base: 4 }}
         >
@@ -86,6 +86,7 @@ export const LinklessHeader = () => {
         <Box
           borderBottom={"1px"}
           borderBottomStyle={"solid"}
+          boxSizing={"border-box"}
           borderBottomColor={toggleBorderColor}
         ></Box>
       ) : (

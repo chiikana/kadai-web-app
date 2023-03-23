@@ -1,6 +1,7 @@
 import {
   Box,
   Heading,
+  Select,
   Table,
   TableContainer,
   Tbody,
@@ -9,28 +10,52 @@ import {
   Th,
   Thead,
   Tr,
+  VStack,
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { Layout } from "@/components/Layout"
 
-import json from "@/components/dmyData_table.json"
+import json from "../components/guestData_table.json"
+import useAuthUser from "@/hooks/useAuthUser"
+import { useEffect, useState } from "react"
+import { useDatabaseFromUserId } from "@/hooks/useDatabaseFromUser"
+import { Database } from "@/types/database"
+import { useProfileFromUserId } from "@/hooks/useProfileFromUserId"
 
 export const TableViewPage = () => {
   const router = useRouter()
+  const user = useAuthUser()
+  // const database = useDatabaseFromUserId(user.userId)
+  const userData = useProfileFromUserId(user.userId)
+  const [databaseName, setDatabaseName] = useState<string>("")
+  // useEffect(() => {
+  //   setDatabaseName(database)
+  // }, [database])
 
-  let data = json
+  const DatabaseSelector = () => {
+    return (
+      <Select>
+        {userData.userProfile &&
+          userData.userProfile.map((item, index) => {
+            ;<option>{item.name}</option>
+          })}
+      </Select>
+    )
+  }
 
-  const tableBody = (dmyData: any) => {
-    const output = dmyData.map((item: any, index: any) => {
-      return (
-        <Tr key={index}>
-          <Td>{item.id}</Td>
-          <Td>{item.name}</Td>
-          <Td _after={{ content: `"個"` }}>{item.stock}</Td>
-          <Td _after={{ content: `"円"` }}>{item.bought}</Td>
-          <Td _after={{ content: `"円"` }}>{item.selling}</Td>
-        </Tr>
-      )
+  const tableBody = () => {
+    const output = databaseName.map((item: any, index: any) => {
+      if (index !== 0) {
+        return (
+          <Tr key={index}>
+            <Td>{item.id}</Td>
+            <Td>{item.name}</Td>
+            <Td _after={{ content: `"個"` }}>{item.stock}</Td>
+            <Td _after={{ content: `"円"` }}>{item.bought}</Td>
+            <Td _after={{ content: `"円"` }}>{item.selling}</Td>
+          </Tr>
+        )
+      }
     })
     return output
   }
@@ -38,8 +63,8 @@ export const TableViewPage = () => {
   return (
     <>
       <Layout>
-        <Box h={"100vh"} w={"100%"}>
-          <Heading textAlign={"center"}>DummyData-Table</Heading>
+        <Box w={"100%"}>
+          <Heading textAlign={"center"}>GuestData-Table</Heading>
           <TableContainer
             borderY={"1px solid #999999"}
             maxHeight="full"

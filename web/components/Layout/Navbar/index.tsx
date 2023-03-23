@@ -35,7 +35,7 @@ import {
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import { FiChevronDown } from "react-icons/fi"
-import { AppContext, UserNameContext } from "@/pages/_app"
+import { UserNameContext } from "@/pages/_app"
 import { ChoiceSigninSosial, ChoiceSignupSosial } from "@/components/SignModal"
 import { useAuthContext } from "@/hooks/context/AuthContext"
 import { useProfileFromUserId } from "@/hooks/useProfileFromUserId"
@@ -45,7 +45,6 @@ import { supabase } from "@/libs/utils/supabaseClient"
 export const Navbar = () => {
   const userData = useAuthContext()
   const router = useRouter()
-  const { isSign, onSign } = useContext(AppContext)
   const { colorMode, toggleColorMode } = useColorMode()
   const { isOpen, onToggle } = useDisclosure()
   // const toggleTextColor = useColorModeValue("gray.800", "white")
@@ -67,15 +66,8 @@ export const Navbar = () => {
   }
 
   return (
-    <Box>
-      <Flex
-        bg={toggleMainBgColor}
-        color={toggleTextColor}
-        minW={"full"}
-        minH={"60px"}
-        py={{ base: 2 }}
-        px={{ base: 4 }}
-      >
+    <Box minW={"full"} minH={"60px"}>
+      <Flex bg={toggleMainBgColor} color={toggleTextColor} py={{ base: 2 }} px={{ base: 4 }}>
         <Flex
           flex={{ base: 1, md: "auto" }}
           ml={{ base: -2 }}
@@ -371,7 +363,7 @@ interface routeItem {
 const ROUTE_ITEMS: Array<routeItem> = [
   {
     label: "Home",
-    process: "/HomePage/",
+    process: "/homePage",
   },
   {
     label: "Table",
@@ -379,12 +371,12 @@ const ROUTE_ITEMS: Array<routeItem> = [
       {
         label: "DummyData-Table",
         subLabel: "ダミーデータを表示します。",
-        process: "/TablePage/",
+        process: "/tablePage",
       },
       {
         label: "GuestData-Table",
         subLabel: "HomePageで入力した値を表示します。",
-        process: "/EditPage/",
+        process: "/editPage",
       },
     ],
     // children: [
