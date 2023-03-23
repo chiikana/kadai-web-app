@@ -74,16 +74,16 @@ export const Footer = () => {
               <SocialButton
                 label={"Twitter"}
                 onClick={() => {
-                  router.push("/JumpPage/")
+                  router.push("/jumpPage/")
                 }}
-                // href={"/JumpPage/"}
+                // href={"/jumpPage/"}
               >
                 <FaTwitter />
               </SocialButton>
               <SocialButton
                 label={"YouTube"}
                 onClick={() => {
-                  router.push("/JumpPage/")
+                  router.push("/jumpPage/")
                 }}
               >
                 <FaYoutube />
@@ -91,7 +91,7 @@ export const Footer = () => {
               <SocialButton
                 label={"Instagram"}
                 onClick={() => {
-                  router.push("/JumpPage/")
+                  router.push("/jumpPage/")
                 }}
               >
                 <FaInstagram />

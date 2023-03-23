@@ -313,7 +313,7 @@ export const EmailSignup = () => {
           <Stack direction={"column"}>
             <Link
               onClick={() => {
-                router.push("/signin")
+                router.push("/signin/")
               }}
               // href={"/SignIn/"}
             >

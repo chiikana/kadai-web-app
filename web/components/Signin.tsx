@@ -91,7 +91,7 @@ export const EmailSignin = () => {
           duration: 1500,
           isClosable: true,
         })
-        router.replace("/homePage/")
+        router.push("/homePage/")
       }
     } catch (error) {
       console.log("Did not run signin protcol")
@@ -185,7 +185,7 @@ export const EmailSignin = () => {
             {/* <Checkbox>ログインを維持する</Checkbox> */}
             <Link
               onClick={() => {
-                router.replace("/resetPassword/")
+                router.push("/resetPassword/")
               }}
             >
               パスワードを忘れた場合
@@ -246,7 +246,7 @@ export const GuestSignin = () => {
           duration: 1500,
           isClosable: true,
         })
-        router.replace("/homePage/")
+        router.push("/homePage/")
       }
     } catch (error) {
       console.log("Did not run signin protcol")
@@ -292,7 +292,7 @@ export const GuestSignin = () => {
               variant="solid"
               colorScheme="red"
               onClick={(e) => {
-                router.replace("/")
+                router.push("/")
               }}
             >
               いいえ

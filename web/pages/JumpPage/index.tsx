@@ -16,7 +16,7 @@ export const JumpPage = (): JSX.Element => {
       tid = setInterval(() => {
         setTimerCnt(timerCnt - 1)
         if (timerCnt <= 1) {
-          router.push("/HomePage/")
+          router.push("/homePage/")
         }
       }, 1000)
       // tid = setTimeout(() => {
