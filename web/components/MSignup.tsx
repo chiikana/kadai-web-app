@@ -140,7 +140,7 @@ const Form1 = (props: Form1) => {
           {...register("email", {
             required: true,
             pattern: {
-              value: /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/,
+              value: /^[a-zA-Z0-9_+-]+(\.[a-zA-Z0-9_+-]+)*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/,
               message: "E-mailの書式ではありません。",
             },
           })}
@@ -162,14 +162,14 @@ const Form1 = (props: Form1) => {
           <Input
             pr="4.5rem"
             type={show ? "text" : "password"}
-            placeholder="8桁以上のパスワードを入力"
+            placeholder="半角英数字をそれぞれ含む8桁以上32桁以下のパスワード"
             focusBorderColor={subAccentColor}
             _placeholder={{ color: "gray.500" }}
             {...register("password", {
               required: true,
               pattern: {
                 value: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,32}$/i,
-                message: "半角英数字8文字以上32文字以下のパスワードを入力",
+                message: "半角英数字をそれぞれ含む8桁以上32桁のパスワードを入力",
               },
             })}
             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -272,7 +272,7 @@ export const EmailSignup = () => {
           duration: 1500,
           isClosable: true,
         })
-        router.push("/profilePage")
+        router.replace("/homePage/")
       }
     } catch (error) {
       // alert(error.error_description || error.message)
@@ -313,11 +313,11 @@ export const EmailSignup = () => {
           <Stack direction={"column"}>
             <Link
               onClick={() => {
-                router.replace("/signin")
+                router.push("/signin")
               }}
               // href={"/SignIn/"}
             >
-              <a>すでに登録している人はこちら</a>
+              すでに登録している人はこちら
             </Link>
             <Flex
               minW="100%"

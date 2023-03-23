@@ -59,7 +59,7 @@ export const Navbar = () => {
     console.log(userProfile.username)
     setUserName(userProfile.username)
     console.log("userName=> ", userName)
-  }, [])
+  }, [userProfile])
 
   const handleSignout = async () => {
     supabase.auth.signOut()

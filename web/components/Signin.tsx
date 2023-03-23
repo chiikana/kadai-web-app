@@ -68,7 +68,7 @@ export const EmailSignin = () => {
   const toast = useToast()
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
-  const handleSignIn = async (e: any) => {
+  const handleSignin = async (e: any) => {
     e.preventDefault()
     try {
       const { error } = await supabase.auth.signInWithPassword({
@@ -91,7 +91,7 @@ export const EmailSignin = () => {
           duration: 1500,
           isClosable: true,
         })
-        router.push("/profilePage")
+        router.replace("/homePage/")
       }
     } catch (error) {
       console.log("Did not run signin protcol")
@@ -149,14 +149,14 @@ export const EmailSignin = () => {
               <Input
                 pr="4.5rem"
                 type={show ? "text" : "password"}
-                placeholder="8桁以上のパスワードを入力"
+                placeholder="半角英数字をそれぞれ含む8桁以上32桁のパスワードを入力"
                 focusBorderColor={subAccentColor}
                 _placeholder={{ color: "gray.500" }}
                 {...register("password", {
                   required: true,
                   pattern: {
                     value: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,32}$/i,
-                    message: "半角英数字8文字以上32文字以下のパスワードを入力",
+                    message: "半角英数字をそれぞれ含む8桁以上32桁のパスワードを入力",
                   },
                 })}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -196,7 +196,7 @@ export const EmailSignin = () => {
               variant="solid"
               colorScheme="red"
               onClick={(e) => {
-                handleSignIn(e)
+                handleSignin(e)
               }}
             >
               サインイン
@@ -223,7 +223,7 @@ export const GuestSignin = () => {
   const toast = useToast()
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
-  const handleSignIn = async (e: any) => {
+  const handleSignin = async (e: any) => {
     e.preventDefault()
     try {
       const { error } = await supabase.auth.signInWithPassword({
@@ -246,7 +246,7 @@ export const GuestSignin = () => {
           duration: 1500,
           isClosable: true,
         })
-        router.push("/homePage/")
+        router.replace("/homePage/")
       }
     } catch (error) {
       console.log("Did not run signin protcol")
@@ -303,7 +303,7 @@ export const GuestSignin = () => {
               variant="solid"
               colorScheme="red"
               onClick={(e) => {
-                handleSignIn(e)
+                handleSignin(e)
               }}
             >
               はい
