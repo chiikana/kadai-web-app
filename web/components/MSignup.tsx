@@ -272,7 +272,7 @@ export const EmailSignup = () => {
           duration: 1500,
           isClosable: true,
         })
-        router.replace("/homePage/")
+        router.replace("/homePage")
       }
     } catch (error) {
       // alert(error.error_description || error.message)
@@ -313,7 +313,7 @@ export const EmailSignup = () => {
           <Stack direction={"column"}>
             <Link
               onClick={() => {
-                router.push("/signin/")
+                router.push("/signin")
               }}
               // href={"/SignIn/"}
             >

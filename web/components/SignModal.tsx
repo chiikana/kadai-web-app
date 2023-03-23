@@ -26,10 +26,6 @@ export const ChoiceSignupSosial = () => {
 
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
-
-  const toggleNavHoverColor = useColorModeValue("teal.50", "teal.900")
-  const navAccentColor = "teal.400"
-  const navAccentHoverColor = "teal.300"
   return (
     <>
       <Button
@@ -74,7 +70,7 @@ export const ChoiceSignupSosial = () => {
                     onClick={() => {
                       setChoice(1)
                       onClose()
-                      router.push("/signup/")
+                      router.push("/signup")
                     }}
                   >
                     <Center>
@@ -154,7 +150,7 @@ export const ChoiceSigninSosial = () => {
                     onClick={() => {
                       setChoice(1)
                       onClose()
-                      router.push("/signin/")
+                      router.push("/signin")
                     }}
                   >
                     <Center>
@@ -186,7 +182,7 @@ export const ChoiceSigninSosial = () => {
                     onClick={() => {
                       setChoice(3)
                       onClose()
-                      router.push("/signin/")
+                      router.push("/signin")
                     }}
                   >
                     <Center>

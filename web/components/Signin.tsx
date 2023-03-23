@@ -246,7 +246,7 @@ export const GuestSignin = () => {
           duration: 1500,
           isClosable: true,
         })
-        router.push("/homePage/")
+        router.push("/homePage")
       }
     } catch (error) {
       console.log("Did not run signin protcol")

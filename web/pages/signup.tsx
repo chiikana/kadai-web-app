@@ -1,7 +1,7 @@
 import { Center, Heading, Link, useDisclosure, VStack } from "@chakra-ui/react"
 import { useContext } from "react"
 import { EmailSignup } from "@/components/MSignup"
-import { ChoiceSosialContext } from "../_app"
+import { ChoiceSosialContext } from "./_app"
 
 import { useRouter } from "next/router"
 import { Layout } from "@/components/Layout"

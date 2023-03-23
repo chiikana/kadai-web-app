@@ -14,7 +14,7 @@ import {
 import { useRouter } from "next/router"
 import { Layout } from "@/components/Layout"
 
-import json from "../../components/guestData_table.json"
+import json from "../components/guestData_table.json"
 
 export const TableViewPage = () => {
   const router = useRouter()
