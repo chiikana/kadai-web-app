@@ -1,5 +1,6 @@
 import {
   Box,
+  Center,
   Heading,
   Select,
   Table,
@@ -23,6 +24,7 @@ import { useProfileFromUserId } from "@/hooks/useProfileFromUserId"
 import { fetcher } from "@/libs/utils/useSWR"
 import useSWR from "swr"
 import { swrType } from "@/types/swr"
+import { UserTable } from "@/components/UserTable"
 
 type tableProps = {
   databases: Database[]
@@ -46,88 +48,39 @@ export const TableViewPage = () => {
   // useEffect(() => {
   //   setDatabaseName(database)
   // }, [database]
+
+  useEffect(() => {
+    if (router.isReady) {
+      const routerId = router.query.id
+      setRouterId(routerId as string)
+    }
+  }, [router])
   const { data: databases, error: dbErr }: swrType = useSWR(`/api/databases/${routerId}`, fetcher)
-
-  const DatabaseSelector = () => {
-    useEffect(() => {
-      console.log(databaseId)
-    }, [databaseId])
-    return (
-      <Select
-        onChange={(e) => {
-          setDatabaseId(e.target.value)
-        }}
-      >
-        {databases &&
-          databases.map((database: Database) => (
-            <option value={database.id} key={database.id}>
-              {database.name}
-            </option>
-          ))}
-      </Select>
-    )
-  }
-
-  const TableBody = () => {
-    const { data: objects, error: objErr }: swrType = useSWR(`/api/objects/${databaseId}`, fetcher)
-    return (
-      <>
-        {objects &&
-          objects.map((item: any, index: any) => {
-            // if (index !== 0) {
-            return (
-              <Tr key={index}>
-                <Td>{item.id}</Td>
-                <Td>{item.name}</Td>
-                <Td _after={{ content: `"個"` }}>{item.stock}</Td>
-                <Td _after={{ content: `"円"` }}>{item.bought}</Td>
-                <Td _after={{ content: `"円"` }}>{item.selling}</Td>
-              </Tr>
-            )
-            // }
-          })}
-      </>
-    )
-  }
+  useEffect(() => {
+    console.log(databaseId)
+  }, [databaseId])
 
   return (
     <>
       <Layout>
-        <Box w={"100%"}>
+        <Box h={"calc(100% - 120px)"} minW={"100%"}>
           <Heading textAlign={"center"}>
-            <DatabaseSelector />
+            <Select
+              onChange={(e) => {
+                setDatabaseId(e.target.value)
+              }}
+            >
+              {databases &&
+                databases.map((database: Database) => (
+                  <option value={database.id} key={database.id}>
+                    {database.name}
+                  </option>
+                ))}
+            </Select>
           </Heading>
-          <TableContainer
-            borderY={"1px solid #999999"}
-            maxHeight="full"
-            overflowX="auto"
-            overflowY="auto"
-          >
-            <Table variant="striped" colorScheme="blue" size="md">
-              <Thead borderBottom="1px solid #999999" position="sticky" left={0} top={0}>
-                <Tr>
-                  <Th>id</Th>
-                  <Th>name</Th>
-                  <Th>stock</Th>
-                  <Th>cost</Th>
-                  <Th>price</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {/* {tableBody(data)} */}
-                <TableBody />
-              </Tbody>
-              <Tfoot>
-                <Tr>
-                  <Th>id</Th>
-                  <Th>name</Th>
-                  <Th>stock</Th>
-                  <Th>cost</Th>
-                  <Th>price</Th>
-                </Tr>
-              </Tfoot>
-            </Table>
-          </TableContainer>
+          <Box minW={"100%"}>
+            <UserTable databaseId={databaseId} />
+          </Box>
         </Box>
       </Layout>
     </>
