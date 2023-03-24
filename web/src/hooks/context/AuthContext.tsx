@@ -14,7 +14,7 @@ export type UserType = {
   userId: string
   isLoading: boolean | undefined
   token: undefined
-  profileId: string | undefined
+  // profileId: string | undefined
 }
 
 export type AuthContextProps = {

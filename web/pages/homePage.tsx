@@ -1,4 +1,5 @@
 import { Layout } from "@/components/Layout"
+import useAuthUser from "@/hooks/useAuthUser"
 import { ToggleTheme } from "@/libs/utils/themes"
 import { Box, Button, Center, SimpleGrid } from "@chakra-ui/react"
 import { useRouter } from "next/router"
@@ -6,6 +7,7 @@ import { useRouter } from "next/router"
 export const HomePage = () => {
   const router = useRouter()
   const { toggleBorderColor } = ToggleTheme()
+  const user = useAuthUser()
   return (
     <Layout>
       <Center h={"calc(100% - 120px)"}>
@@ -31,7 +33,7 @@ export const HomePage = () => {
             borderColor={toggleBorderColor}
             fontSize={"4xl"}
             onClick={() => {
-              router.push("/tablePage")
+              router.push(`/table/${user.userId}`)
             }}
           >
             商品を表示

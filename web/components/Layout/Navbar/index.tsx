@@ -41,6 +41,10 @@ import { useAuthContext } from "@/hooks/context/AuthContext"
 import { useProfileFromUserId } from "@/hooks/useProfileFromUserId"
 import { Profile } from "@/types/profile"
 import { supabase } from "@/libs/utils/supabaseClient"
+import { swrType } from "@/types/swr"
+import { fetcher } from "@/libs/utils/useSWR"
+import useSWR from "swr"
+import useAuthUser from "@/hooks/useAuthUser"
 
 export const Navbar = () => {
   const userData = useAuthContext()
@@ -51,14 +55,18 @@ export const Navbar = () => {
   // const toggleMainBgColor = useColorModeValue("gray.50", "gray.800")
   const { toggleTextColor, toggleMainBgColor, toggleBorderColor } = ToggleTheme()
   const { userName, setUserName } = useContext(UserNameContext)
-  const userProfile = useProfileFromUserId(userData.userData!.userId)
+  // const userProfile = useProfileFromUserId(userData.userData!.userId)
   // const username = userProfile!.username
+  const user = useAuthUser()
+  const { data: profile, error }: swrType = useSWR(`/api/profiles/${user.userId}`, fetcher)
 
   useEffect(() => {
-    console.log(userProfile.username)
-    setUserName(userProfile.username)
-    console.log("userName=> ", userName)
-  }, [userProfile])
+    if (profile) {
+      console.log(profile)
+      setUserName(profile.username)
+    } else console.log("profile not defined")
+  }, [profile])
+  // console.log("userName=> ", userName)
 
   const handleSignout = async () => {
     supabase.auth.signOut()

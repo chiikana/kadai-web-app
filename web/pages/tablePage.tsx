@@ -21,6 +21,12 @@ import { useEffect, useState } from "react"
 import { useDatabaseFromUserId } from "@/hooks/useDatabaseFromUser"
 import { Database } from "@/types/database"
 import { useProfileFromUserId } from "@/hooks/useProfileFromUserId"
+import { fetcher } from "@/libs/utils/useSWR"
+import useSWR from "swr"
+
+type tableProps = {
+  databases: Database[]
+}
 
 export const TableViewPage = () => {
   const router = useRouter()
@@ -28,19 +34,21 @@ export const TableViewPage = () => {
   // const database = useDatabaseFromUserId(user.userId)
   const userData = useProfileFromUserId(user.userId)
   const [databaseName, setDatabaseName] = useState<string>("")
+
+  const [routerId, setRouterId] = useState<string>("")
+  useEffect(() => {
+    if (router.isReady) {
+      const routerId = router.query.id
+      setRouterId(routerId as string)
+    }
+  }, [router])
   // useEffect(() => {
   //   setDatabaseName(database)
-  // }, [database])
+  // }, [database]
+  const { data: databases, error } = useSWR(`/api/database/${routerId}`, fetcher)
 
   const DatabaseSelector = () => {
-    return (
-      <Select>
-        {userData.userProfile &&
-          userData.userProfile.map((item, index) => {
-            ;<option>{item.name}</option>
-          })}
-      </Select>
-    )
+    return <Select></Select>
   }
 
   const tableBody = () => {
