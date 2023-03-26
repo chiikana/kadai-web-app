@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState, useContext, useEffect, Dispatch } from "react"
+import { createContext, ReactNode, useContext, useEffect, useState } from "react"
 
 export type ScrollContextProps = {
   isScrolled: boolean
@@ -13,13 +13,6 @@ const ScrollContext = createContext<Partial<ScrollContextProps>>({})
 export const useScrollContext = () => {
   return useContext(ScrollContext)
 }
-
-// export const ScrollContext = createContext(
-//   {} as {
-//     isScrolled: boolean
-//     setScrolled: Dispatch<React.SetStateAction<boolean>>
-//   }
-// )
 
 export const ScrollProvider = ({ children }: ScrollProps) => {
   const [isScrolled, setScrolled] = useState<boolean>()

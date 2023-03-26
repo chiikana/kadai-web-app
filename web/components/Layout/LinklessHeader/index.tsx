@@ -3,34 +3,18 @@ import { useScrollContext } from "@/hooks/context/ScrollContext"
 import { ToggleTheme } from "@/libs/utils/themes"
 import { Box, Button, Flex, Stack, Text, useBreakpointValue, useColorMode } from "@chakra-ui/react"
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
 import { FaMoon, FaSun } from "react-icons/fa"
 
 export const LinklessHeader = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   const { toggleTextColor, toggleMainBgColor, toggleBorderColor } = ToggleTheme()
   const router = useRouter()
-  // const [isScrolled, onScrolled] = useState(false)
-  // const toggleVisibility = () => {
-  //   window.scrollY > 0 ? onScrolled(true) : onScrolled(false)
-  // }
-  // useEffect(() => {
-  //   window.addEventListener("scroll", toggleVisibility)
-  //   return () => window.removeEventListener("scroll", toggleVisibility)
-  // })
   const { isScrolled } = useScrollContext()
   return (
     <Box pos={"sticky"} top={0} w={"full"} maxH={"60px"} zIndex={100}>
-      <title>在庫管理アプリ</title>
+      <title>商品管理アプリ</title>
       <Box>
-        <Flex
-          bg={toggleMainBgColor}
-          color={toggleTextColor}
-          // minW={"full"}
-          // minH={"59px"}
-          py={{ base: 2 }}
-          px={{ base: 4 }}
-        >
+        <Flex bg={toggleMainBgColor} color={toggleTextColor} py={{ base: 2 }} px={{ base: 4 }}>
           <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }} alignItems={"center"}>
             <Text
               textAlign={useBreakpointValue({ base: "center", md: "left" })}
@@ -40,7 +24,7 @@ export const LinklessHeader = () => {
               })}
               color={toggleTextColor}
             >
-              在庫管理アプリ
+              商品管理アプリ
             </Text>
           </Flex>
 
@@ -55,27 +39,6 @@ export const LinklessHeader = () => {
               <Button display={{ base: "none", md: "inline-flex" }} onClick={toggleColorMode}>
                 {colorMode === "light" ? <FaMoon /> : <FaSun />}
               </Button>
-
-              {/* <Button
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize={"sm"}
-                fontWeight={400}
-                onClick={() => {
-                  router.push("/signin/")
-                }}
-              >
-                ログイン
-              </Button> */}
-              {/* <Button
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize={"sm"}
-                fontWeight={400}
-                onClick={() => {
-                  router.push("/signup/")
-                }}
-              >
-                新規登録
-              </Button> */}
               <ChoiceSigninSosial />
               <ChoiceSignupSosial />
             </Stack>

@@ -8,9 +8,9 @@ const profileApi = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     const userId = req.query.userId
     if (!userId) return
-    const { data, error }: swrType = await supabase
+    const { data, error } = await supabase
       .from("profiles")
-      .select("*")
+      .select("id,username,date_of_birth,created_at")
       .eq("id", userId)
       .single()
 

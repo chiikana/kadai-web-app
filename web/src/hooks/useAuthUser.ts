@@ -8,12 +8,12 @@ const useAuthUser = () => {
   const [userId, setUserId] = useState("")
   const [isLoading, setLoading] = useState<boolean>()
   const [token, setToken] = useState()
-  // const [profileId, setProfileId] = useState<string>()
+  const [profileId, setProfileId] = useState<string>()
   const getUser = async () => {
     const {
       data: { user },
     } = await supabase.auth.getUser()
-    user && setUserId(user.id)
+    user && setProfileId(user.id)
   }
 
   useEffect(() => {
@@ -31,14 +31,14 @@ const useAuthUser = () => {
       }
     })
     getUser()
-  }, [supabase])
+  }, [session])
 
   return {
     user,
     userId,
     isLoading,
     token,
-    // profileId,
+    profileId,
   }
 }
 export default useAuthUser

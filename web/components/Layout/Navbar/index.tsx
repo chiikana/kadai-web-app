@@ -32,41 +32,37 @@ import {
   useDisclosure,
 } from "@chakra-ui/react"
 // import { getAuth, signOut } from "firebase/auth"
-import { useRouter } from "next/router"
-import { useContext, useEffect, useState } from "react"
-import { FiChevronDown } from "react-icons/fi"
-import { UserNameContext } from "@/pages/_app"
-import { ChoiceSigninSosial, ChoiceSignupSosial } from "@/components/SignModal"
-import { useAuthContext } from "@/hooks/context/AuthContext"
-import { useProfileFromUserId } from "@/hooks/useProfileFromUserId"
-import { Profile } from "@/types/profile"
-import { supabase } from "@/libs/utils/supabaseClient"
-import { swrType } from "@/types/swr"
-import { fetcher } from "@/libs/utils/useSWR"
-import useSWR from "swr"
 import useAuthUser from "@/hooks/useAuthUser"
+import { supabase } from "@/libs/utils/supabaseClient"
+import { UserNameContext } from "@/pages/_app"
+import { useRouter } from "next/router"
+import { MouseEvent, useContext, useEffect, useState } from "react"
+import { FiChevronDown } from "react-icons/fi"
 
 export const Navbar = () => {
-  const userData = useAuthContext()
   const router = useRouter()
   const { colorMode, toggleColorMode } = useColorMode()
   const { isOpen, onToggle } = useDisclosure()
-  // const toggleTextColor = useColorModeValue("gray.800", "white")
-  // const toggleMainBgColor = useColorModeValue("gray.50", "gray.800")
   const { toggleTextColor, toggleMainBgColor, toggleBorderColor } = ToggleTheme()
   const { userName, setUserName } = useContext(UserNameContext)
-  // const userProfile = useProfileFromUserId(userData.userData!.userId)
-  // const username = userProfile!.username
-  const user = useAuthUser()
-  const { data: profile, error }: swrType = useSWR(`/api/profiles/${user.userId}`, fetcher)
+  const { user, userId, profileId } = useAuthUser()
 
   useEffect(() => {
-    if (profile) {
-      console.log(profile)
-      setUserName(profile.username)
-    } else console.log("profile not defined")
-  }, [profile])
-  // console.log("userName=> ", userName)
+    const getProfile = async (userId: string) => {
+      let { data: profile } = await supabase
+        .from("profiles")
+        .select("username")
+        .eq("id", userId)
+        .single()
+      if (profile) {
+        setUserName(profile.username)
+      }
+    }
+
+    if (userId) {
+      getProfile(userId)
+    }
+  }, [userId, setUserName])
 
   const handleSignout = async () => {
     supabase.auth.signOut()
@@ -98,7 +94,7 @@ export const Navbar = () => {
             })}
             color={toggleTextColor}
           >
-            在庫管理アプリ
+            商品管理アプリ
           </Text>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
@@ -107,7 +103,6 @@ export const Navbar = () => {
         </Flex>
 
         <>
-          {/* {isSign ? ( */}
           <Stack
             flex={{ base: 1, md: 0 }}
             justify={"flex-end"}
@@ -118,10 +113,7 @@ export const Navbar = () => {
             <Button display={{ base: "none", md: "inline-flex" }} onClick={toggleColorMode}>
               {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
             </Button>
-            <Flex
-              // alignItems={"center"}
-              direction={"row"}
-            >
+            <Flex direction={"row"}>
               <Menu>
                 <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: "none" }}>
                   <HStack>
@@ -132,12 +124,20 @@ export const Navbar = () => {
                   </HStack>
                 </MenuButton>
                 <MenuList>
-                  {/* <MenuItem value={userData?.userId.name}></MenuItem> */}
-                  <MenuItem>{userName}</MenuItem>
+                  <MenuItem
+                    onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                      e.preventDefault
+                    }}
+                  >
+                    {userName}
+                  </MenuItem>
                   <MenuDivider />
-                  <MenuItem>Profile</MenuItem>
-                  <MenuItem>Settings</MenuItem>
-                  {/* <MenuItem>Billing</MenuItem> */}
+                  <MenuItem isDisabled onClick={() => {}}>
+                    Profile
+                  </MenuItem>
+                  <MenuItem isDisabled onClick={() => {}}>
+                    Settings
+                  </MenuItem>
                   <MenuDivider />
                   <MenuItem
                     onClick={() => {
@@ -151,21 +151,6 @@ export const Navbar = () => {
             </Flex>
             {/* </HStack> */}
           </Stack>
-          {/* ) : (
-            <Stack
-              flex={{ base: 1, md: 0 }}
-              justify={"flex-end"}
-              direction={"row"}
-              spacing={6}
-              alignItems={"center"}
-            >
-              <Button display={{ base: "none", md: "inline-flex" }} onClick={toggleColorMode}>
-                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-              </Button>
-              <ChoiceSigninSosial />
-              <ChoiceSignupSosial />
-            </Stack>
-          )} */}
         </>
       </Flex>
 
@@ -179,12 +164,7 @@ export default Navbar
 
 const DesktopNav = () => {
   const router = useRouter()
-  // const linkColor = useColorModeValue("gray.800", "gray.200");
-  const linkColor = useColorModeValue("gray.800", "white")
-  // const linkHoverColor = useColorModeValue("gray.400", "white");
-  const linkHoverColor = useColorModeValue("gray.400", "white")
-  // const popoverContentBgColor = useColorModeValue("white", "gray.800");
-  const popoverContentBgColor = useColorModeValue("gray.50", "gray.800")
+  const { toggleTextColor, toggleHoverTextColor, toggleMainBgColor } = ToggleTheme()
   return (
     <Stack direction={"row"} spacing={4}>
       {ROUTE_ITEMS.map((routeItem) => (
@@ -198,10 +178,10 @@ const DesktopNav = () => {
                 }}
                 fontSize={"sm"}
                 fontWeight={500}
-                color={linkColor}
+                color={toggleTextColor}
                 _hover={{
                   textDecoration: "none",
-                  color: linkHoverColor,
+                  color: toggleHoverTextColor,
                 }}
               >
                 {routeItem.label}
@@ -212,7 +192,7 @@ const DesktopNav = () => {
               <PopoverContent
                 border={0}
                 boxShadow={"xl"}
-                bg={popoverContentBgColor}
+                bg={toggleMainBgColor}
                 p={4}
                 rounded={"xl"}
                 minW={"sm"}
@@ -232,11 +212,14 @@ const DesktopNav = () => {
 }
 
 const DesktopSubNav = ({ label, process, subLabel }: routeItem) => {
-  const toggleTextColor = useColorModeValue("gray.800", "white")
-  const toggleMainBgColor = useColorModeValue("gray.50", "gray.800")
-  const toggleBorderColor = useColorModeValue("gray.200", "gray.900")
-  const toggleSubNavHoverColor = useColorModeValue("teal.50", "teal.900")
-  const subNavTextColor = "green.400"
+  const {
+    toggleTextColor,
+    toggleMainBgColor,
+    toggleSubBgColor,
+    toggleBorderColor,
+    toggleHoverBgColor,
+    toggleMainAccentColor,
+  } = ToggleTheme()
   const router = useRouter()
   return (
     <Box
@@ -248,13 +231,13 @@ const DesktopSubNav = ({ label, process, subLabel }: routeItem) => {
       display={"block"}
       p={2}
       rounded={"md"}
-      _hover={{ bg: toggleSubNavHoverColor }}
+      _hover={{ bg: toggleSubBgColor }}
     >
       <Stack direction={"row"} align={"center"}>
         <Box>
           <Text
             transition={"all .3s ease"}
-            _groupHover={{ color: subNavTextColor }}
+            _groupHover={{ color: toggleMainAccentColor }}
             fontWeight={500}
           >
             {label}
@@ -270,7 +253,7 @@ const DesktopSubNav = ({ label, process, subLabel }: routeItem) => {
           align={"center"}
           flex={1}
         >
-          <Icon color={subNavTextColor} w={5} h={5} as={ChevronRightIcon} />
+          <Icon color={toggleTextColor} w={5} h={5} as={ChevronRightIcon} />
         </Flex>
       </Stack>
     </Box>
@@ -278,12 +261,7 @@ const DesktopSubNav = ({ label, process, subLabel }: routeItem) => {
 }
 
 const MobileNav = () => {
-  const [isLogIn, toggleLogIn] = useState(false)
-  const { colorMode, toggleColorMode } = useColorMode()
-  const router = useRouter()
-  const toggleTextColor = useColorModeValue("gray.800", "white")
-  const toggleMainBgColor = useColorModeValue("gray.50", "gray.800")
-  const toggleBorderColor = useColorModeValue("gray.200", "gray.900")
+  const { toggleMainBgColor, toggleBorderColor } = ToggleTheme()
   return (
     <Stack
       bg={toggleMainBgColor}
@@ -303,9 +281,7 @@ const MobileNav = () => {
 const MobilerouteItem = ({ label, children, process }: routeItem) => {
   const { isOpen, onToggle } = useDisclosure()
   const router = useRouter()
-  const toggleTextColor = useColorModeValue("gray.800", "white")
-  const toggleMainBgColor = useColorModeValue("gray.50", "gray.800")
-  const toggleBoderColor = useColorModeValue("gray.200", "gray.900")
+  const { toggleTextColor, toggleBorderColor } = ToggleTheme()
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
@@ -340,7 +316,7 @@ const MobilerouteItem = ({ label, children, process }: routeItem) => {
           pl={4}
           borderLeft={1}
           borderStyle={"solid"}
-          borderColor={toggleBoderColor}
+          borderColor={toggleBorderColor}
           align={"start"}
         >
           {children &&
@@ -370,34 +346,23 @@ interface routeItem {
 
 const ROUTE_ITEMS: Array<routeItem> = [
   {
-    label: "Home",
+    label: "ホーム",
     process: "/homePage",
   },
-  {
-    label: "Table",
-    children: [
-      {
-        label: "DummyData-Table",
-        subLabel: "ダミーデータを表示します。",
-        process: "/tablePage",
-      },
-      {
-        label: "GuestData-Table",
-        subLabel: "HomePageで入力した値を表示します。",
-        process: "/editPage",
-      },
-    ],
-    // children: [
-    //   {
-    //     label: "DummyData-Table",
-    //     subLabel: "View Table",
-    //     process: "/TablePage/",
-    //   },
-    //   {
-    //     label: "GuestData-Table",
-    //     subLabel: "View Table",
-    //     process: "/EditPage/",
-    //   },
-    // ],
-  },
+  // {
+  // label: "データベース",
+  // process: `/table/${userId}`,
+  // children: [
+  // {
+  //   label: "DummyData-Table",
+  //   subLabel: "ダミーデータを表示します。",
+  //   process: "/tablePage",
+  // },
+  // {
+  //   label: "GuestData-Table",
+  //   subLabel: "HomePageで入力した値を表示します。",
+  //   process: "/editPage",
+  // },
+  // ],
+  // },
 ]

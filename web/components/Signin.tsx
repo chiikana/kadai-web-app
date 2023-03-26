@@ -1,30 +1,28 @@
+import { supabase } from "@/libs/utils/supabaseClient"
+import { ToggleTheme } from "@/libs/utils/themes"
 import {
   Box,
-  Heading,
-  HStack,
-  InputGroup,
-  InputRightElement,
-  Link,
-  Spacer,
-  useToast,
   Button,
   Center,
   FormControl,
   FormLabel,
+  Heading,
+  HStack,
   Input,
+  InputGroup,
+  InputRightElement,
+  Link,
+  Spacer,
   Stack,
   Text,
-  useColorModeValue,
-  useDisclosure,
+  useToast,
   VStack,
 } from "@chakra-ui/react"
-import React, { useContext, useEffect, useRef, useState } from "react"
 import { ErrorMessage } from "@hookform/error-message"
-import { useForm } from "react-hook-form"
-import { supabase } from "@/libs/utils/supabaseClient"
-import { ToggleTheme } from "@/libs/utils/themes"
-import { FaEye, FaEyeSlash } from "react-icons/fa"
 import { useRouter } from "next/router"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { FaEye, FaEyeSlash } from "react-icons/fa"
 
 export const EmailSignin = () => {
   const { toggleTextColor, toggleSubBgColor, toggleBorderColor } = ToggleTheme()
@@ -160,12 +158,7 @@ export const EmailSignin = () => {
           <Box />
         </VStack>
         <Stack spacing={10} m={"0 0 0 auto"}>
-          <HStack
-            // direction={{ base: "column", sm: "row" }}
-            // align={"start"}
-            justify={"space-between"}
-          >
-            {/* <Checkbox>ログインを維持する</Checkbox> */}
+          <HStack justify={"space-between"}>
             <Link
               onClick={() => {
                 router.replace("/resetPassword/")
@@ -192,10 +185,6 @@ export const EmailSignin = () => {
 }
 
 export const GuestSignin = () => {
-  // const [Error, setError] = useState("")
-  // const { isSign, onSign } = useContext(AppContext)
-  // const { choice, setChoice } = useContext(ChoiceSosialContext)
-  // const { userName, setUserName } = useContext(UserNameContext)
   const { subAccentColor, toggleSubBgColor } = ToggleTheme()
   const defaultData = {
     email: "guest@guest.guest",
@@ -235,12 +224,6 @@ export const GuestSignin = () => {
       console.log("Did not run signin protcol")
     }
   }
-
-  useEffect(() => {
-    // setFormData({ ...formData, email: "guest@guest.guest" })
-    // setFormData({ ...formData, password: "SP7SpRcJLs3CbNw" })
-    console.log(formData)
-  }, [])
 
   return (
     <Center>

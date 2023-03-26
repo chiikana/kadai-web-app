@@ -1,27 +1,16 @@
-import { Box, useColorModeValue } from "@chakra-ui/react"
-import { useContext, useEffect } from "react"
-// import { ScrollContext } from "@/pages/_app"
 import Navbar from "@/components/Layout/Navbar"
-import { ToggleTheme } from "@/libs/utils/themes"
 import { useScrollContext } from "@/hooks/context/ScrollContext"
+import { ToggleTheme } from "@/libs/utils/themes"
+import { Box } from "@chakra-ui/react"
 
 export const Header = () => {
-  const { toggleTextColor, toggleMainBgColor, toggleBorderColor } = ToggleTheme()
-  // const toggleBorderColor = useColorModeValue("gray.200", "gray.500")
+  const { toggleBorderColor } = ToggleTheme()
 
-  // const { isScrolled, setScrolled } = useContext(ScrollContext)
-  // const toggleVisibility = () => {
-  //   window.scrollY > 0 ? setScrolled(true) : setScrolled(false)
-  // }
-  // useEffect(() => {
-  //   window.addEventListener("scroll", toggleVisibility)
-  //   return () => window.removeEventListener("scroll", toggleVisibility)
-  // })
   const { isScrolled } = useScrollContext()
   return (
     <>
       <Box pos={"sticky"} top={0} left={0} w={"full"} maxH={"60px"} zIndex={100}>
-        <title>在庫管理アプリ</title>
+        <title>商品管理アプリ</title>
         <Navbar />
         {isScrolled ? (
           <Box

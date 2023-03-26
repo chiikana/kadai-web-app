@@ -6,7 +6,6 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  GridItem,
   Heading,
   HStack,
   Input,
@@ -14,14 +13,11 @@ import {
   InputRightElement,
   Link,
   Progress,
-  Select,
-  Spacer,
   Stack,
   Switch,
   Text,
   Textarea,
   useToast,
-  VStack,
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
@@ -31,9 +27,7 @@ import { supabase } from "@/libs/utils/supabaseClient"
 
 import { ToggleTheme } from "@/libs/utils/themes"
 import { ErrorMessage } from "@hookform/error-message"
-import { SetFieldValue, useForm } from "react-hook-form"
-// import deptData from "./dept.json"
-// import TOS from "./tos.json"
+import { useForm } from "react-hook-form"
 
 type formData = {
   email: string
@@ -51,7 +45,7 @@ const Form1 = (props: Form1) => {
   const { formData, setFormData } = props
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
-  const { subAccentColor } = ToggleTheme()
+  const { subAccentColor, toggleBorderColor } = ToggleTheme()
 
   type FormSign = {
     username: string
@@ -71,38 +65,12 @@ const Form1 = (props: Form1) => {
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
         新規登録
       </Heading>
-      {/* <Flex>
-        <FormControl mr="5%">
-          <FormLabel htmlFor="last-name" fontWeight={"normal"}>
-            性
-          </FormLabel>
-          <Input
-            id="last-name"
-            placeholder="苗字"
-            focusBorderColor={subAccentColor}
-            onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-            value={!formData.username ? "" : formData.username}
-          />
-        </FormControl>
-
-        <FormControl>
-          <FormLabel htmlFor="first-name" fontWeight={"normal"}>
-            名
-          </FormLabel>
-          <Input
-            id="first-name"
-            placeholder="名前"
-            focusBorderColor={subAccentColor}
-            onChange={(e) => setFormData({ ...formData, firstname: e.target.value })}
-            value={!formData.firstname ? "" : formData.firstname}
-          />
-        </FormControl>
-      </Flex> */}
       <FormControl mr="5%">
         <FormLabel htmlFor="last-name" fontWeight={"normal"}>
           ユーザーネーム
         </FormLabel>
         <Input
+          borderColor={toggleBorderColor}
           id="username"
           placeholder="ユーザーネーム"
           focusBorderColor={subAccentColor}
@@ -290,7 +258,6 @@ export const EmailSignup = () => {
         bg={toggleSubBgColor}
         borderWidth="1px"
         rounded="lg"
-        // shadow="1px 1px 3px rgba(0,0,0,0.3)"
         maxWidth={800}
         p={6}
         m="10px auto"
@@ -319,18 +286,8 @@ export const EmailSignup = () => {
             >
               すでに登録している人はこちら
             </Link>
-            <Flex
-              minW="100%"
-              // justifyContent="space-between"
-              // display={"grid"}
-              // gridTemplateRows={"auto"}
-              // gridTemplateColumns={"auto 1fr auto"}
-              gap={"7%"}
-            >
-              <Flex
-                //  gridColumn={1 / 2}
-                gap={"5%"}
-              >
+            <Flex minW="100%" gap={"7%"}>
+              <Flex gap={"5%"}>
                 <Button
                   onClick={(e) => {
                     setStep(step - 1)
@@ -340,23 +297,16 @@ export const EmailSignup = () => {
                   colorScheme="teal"
                   variant="solid"
                   minW="7rem"
-                  // mr="5%"
                 >
                   戻る
                 </Button>
                 {step === 2 ? (
                   <Button
-                    // ml={"5%"}
-                    // gridColumn={3 / 4}
                     disabled={!Agree}
                     minW="7rem"
                     colorScheme="red"
                     variant="solid"
                     onClick={(e) => {
-                      // setFormData({
-                      //   ...formData,
-                      //   start_year: formData.student_id.substring(0, 4),
-                      // }),
                       handleSignUp(e)
                     }}
                   >
@@ -364,7 +314,6 @@ export const EmailSignup = () => {
                   </Button>
                 ) : (
                   <Button
-                    // type={"submit"}
                     minW="7rem"
                     isDisabled={step === 2}
                     onClick={() => {

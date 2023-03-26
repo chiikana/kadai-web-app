@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app"
-import { ChakraProvider } from "@chakra-ui/react"
+import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 import { Dispatch, useState } from "react"
 import React from "react"
 import { AuthProvider } from "../src/hooks/context/AuthContext"
@@ -21,29 +21,44 @@ export const UserNameContext = React.createContext(
   }
 )
 
+const colors = {
+  brand: {
+    900: "#1a365d",
+    800: "#153e75",
+    700: "#2a69ac",
+  },
+}
+const config = {
+  useSystemColorMode: false,
+  initialColorMode: "light",
+}
+const theme = extendTheme({
+  colors,
+  config,
+})
+
 function MyApp({ Component, pageProps }: AppProps<{ initialSession: Session }>) {
-  const [isScrolled, setScrolled] = useState(false)
   const [choice, setChoice] = useState(0)
   const [userName, setUserName] = useState("")
   const [supabaseClient] = useState(() => createBrowserSupabaseClient())
 
   return (
-    <SessionContextProvider
-      supabaseClient={supabaseClient}
-      initialSession={pageProps.initialSession}
-    >
-      <AuthProvider>
-        <UserNameContext.Provider value={{ userName, setUserName }}>
-          <ChoiceSosialContext.Provider value={{ choice, setChoice }}>
-            <ChakraProvider>
+    <ChakraProvider theme={theme}>
+      <SessionContextProvider
+        supabaseClient={supabaseClient}
+        initialSession={pageProps.initialSession}
+      >
+        <AuthProvider>
+          <UserNameContext.Provider value={{ userName, setUserName }}>
+            <ChoiceSosialContext.Provider value={{ choice, setChoice }}>
               <ScrollProvider>
                 <Component {...pageProps} />
               </ScrollProvider>
-            </ChakraProvider>
-          </ChoiceSosialContext.Provider>
-        </UserNameContext.Provider>
-      </AuthProvider>
-    </SessionContextProvider>
+            </ChoiceSosialContext.Provider>
+          </UserNameContext.Provider>
+        </AuthProvider>
+      </SessionContextProvider>
+    </ChakraProvider>
   )
 }
 

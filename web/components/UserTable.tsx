@@ -1,28 +1,5 @@
-import {
-  Box,
-  Heading,
-  Select,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Tfoot,
-  Th,
-  Thead,
-  Tr,
-  VStack,
-} from "@chakra-ui/react"
+import { Table, TableContainer, Tbody, Tfoot, Th, Thead, Tr } from "@chakra-ui/react"
 import { useRouter } from "next/router"
-import { Layout } from "@/components/Layout"
-
-import useAuthUser from "@/hooks/useAuthUser"
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
-import { useDatabaseFromUserId } from "@/hooks/useDatabaseFromUser"
-import { Database } from "@/types/database"
-import { useProfileFromUserId } from "@/hooks/useProfileFromUserId"
-import { fetcher } from "@/libs/utils/useSWR"
-import useSWR from "swr"
-import { swrType } from "@/types/swr"
 import { TableBody } from "./TableBody"
 
 export type UserTable = {
@@ -50,7 +27,6 @@ export const UserTable = (props: UserTable) => {
           </Tr>
         </Thead>
         <Tbody>
-          {/* {tableBody(data)} */}
           <TableBody databaseId={databaseId} />
         </Tbody>
         <Tfoot>

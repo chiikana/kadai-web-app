@@ -9,13 +9,11 @@ import {
   ModalOverlay,
   Stack,
   Text,
-  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import React, { useContext } from "react"
 import { FaUserCircle } from "react-icons/fa"
-import { FcGoogle } from "react-icons/fc"
 import { MdEmail } from "react-icons/md"
 import { ChoiceSosialContext } from "@/pages/_app"
 
@@ -32,13 +30,6 @@ export const ChoiceSignupSosial = () => {
         size={"lg"}
         colorScheme={"teal"}
         display={{ base: "none", md: "inline-flex" }}
-        // fontSize={"sm"}
-        // fontWeight={600}
-        // color={"white"}
-        // bg={navAccentColor}
-        // _hover={{
-        //   bg: navAccentHoverColor,
-        // }}
         onClick={onOpen}
       >
         新規登録
@@ -117,8 +108,6 @@ export const ChoiceSigninSosial = () => {
         size={"lg"}
         colorScheme={"teal"}
         display={{ base: "none", md: "inline-flex" }}
-        // fontSize={"md"}
-        // fontWeight={400}
         onClick={onOpen}
       >
         ログイン

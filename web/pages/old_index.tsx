@@ -1,23 +1,23 @@
-import { Box, Heading, Text, VStack } from "@chakra-ui/react";
-import type { NextPage } from "next";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { Box, Heading, Text, VStack } from "@chakra-ui/react"
+import type { NextPage } from "next"
+import { useRouter } from "next/router"
+import { useEffect } from "react"
 
 const Home: NextPage = () => {
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
-    let tid: NodeJS.Timeout;
+    let tid: NodeJS.Timeout
     const onload = () => {
       tid = setTimeout(() => {
-        router.push("/HomePage/");
-      }, 2000);
-    };
-    onload();
+        router.push("/HomePage/")
+      }, 2000)
+    }
+    onload()
     return () => {
-      clearTimeout(tid);
-    };
-  });
+      clearTimeout(tid)
+    }
+  })
   return (
     <>
       <title>在庫管理アプリ</title>
@@ -28,7 +28,7 @@ const Home: NextPage = () => {
         justifyContent={"center"}
         alignItems={"center"}
         onClick={() => {
-          router.push("/HomePage/");
+          router.push("/HomePage/")
         }}
       >
         <VStack>
@@ -36,9 +36,8 @@ const Home: NextPage = () => {
           <Text fontSize={"20vh"}>Click to START</Text>
         </VStack>
       </Box>
-      {/* <HomePage></HomePage> */}
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

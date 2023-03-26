@@ -1,8 +1,6 @@
-import { Object } from "./object"
 export type Database = {
-  id: string
+  database_id: string
   name: string
-  profile_id: string
+  user_id: string
   created_at: string
-  object: Object[]
 }
