@@ -1,0 +1,41 @@
+{
+  "name": "syouhin-kanri-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "fmt": "prettier --write **/*.{js,jsx,ts,tsx}"
+  },
+  "dependencies": {
+    "@babel/core": "^7.21.3",
+    "@chakra-ui/icons": "^2.0.2",
+    "@chakra-ui/react": "^2.5.3",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "@hookform/error-message": "^2.0.0",
+    "@supabase/auth-helpers-nextjs": "^0.5.6",
+    "@supabase/auth-helpers-react": "^0.3.1",
+    "@supabase/supabase-js": "^2.11.0",
+    "framer-motion": "^6",
+    "next": "^13.2.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.33.0",
+    "react-icons": "^4.4.0",
+    "swr": "2.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.0.0",
+    "@types/react": "18.0.14",
+    "@types/react-dom": "18.0.5",
+    "eslint": "8.18.0",
+    "eslint-config-next": "^13.2.4",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "2.8.4",
+    "typescript": "4.7.4"
+  }
+}
