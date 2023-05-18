@@ -37,7 +37,7 @@ export const CreateDatabase = () => {
     const { data: res, error: insertErr } = await supabase.from("databases").insert([
       {
         name: watch("name"),
-        user_id: userId
+        user_id: userId,
       },
     ])
 
@@ -50,6 +50,7 @@ export const CreateDatabase = () => {
         isClosable: true,
       })
     }
+    onClose()
   }
 
   const initialRef = useRef(null)
