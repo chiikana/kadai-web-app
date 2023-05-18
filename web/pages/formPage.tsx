@@ -53,14 +53,14 @@ export const FormPage = () => {
   })
   // フォーム送信ボタンを押された時の処理
   const onsubmit = (data: FormData) => {
-    console.log(data)
+    // console.log(data)
     reset() // フォームに入力した値をリセット
   }
   // console.log(watch("number"))
-  console.log(watch("name"))
-  console.log(watch("stock"))
-  console.log(watch("cost"))
-  console.log(watch("price"))
+  // console.log(watch("name"))
+  // console.log(watch("stock"))
+  // console.log(watch("cost"))
+  // console.log(watch("price"))
   const toast = useToast()
   const { user, userId } = useAuthUser()
   const { toggleBorderColor } = ToggleTheme()
@@ -74,14 +74,14 @@ export const FormPage = () => {
     if (userId) getDatabases(userId)
   }, [userId])
   useEffect(() => {
-    console.log("databases=>", databases)
+    // console.log("databases=>", databases)
     if (databases && databases.length > 0) {
       setDatabaseId(databases[0].database_id)
       setDatabaseName(databases[0].name)
     }
   }, [databases])
   useEffect(() => {
-    console.log("databaseId=>", databaseId)
+    // console.log("databaseId=>", databaseId)
   }, [databaseId])
   const getDatabases = async (userId: string) => {
     let { data } = await supabase
@@ -97,7 +97,7 @@ export const FormPage = () => {
     if (databaseId) getItems(databaseId)
   }, [databaseId])
   useEffect(() => {
-    console.log("items=>", items)
+    // console.log("items=>", items)
     items && setItemNumber(items.length)
   }, [items])
 
@@ -110,7 +110,7 @@ export const FormPage = () => {
   const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
-    console.log(items)
+    // console.log(items)
 
     const { data: res, error: insertErr } = await supabase.from("items").insert([
       {

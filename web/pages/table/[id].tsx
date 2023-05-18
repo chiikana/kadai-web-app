@@ -18,21 +18,21 @@ export const TableViewPage = () => {
   const [databases, setDatabases] = useState<any>([])
 
   useEffect(() => {
-    console.log(databases)
+    // console.log(databases)
   }, [databases])
 
   useEffect(() => {
     if (userId) getDatabases(userId)
   }, [userId])
   useEffect(() => {
-    console.log("databases=>", databases)
+    // console.log("databases=>", databases)
     if (databases && databases.length > 0) {
       setDatabaseId(databases[0].database_id)
       setDatabaseName(databases[0].name)
     }
   }, [databases])
   useEffect(() => {
-    console.log("databaseId=>", databaseId)
+    // console.log("databaseId=>", databaseId)
   }, [databaseId])
   const getDatabases = async (userId: string) => {
     let { data } = await supabase
