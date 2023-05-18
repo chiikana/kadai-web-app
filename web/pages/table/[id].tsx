@@ -1,5 +1,5 @@
 import { Layout } from "@/components/Layout"
-import { Box, Heading, Select } from "@chakra-ui/react"
+import { Box, Heading, Select, Text, VStack } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 
 import { UserTable } from "@/components/UserTable"
@@ -14,19 +14,25 @@ export const TableViewPage = () => {
   const { user, userId } = useAuthUser()
   const { toggleBorderColor } = ToggleTheme()
   const [databaseName, setDatabaseName] = useState<string>("")
-  const [databaseId, setDatabaseId] = useState<any>()
-  const [databases, setDatabases] = useState<any>()
+  const [databaseId, setDatabaseId] = useState<string>("")
+  const [databases, setDatabases] = useState<any>([])
+
+  useEffect(() => {
+    // console.log(databases)
+  }, [databases])
 
   useEffect(() => {
     if (userId) getDatabases(userId)
   }, [userId])
   useEffect(() => {
-    console.log("databases=>", databases)
-    databases && setDatabaseId(databases[0].database_id)
-    databases && setDatabaseName(databases[0].name)
+    // console.log("databases=>", databases)
+    if (databases && databases.length > 0) {
+      setDatabaseId(databases[0].database_id)
+      setDatabaseName(databases[0].name)
+    }
   }, [databases])
   useEffect(() => {
-    console.log("databaseId=>", databaseId)
+    // console.log("databaseId=>", databaseId)
   }, [databaseId])
   const getDatabases = async (userId: string) => {
     let { data } = await supabase
@@ -51,7 +57,7 @@ export const TableViewPage = () => {
               setDatabaseName(e.target.text)
             }}
           >
-            {databases ? (
+            {databases && databases.length > 0 ? (
               databases.map((database: Database) => {
                 return (
                   <option value={database.database_id} key={database.database_id}>
@@ -60,11 +66,17 @@ export const TableViewPage = () => {
                 )
               })
             ) : (
-              <option>項目がありません</option>
+              <option>表がありません</option>
             )}
           </Select>
           <Box minW={"100%"}>
-            <UserTable databaseId={databaseId} />
+            {databases && databases.length > 0 ? (
+              <UserTable databaseId={databaseId} />
+            ) : (
+              <VStack mt={"20px"} spacing={"5px"} w={"100%"}>
+                <Text>表がありません。表を作成してください。</Text>
+              </VStack>
+            )}
           </Box>
         </Box>
       </Layout>

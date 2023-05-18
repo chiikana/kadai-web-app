@@ -23,9 +23,11 @@ import { ErrorMessage } from "@hookform/error-message"
 import { useRouter } from "next/router"
 import { MouseEvent, useRef } from "react"
 import { useForm } from "react-hook-form"
+import useAuthUser from "@/hooks/useAuthUser"
 
 export const CreateDatabase = () => {
   const router = useRouter()
+  const { userId } = useAuthUser()
   const toast = useToast()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { toggleBorderColor, subAccentColor } = ToggleTheme()
@@ -35,6 +37,7 @@ export const CreateDatabase = () => {
     const { data: res, error: insertErr } = await supabase.from("databases").insert([
       {
         name: watch("name"),
+        user_id: userId,
       },
     ])
 
@@ -47,6 +50,7 @@ export const CreateDatabase = () => {
         isClosable: true,
       })
     }
+    onClose()
   }
 
   const initialRef = useRef(null)

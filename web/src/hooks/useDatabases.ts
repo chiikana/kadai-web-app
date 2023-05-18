@@ -14,13 +14,13 @@ const useDatabases = (userId: string) => {
       .from("databases")
       .select("database_id,name,user_id,created_at")
       .eq("user_id", userId)
-    console.log(databases)
+    // console.log(databases)
     databases && setDatabases(databases)
   }
 
   useEffect(() => {
     userId && fetchDatabases(userId)
-    console.log("use fetchDatabases")
+    // console.log("use fetchDatabases")
   }, [userId])
 
   return {

@@ -53,33 +53,35 @@ export const FormPage = () => {
   })
   // フォーム送信ボタンを押された時の処理
   const onsubmit = (data: FormData) => {
-    console.log(data)
+    // console.log(data)
     reset() // フォームに入力した値をリセット
   }
   // console.log(watch("number"))
-  console.log(watch("name"))
-  console.log(watch("stock"))
-  console.log(watch("cost"))
-  console.log(watch("price"))
+  // console.log(watch("name"))
+  // console.log(watch("stock"))
+  // console.log(watch("cost"))
+  // console.log(watch("price"))
   const toast = useToast()
   const { user, userId } = useAuthUser()
   const { toggleBorderColor } = ToggleTheme()
   const [itemNumber, setItemNumber] = useState<number>()
-  const [databaseId, setDatabaseId] = useState<any>()
+  const [databaseId, setDatabaseId] = useState<any>("")
   const [databaseName, setDatabaseName] = useState<string>("")
-  const [databases, setDatabases] = useState<any>()
+  const [databases, setDatabases] = useState<any>([])
   const [items, setItems] = useState<any>()
 
   useEffect(() => {
     if (userId) getDatabases(userId)
   }, [userId])
   useEffect(() => {
-    console.log("databases=>", databases)
-    databases && setDatabaseId(databases[0].database_id)
-    databases && setDatabaseName(databases[0].name)
+    // console.log("databases=>", databases)
+    if (databases && databases.length > 0) {
+      setDatabaseId(databases[0].database_id)
+      setDatabaseName(databases[0].name)
+    }
   }, [databases])
   useEffect(() => {
-    console.log("databaseId=>", databaseId)
+    // console.log("databaseId=>", databaseId)
   }, [databaseId])
   const getDatabases = async (userId: string) => {
     let { data } = await supabase
@@ -95,7 +97,7 @@ export const FormPage = () => {
     if (databaseId) getItems(databaseId)
   }, [databaseId])
   useEffect(() => {
-    console.log("items=>", items)
+    // console.log("items=>", items)
     items && setItemNumber(items.length)
   }, [items])
 
@@ -108,7 +110,7 @@ export const FormPage = () => {
   const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
-    console.log(items)
+    // console.log(items)
 
     const { data: res, error: insertErr } = await supabase.from("items").insert([
       {
@@ -145,7 +147,7 @@ export const FormPage = () => {
             setDatabaseName(e.target.text)
           }}
         >
-          {databases ? (
+          {databases && databases.length > 0 ? (
             databases.map((database: Database) => {
               // setDatabaseName(database.name)
               return (
@@ -155,12 +157,13 @@ export const FormPage = () => {
               )
             })
           ) : (
-            <option>項目がありません</option>
+            <option>表がありません</option>
           )}
         </Select>
         <VStack mt={"20px"} spacing={"5px"} w={"100%"}>
-          <form>
-            {/* <FormControl w={"100%"}>
+          {databases && databases.length > 0 ? (
+            <form>
+              {/* <FormControl w={"100%"}>
               <FormLabel>id</FormLabel>
               <Input
                 borderColor={toggleBorderColor}
@@ -183,124 +186,127 @@ export const FormPage = () => {
                 render={({ message }) => <Text color={"red.400"}>{message}</Text>}
               />
             </FormControl> */}
-            <FormControl>
-              <FormLabel>name</FormLabel>
-              <Input
-                borderColor={toggleBorderColor}
-                size={"lg"}
-                textAlign={"left"}
-                variant="outline"
-                placeholder="商品名を入力"
-                type="text"
-                {...register("name", {
-                  required: true,
-                })}
-              ></Input>
-              <ErrorMessage
-                errors={errors}
-                name="name"
-                render={({ message }) => <Text color={"red.400"}>{message}</Text>}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>stock</FormLabel>
-              <InputGroup size={"lg"}>
-                <Input
-                  borderColor={toggleBorderColor}
-                  _after={{ content: `"個"` }}
-                  textAlign={"left"}
-                  variant="outline"
-                  placeholder="在庫数を入力"
-                  type="text"
-                  {...register("stock", {
-                    required: true,
-                    pattern: {
-                      value: /^[1-9][0-9]*$/,
-                      message: "数字を入力してください。",
-                    },
-                  })}
-                ></Input>
-                <InputRightAddon borderColor={toggleBorderColor}>個</InputRightAddon>
-              </InputGroup>
-              <ErrorMessage
-                errors={errors}
-                name="stock"
-                render={({ message }) => <Text color={"red.400"}>{message}</Text>}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>cost</FormLabel>
-              <InputGroup size={"lg"}>
+              <FormControl>
+                <FormLabel>name</FormLabel>
                 <Input
                   borderColor={toggleBorderColor}
                   size={"lg"}
                   textAlign={"left"}
                   variant="outline"
-                  placeholder="製作費を入力"
+                  placeholder="商品名を入力"
                   type="text"
-                  {...register("cost", {
+                  {...register("name", {
                     required: true,
-                    pattern: {
-                      value: /^[1-9][0-9]*$/,
-                      message: "数字を入力してください。",
-                    },
                   })}
                 ></Input>
-                <InputRightAddon borderColor={toggleBorderColor}>円</InputRightAddon>
-              </InputGroup>
-              <ErrorMessage
-                errors={errors}
-                name="cost"
-                render={({ message }) => <Text color={"red.400"}>{message}</Text>}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>price</FormLabel>
-              <InputGroup size={"lg"}>
-                <Input
-                  borderColor={toggleBorderColor}
-                  size={"lg"}
-                  textAlign={"left"}
-                  variant="outline"
-                  placeholder="販売金額を入力"
-                  type="text"
-                  {...register("price", {
-                    required: true,
-                    pattern: {
-                      value: /^[1-9][0-9]*$/,
-                      message: "数字を入力してください。",
-                    },
-                  })}
-                ></Input>
-                <InputRightAddon borderColor={toggleBorderColor}>円</InputRightAddon>
-              </InputGroup>
-              <ErrorMessage
-                errors={errors}
-                name="price"
-                render={({ message }) => <Text color={"red.400"}>{message}</Text>}
-              />
-            </FormControl>
-            <HStack mt={"5"} mb={12}>
-              <Spacer></Spacer>
-              <Button
-                colorScheme={"teal"}
-                disabled={!isValid}
-                isLoading={isSubmitting}
-                onClick={(e) => {
-                  toast({
-                    title: "送信完了しました。",
-                    status: "success",
-                    position: "bottom",
-                    duration: 5000,
-                    isClosable: true,
-                  })
-                  handleSubmit(e)
-                }}
-              >
-                追加
-              </Button>
-            </HStack>
-          </form>
+                <ErrorMessage
+                  errors={errors}
+                  name="name"
+                  render={({ message }) => <Text color={"red.400"}>{message}</Text>}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>stock</FormLabel>
+                <InputGroup size={"lg"}>
+                  <Input
+                    borderColor={toggleBorderColor}
+                    _after={{ content: `"個"` }}
+                    textAlign={"left"}
+                    variant="outline"
+                    placeholder="在庫数を入力"
+                    type="text"
+                    {...register("stock", {
+                      required: true,
+                      pattern: {
+                        value: /^[1-9][0-9]*$/,
+                        message: "数字を入力してください。",
+                      },
+                    })}
+                  ></Input>
+                  <InputRightAddon borderColor={toggleBorderColor}>個</InputRightAddon>
+                </InputGroup>
+                <ErrorMessage
+                  errors={errors}
+                  name="stock"
+                  render={({ message }) => <Text color={"red.400"}>{message}</Text>}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>cost</FormLabel>
+                <InputGroup size={"lg"}>
+                  <Input
+                    borderColor={toggleBorderColor}
+                    size={"lg"}
+                    textAlign={"left"}
+                    variant="outline"
+                    placeholder="製作費を入力"
+                    type="text"
+                    {...register("cost", {
+                      required: true,
+                      pattern: {
+                        value: /^[1-9][0-9]*$/,
+                        message: "数字を入力してください。",
+                      },
+                    })}
+                  ></Input>
+                  <InputRightAddon borderColor={toggleBorderColor}>円</InputRightAddon>
+                </InputGroup>
+                <ErrorMessage
+                  errors={errors}
+                  name="cost"
+                  render={({ message }) => <Text color={"red.400"}>{message}</Text>}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>price</FormLabel>
+                <InputGroup size={"lg"}>
+                  <Input
+                    borderColor={toggleBorderColor}
+                    size={"lg"}
+                    textAlign={"left"}
+                    variant="outline"
+                    placeholder="販売金額を入力"
+                    type="text"
+                    {...register("price", {
+                      required: true,
+                      pattern: {
+                        value: /^[1-9][0-9]*$/,
+                        message: "数字を入力してください。",
+                      },
+                    })}
+                  ></Input>
+                  <InputRightAddon borderColor={toggleBorderColor}>円</InputRightAddon>
+                </InputGroup>
+                <ErrorMessage
+                  errors={errors}
+                  name="price"
+                  render={({ message }) => <Text color={"red.400"}>{message}</Text>}
+                />
+              </FormControl>
+              <HStack mt={"5"} mb={12}>
+                <Spacer></Spacer>
+                <Button
+                  colorScheme={"teal"}
+                  disabled={!isValid}
+                  isLoading={isSubmitting}
+                  onClick={(e) => {
+                    toast({
+                      title: "送信完了しました。",
+                      status: "success",
+                      position: "bottom",
+                      duration: 5000,
+                      isClosable: true,
+                    })
+                    handleSubmit(e)
+                  }}
+                >
+                  追加
+                </Button>
+              </HStack>
+            </form>
+          ) : (
+            <Text>表がありません。表を作成してください。</Text>
+          )}
         </VStack>
       </Box>
     </Layout>
