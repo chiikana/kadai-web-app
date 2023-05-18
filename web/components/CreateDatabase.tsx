@@ -23,6 +23,7 @@ import { ErrorMessage } from "@hookform/error-message"
 import { useRouter } from "next/router"
 import { MouseEvent, useRef } from "react"
 import { useForm } from "react-hook-form"
+import useAuthUser from "@/hooks/useAuthUser"
 
 export const CreateDatabase = () => {
   const router = useRouter()
