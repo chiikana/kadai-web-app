@@ -26,6 +26,7 @@ import { useForm } from "react-hook-form"
 
 export const CreateDatabase = () => {
   const router = useRouter()
+  const { userId } = useAuthUser()
   const toast = useToast()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { toggleBorderColor, subAccentColor } = ToggleTheme()
@@ -35,6 +36,7 @@ export const CreateDatabase = () => {
     const { data: res, error: insertErr } = await supabase.from("databases").insert([
       {
         name: watch("name"),
+        user_id: userId
       },
     ])
 
